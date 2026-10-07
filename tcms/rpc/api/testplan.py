@@ -337,31 +337,54 @@ def add_attachment(plan_id, filename, b64content, rpc_context=None):
     name="TestPlan.tree",
     auth=permissions_required("testplans.view_testplan"),
 )
-def tree(plan_id):
+def tree(plan_id, subtree_only=False):
     """
-    .. function:: RPC TestPlan.tree(plan_id)
+    .. function:: RPC TestPlan.tree(plan_id, subtree_only=False)
 
         Returns a list of the ancestry tree for the given TestPlan
         in a depth-first order!
 
         :param plan_id: PK of TestPlan to inspect
         :type plan_id: int
+        :param subtree_only: If True, only returns the current plan and its descendants
+        :type subtree_only: bool
         :return: A DFS ordered list of all test plans in the family tree
                  starting from the root of the tree
         :rtype: list
         :raises TestPlan.DoesNotExit: if object specified by PK is missing
     """
-    plan = TestPlan.objects.get(pk=plan_id)
-    result = []
+    plan = TestPlan.objects.with_tree_fields().get(pk=plan_id)
+    if subtree_only:
+        records = list(plan.descendants(include_self=True))
+        base_depth = plan.tree_depth
+    else:
+        records = list(plan.tree_as_list())
+        base_depth = 0
 
-    for record in plan.tree_as_list():
+    plan_ids = [record.pk for record in records]
+    test_case_plans = TestCasePlan.objects.filter(
+        plan_id__in=plan_ids
+    ).order_by("plan_id", "sortkey", "case_id")
+
+    plan_cases_map = {p_id: [] for p_id in plan_ids}
+    for tcp in test_case_plans:
+        plan_cases_map[tcp.plan_id].append(
+            {
+                "case_id": tcp.case_id,
+                "sortkey": tcp.sortkey,
+            }
+        )
+
+    result = []
+    for record in records:
         result.append(
             {
                 "id": record.pk,
                 "name": record.name,
                 "parent_id": record.parent_id,
-                "tree_depth": record.tree_depth,
+                "tree_depth": record.tree_depth - base_depth,
                 "url": record.get_full_url(),
+                "cases": plan_cases_map.get(record.pk, []),
             }
         )
 

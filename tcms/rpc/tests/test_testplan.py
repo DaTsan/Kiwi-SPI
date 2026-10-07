@@ -558,6 +558,14 @@ class TestTree(APITestCase):
 
         self.assertEqual(family3, family4)
 
+    def test_tree_subtree_only(self):
+        result = self.rpc_client.TestPlan.tree(self.plan_2.pk, True)
+        self.assertEqual(2, len(result))
+        self.assertEqual(result[0]["id"], self.plan_2.pk)
+        self.assertEqual(result[0]["tree_depth"], 0)
+        self.assertEqual(result[1]["id"], self.plan_4.pk)
+        self.assertEqual(result[1]["tree_depth"], 1)
+
     def test_raises_when_testplan_not_found(self):
         with self.assertRaisesRegex(
             XmlRPCFault, "TestPlan matching query does not exist"
