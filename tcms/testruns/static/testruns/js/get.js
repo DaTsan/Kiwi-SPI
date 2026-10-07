@@ -23,6 +23,9 @@ const permissions = {
     viewHistoricalTestExecution: false
 }
 const autocompleteCache = {}
+let sections = []
+let caseIdToSectionId = {}
+let rootPlanId = null
 
 function showLastBugForTe (testExecutionRow, bugUrl) {
     const jsBugs = testExecutionRow.find('.js-bugs')
@@ -157,8 +160,13 @@ export function pageTestrunsGetReadyHandler () {
         return false
     })
 
+    const planId = Number($('#test_run_pk').data('plan-pk'))
+    rootPlanId = planId
+
     // bind everything in tags table
     tagsCard('TestRun', testRunId, { run: testRunId }, permissions.removeTag)
+
+    adjustTestPlanFamilyTree()
 
     jsonRPC('TestExecutionStatus.filter', {}, executionStatuses => {
         // convert from list to a dict for easier indexing later
@@ -174,10 +182,31 @@ export function pageTestrunsGetReadyHandler () {
             rpcQuery.status_id__in = filterParams.getAll('status_id')
         }
 
-        jsonRPC('TestExecution.filter', rpcQuery, testExecutions => {
-            drawPercentBar(testExecutions, false)
-            renderTestExecutions(testExecutions)
-            renderAdditionalInformation(testRunId)
+        jsonRPC('TestPlan.tree', [planId, true], treeData => {
+            if (treeData && treeData.length) {
+                sections = treeData
+            } else {
+                sections = [{
+                    id: planId,
+                    name: $('#test_run_pk').parent().text().trim(),
+                    tree_depth: 0,
+                    cases: []
+                }]
+            }
+            caseIdToSectionId = {}
+            sections.forEach(sec => {
+                if (sec.cases) {
+                    sec.cases.forEach(c => {
+                        caseIdToSectionId[c.case_id] = sec.id
+                    })
+                }
+            })
+
+            jsonRPC('TestExecution.filter', rpcQuery, testExecutions => {
+                drawPercentBar(testExecutions, false)
+                renderTestExecutions(testExecutions)
+                renderAdditionalInformation(testRunId)
+            })
         })
     })
 
@@ -186,6 +215,7 @@ export function pageTestrunsGetReadyHandler () {
         const testExecutionSelectors = $('#test-executions-container').find('.test-execution-checkbox:visible')
 
         testExecutionSelectors.each((_index, te) => { te.checked = isChecked })
+        $('.js-section-checkbox:visible').prop('checked', isChecked)
     })
 
     quickSearchAndAddTestCase(testRunId, addTestCaseToRun, autocompleteCache, { case_status__is_confirmed: true })
@@ -264,7 +294,9 @@ function isFiltered () {
 function filterTestExecutionsByProperty (runId, executions, filterBy, filterValue) {
     // no input => show all rows
     if (filterValue.trim().length === 0) {
+        $('.testrun-section').show()
         $('.test-execution-element').show()
+        updateAllSectionBadges()
         $('.test-executions-count').text(executions.length)
         return
     }
@@ -293,13 +325,42 @@ function filterTestExecutionsByProperty (runId, executions, filterBy, filterValu
 
             const rows = findSelectorsToShowAndHideFromAPIData(executions, filtered, '.test-execution-{0}')
             showOrHideMultipleRows('.test-execution-element', rows)
+            updateSectionVisibilityAfterFilter()
             $('.test-executions-count').text(rows.show.length)
         })
     } else {
         const rows = findSelectorsToShowAndHide(executions, filterBy, filterValue, '.test-execution-{0}')
         showOrHideMultipleRows('.test-execution-element', rows)
+        updateSectionVisibilityAfterFilter()
         $('.test-executions-count').text(rows.show.length)
     }
+}
+
+function updateSectionVisibilityAfterFilter () {
+    $('.testrun-section').each(function () {
+        const sec = $(this)
+        const visibleCount = sec.find('.test-execution-element:visible').length
+        sec.find('.js-section-badge').text(visibleCount)
+
+        if (visibleCount === 0) {
+            sec.hide()
+        } else {
+            sec.show()
+            const body = sec.find('.js-section-body')
+            if (body.hasClass('hidden')) {
+                body.removeClass('hidden')
+                sec.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
+            }
+        }
+    })
+}
+
+function updateAllSectionBadges () {
+    $('.testrun-section').each(function () {
+        const sec = $(this)
+        const total = sec.find('.test-execution-element').length
+        sec.find('.js-section-badge').text(total)
+    })
 }
 
 function addTestCaseToRun (runId) {
@@ -423,17 +484,88 @@ function renderCountPerStatusList (statusCount) {
 }
 
 function renderTestExecutions (testExecutions) {
-    // sort executions by sortkey
-    testExecutions.sort(function (te1, te2) {
-        return te1.sortkey - te2.sortkey
-    })
     const container = $('#test-executions-container')
+    container.empty()
+
+    const productId = $('#test_run_pk').data('product-id')
+    const testRunId = $('#test_run_pk').data('pk')
+
+    // Group executions by section
+    const executionsBySection = {}
+    sections.forEach(sec => {
+        executionsBySection[sec.id] = []
+    })
+    if (!executionsBySection[rootPlanId]) {
+        executionsBySection[rootPlanId] = []
+    }
 
     testExecutions.forEach(testExecution => {
-        container.append(renderTestExecutionRow(testExecution))
+        const secId = caseIdToSectionId[testExecution.case] || rootPlanId
+        if (!executionsBySection[secId]) {
+            executionsBySection[secId] = []
+        }
+        testExecution.section_plan_id = secId
+        executionsBySection[secId].push(testExecution)
+    })
+
+    const sectionTemplate = $('#test_run_section')[0].content
+
+    sections.forEach(section => {
+        const sectionNode = $(sectionTemplate.cloneNode(true))
+        const sectionEl = sectionNode.find('.testrun-section')
+        sectionEl.attr('id', `plan-section-${section.id}`)
+        sectionEl.attr('data-plan-id', section.id)
+        sectionEl.attr('data-depth', section.tree_depth)
+
+        const depthClass = `testrun-section-depth-${Math.min(section.tree_depth, 4)}`
+        sectionEl.addClass(depthClass)
+
+        // Section title
+        const titleLink = sectionNode.find('.js-section-title-link')
+        titleLink.attr('href', `/plan/${section.id}/`)
+        const iconHtml = section.tree_depth > 0
+            ? '<span class="fa fa-folder-open-o text-muted"></span> '
+            : '<span class="fa fa-folder-o text-primary"></span> '
+        titleLink.html(`${iconHtml}TP-${section.id}: ${section.name}`)
+
+        // Add case button
+        const addCasesBtn = sectionNode.find('.js-section-add-cases')
+        if (addCasesBtn.length) {
+            addCasesBtn.on('click', function (e) {
+                e.preventDefault()
+                e.stopPropagation()
+                const searchUrl = `/cases/search/?plan=${section.id}&product=${productId}&allow_select=1`
+                return advancedSearchAndAddTestCases(
+                    testRunId,
+                    'TestRun.add_case',
+                    searchUrl,
+                    $('#test_run_pk').data('trans-error-adding-cases')
+                )
+            })
+        }
+
+        const sectionExecutions = executionsBySection[section.id] || []
+        sectionExecutions.sort((te1, te2) => te1.sortkey - te2.sortkey)
+
+        const listContainer = sectionNode.find('.js-section-executions-list')
+        listContainer.attr('data-plan-id', section.id)
+
+        if (sectionExecutions.length > 0) {
+            sectionExecutions.forEach(te => {
+                listContainer.append(renderTestExecutionRow(te))
+            })
+            sectionNode.find('.js-section-empty').addClass('hidden')
+        } else {
+            sectionNode.find('.js-section-empty').removeClass('hidden')
+        }
+
+        updateSectionProgress(sectionNode, sectionExecutions)
+
+        container.append(sectionNode)
     })
 
     bindEvents()
+    bindSectionEvents()
 
     $('.test-executions-count').html(testExecutions.length)
 }
@@ -441,16 +573,21 @@ function renderTestExecutions (testExecutions) {
 function bindEvents (selector) {
     treeViewBind(selector)
 
-    $('.test-execution-element').click(function (ev) {
-    // don't trigger row expansion when kebab menu is clicked
+    const targetEl = selector ? $(selector) : $('.test-execution-element')
+    targetEl.off('click.teElement').on('click.teElement', function (ev) {
+        // don't trigger row expansion when kebab menu is clicked
         if ($(ev.target).is('button, a, input, .fa-ellipsis-v')) {
             return
         }
 
         const tePK = $(ev.target)
-            .parents('.test-execution-element')
+            .closest('.test-execution-element')
             .find('.test-execution-checkbox')
             .data('test-execution-id')
+
+        if (!tePK) {
+            return
+        }
 
         // row was expanded once, dom is ready
         if (expandedExecutionIds.indexOf(tePK) > -1) {
@@ -459,6 +596,148 @@ function bindEvents (selector) {
         expandedExecutionIds.push(tePK)
 
         getExpandArea(allExecutions[tePK])
+    })
+}
+
+function bindSectionEvents () {
+    $('.js-section-toggle').off('click').on('click', function (e) {
+        e.stopPropagation()
+        toggleSection($(this).closest('.testrun-section'))
+    })
+
+    $('.testrun-section-heading').off('click').on('click', function (e) {
+        if ($(e.target).is('input, a, button, .dropdown-toggle, .fa-plus')) {
+            return
+        }
+        toggleSection($(this).closest('.testrun-section'))
+    })
+
+    $('.js-section-checkbox').off('click').on('click', function (e) {
+        e.stopPropagation()
+        const isChecked = this.checked
+        const section = $(this).closest('.testrun-section')
+        section.find('.test-execution-checkbox:visible').each((_i, cb) => {
+            cb.checked = isChecked
+        })
+    })
+
+    $('#test-executions-container').off('click.teCheck', '.test-execution-checkbox').on('click.teCheck', '.test-execution-checkbox', function () {
+        updateSectionCheckboxState($(this).closest('.testrun-section'))
+    })
+}
+
+function toggleSection (sectionEl) {
+    const body = sectionEl.find('.js-section-body')
+    const toggleIcon = sectionEl.find('.js-section-toggle')
+
+    body.toggleClass('hidden')
+    if (body.hasClass('hidden')) {
+        toggleIcon.removeClass('fa-angle-down').addClass('fa-angle-right')
+    } else {
+        toggleIcon.removeClass('fa-angle-right').addClass('fa-angle-down')
+    }
+}
+
+function updateSectionCheckboxState (sectionEl) {
+    const visibleCheckboxes = sectionEl.find('.test-execution-checkbox:visible')
+    const checkedCheckboxes = sectionEl.find('.test-execution-checkbox:visible:checked')
+    const sectionCb = sectionEl.find('.js-section-checkbox')[0]
+    if (sectionCb) {
+        sectionCb.checked = visibleCheckboxes.length > 0 && visibleCheckboxes.length === checkedCheckboxes.length
+    }
+}
+
+function updateSectionProgress (sectionEl, sectionExecutions) {
+    const count = sectionExecutions.length
+    sectionEl.find('.js-section-badge').text(count)
+
+    const progressContainer = sectionEl.find('.js-section-progress-container')
+    if (count === 0) {
+        progressContainer.addClass('hidden')
+        return
+    }
+    progressContainer.removeClass('hidden')
+
+    let positiveCount = 0
+    let negativeCount = 0
+    sectionExecutions.forEach(te => {
+        const status = allExecutionStatuses[te.status]
+        if (status) {
+            if (status.weight > 0) {
+                positiveCount++
+            } else if (status.weight < 0) {
+                negativeCount++
+            }
+        }
+    })
+
+    const positivePercent = +(positiveCount / count * 100).toFixed(1)
+    const negativePercent = +(negativeCount / count * 100).toFixed(1)
+    const neutralPercent = +(100 - (positivePercent + negativePercent)).toFixed(1)
+
+    const positiveBar = sectionEl.find('.js-section-bar-positive')
+    const negativeBar = sectionEl.find('.js-section-bar-negative')
+    const neutralBar = sectionEl.find('.js-section-bar-neutral')
+
+    positiveBar.css('width', `${positivePercent}%`)
+    negativeBar.css('width', `${negativePercent}%`)
+    neutralBar.css('width', `${neutralPercent}%`)
+
+    const neutralCount = count - positiveCount - negativeCount
+    const tooltip = `${positiveCount} passed, ${negativeCount} failed, ${neutralCount} remaining (${count} total)`
+    progressContainer.attr('title', tooltip)
+}
+
+function adjustTestPlanFamilyTree () {
+    treeViewBind('#test-plan-family-tree')
+
+    // remove the > arrows from elements which don't have children
+    $('#test-plan-family-tree').find('.list-group-item-container').each(function (index, element) {
+        if (!element.innerHTML.trim()) {
+            const span = $(element).siblings('.list-group-item-header').find('.list-view-pf-left span')
+            span.removeClass('fa-angle-right')
+            span.attr('style', 'width:9px')
+        }
+    })
+
+    // expand all parent elements so that the current one is visible
+    $('#test-plan-family-tree').find('.list-group-item.active').each(function (index, element) {
+        $(element).parents('.list-group-item-container').each(function (idx, container) {
+            $(container).toggleClass('hidden')
+            $(container).siblings('.list-group-item-header').find('.fa-angle-right').toggleClass('fa-angle-down')
+        })
+    })
+
+    // TestRail quick navigation: smooth scroll to section in unified list
+    $('#test-plan-family-tree').off('click', 'a').on('click', 'a', function (e) {
+        const href = $(this).attr('href')
+        if (!href) return
+
+        const match = href.match(/\/plan\/(\d+)/)
+        if (match) {
+            const targetPlanId = match[1]
+            const targetSection = $(`#plan-section-${targetPlanId}`)
+
+            if (targetSection.length > 0) {
+                e.preventDefault()
+
+                // Expand if collapsed
+                const body = targetSection.find('.js-section-body')
+                if (body.hasClass('hidden')) {
+                    body.removeClass('hidden')
+                    targetSection.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
+                }
+
+                $('html, body').animate({
+                    scrollTop: targetSection.offset().top - 70
+                }, 300)
+
+                targetSection.addClass('section-highlight')
+                setTimeout(function () {
+                    targetSection.removeClass('section-highlight')
+                }, 1200)
+            }
+        }
     })
 }
 
@@ -523,8 +802,22 @@ function getExpandArea (testExecution) {
                 reloadRowFor(execution, !isFiltered())
 
                 $this.parents('.list-group-item-container').addClass('hidden')
-                // click the .list-group-item-header, not the .test-execution-element itself, because otherwise the handler will fail
-                $this.parents('.test-execution-element').next().find('.list-group-item-header').click()
+                let nextRow = $this.parents('.test-execution-element').next('.test-execution-element')
+                if (!nextRow.length) {
+                    const nextSection = $this.closest('.testrun-section').nextAll('.testrun-section:visible').first()
+                    if (nextSection.length) {
+                        nextRow = nextSection.find('.test-execution-element:visible').first()
+                    }
+                }
+                if (nextRow.length) {
+                    const parentSection = nextRow.closest('.testrun-section')
+                    const body = parentSection.find('.js-section-body')
+                    if (body.hasClass('hidden')) {
+                        body.removeClass('hidden')
+                        parentSection.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
+                    }
+                    nextRow.find('.list-group-item-header').click()
+                }
             })
         })
     }
@@ -678,9 +971,10 @@ function renderAdditionalInformation (testRunId, execution) {
                         isAutomatedElement.addClass(isAutomatedIcon)
                         isAutomatedElement.attr('title', isAutomatedAttr)
 
-                        // test case isn't part of the parent test plan
-                        if (casesInPlan.indexOf(testCase.id) === -1) {
-                            row.find('.js-tc-not-in-tp').toggleClass('hidden')
+                        // test case isn't part of the parent test plan or any subplan
+                        const isPartOfPlanTree = casesInPlan.indexOf(testCase.id) > -1 || caseIdToSectionId[testCase.id] !== undefined
+                        if (!isPartOfPlanTree) {
+                            row.find('.js-tc-not-in-tp').removeClass('hidden')
                         }
 
                         // render tags and components if available
@@ -744,6 +1038,12 @@ function renderTestExecutionRow (testExecution) {
     // refresh the internal data structure b/c some fields are used
     // to render the expand area and may have changed via bulk-update meanwhile
     testExecution.status__name = $('#test_run_pk').data(`trans-execution-status-${testExecution.status}`)
+    const oldTe = allExecutions[testExecution.id]
+    if (oldTe && oldTe.section_plan_id) {
+        testExecution.section_plan_id = oldTe.section_plan_id
+    } else {
+        testExecution.section_plan_id = caseIdToSectionId[testExecution.case] || rootPlanId
+    }
     allExecutions[testExecution.id] = testExecution
 
     const testExecutionRowTemplate = $('#test-execution-row')[0].content
@@ -799,6 +1099,7 @@ function changeStatusBulk (statusId) {
 
 function reloadRowFor (execution, updateTestRun = false) {
     const testExecutionRow = $(`.test-execution-${execution.id}`)
+    const sectionEl = testExecutionRow.closest('.testrun-section')
     animate(testExecutionRow, () => {
         testExecutionRow.replaceWith(renderTestExecutionRow(execution))
         // note: this is here b/c animate() is async and we risk race conditions
@@ -806,6 +1107,12 @@ function reloadRowFor (execution, updateTestRun = false) {
         // will be updated even if statuses aren't changed !!!
         drawPercentBar(Object.values(allExecutions), updateTestRun)
         renderAdditionalInformation(execution.run_id, execution)
+
+        if (sectionEl.length) {
+            const sectionPlanId = sectionEl.data('plan-id')
+            const secExecutions = Object.values(allExecutions).filter(te => te.section_plan_id === sectionPlanId)
+            updateSectionProgress(sectionEl, secExecutions)
+        }
 
         bindEvents(`.test-execution-${execution.id}`)
     })
@@ -958,14 +1265,25 @@ export function bindDeleteLinkButton () {
 function removeCases (executionIds) {
     for (const executionId of executionIds) {
         jsonRPC('TestExecution.remove', { id: executionId }, () => {
-            $(`#test-execution-${executionId}`).remove()
+            const row = $(`#test-execution-${executionId}`)
+            const sectionEl = row.closest('.testrun-section')
+            row.remove()
 
             expandedExecutionIds.splice(expandedExecutionIds.indexOf(executionId), 1)
             delete allExecutions[executionId]
 
             const testExecutionCountEl = $('.test-executions-count')
             const count = parseInt(testExecutionCountEl[0].innerText)
-            testExecutionCountEl.html(count - 1)
+            testExecutionCountEl.html(Math.max(0, count - 1))
+
+            if (sectionEl.length) {
+                const sectionPlanId = sectionEl.data('plan-id')
+                const secExecutions = Object.values(allExecutions).filter(te => te.section_plan_id === sectionPlanId)
+                updateSectionProgress(sectionEl, secExecutions)
+                if (secExecutions.length === 0) {
+                    sectionEl.find('.js-section-empty').removeClass('hidden')
+                }
+            }
         }, true)
     }
 

@@ -15,6 +15,7 @@
         <span id="test_run_pk"
             data-pk="{{ object.pk }}"
             data-plan-pk="{{ object.plan_id }}"
+            data-product-id="{{ object.build.version.product_id }}"
             data-perm-remove-tag="{{ perms.testruns.delete_testruntag }}"
             data-perm-add-comment="{{ perms.django_comments.add_comment }}"
             data-perm-remove-comment="{{ perms.django_comments.delete_comment }}"
@@ -105,7 +106,9 @@
                     {% endif %}
                 </h2>
 
-                <div class="card-pf-body"></div>
+                <div class="card-pf-body">
+                    {{ object.plan.tree_view_html|safe }}
+                </div>
             </div>
         </div>
 
@@ -318,8 +321,43 @@
                     </div><!-- /row -->
                 </div><!-- /container -->
                 <div class="card-pf-body">
-                    <div id="test-executions-container" class="list-group tree-list-view-pf">
-                        <template id="test-execution-row">
+                    <template id="test_run_section">
+                        <div class="testrun-section panel panel-default" id="" data-plan-id="">
+                            <div class="panel-heading testrun-section-heading">
+                                <div class="testrun-section-header-content">
+                                    <span class="fa fa-angle-down js-section-toggle testrun-section-toggle" title="{% trans 'Collapse/Expand section' %}"></span>
+                                    <input type="checkbox" class="js-section-checkbox" title="{% trans 'Select all in this section' %}">
+                                    <span class="testrun-section-title">
+                                        <a class="js-section-title-link testrun-section-link"></a>
+                                    </span>
+                                    <div class="testrun-section-progress-container js-section-progress-container" title="{% trans 'Status progress' %}">
+                                        <div class="progress js-section-progress" style="width: 100px; height: 12px; margin: 0 8px; display: inline-flex; border-radius: 2px;">
+                                            <div class="progress-bar progress-bar-success js-section-bar-positive" role="progressbar" style="width: 0%;"></div>
+                                            <div class="progress-bar progress-bar-remaining kiwi-color-black js-section-bar-neutral" role="progressbar" style="width: 100%; background-color: #d1d1d1;"></div>
+                                            <div class="progress-bar progress-bar-danger js-section-bar-negative" role="progressbar" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                    <span class="badge js-section-badge" title="{% trans 'Test executions count' %}">0</span>
+                                    {% if perms.testruns.add_testexecution %}
+                                    <div class="testrun-section-actions pull-right">
+                                        <a class="btn btn-default btn-xs js-section-add-cases" href="#" title="{% trans 'Add test cases from this section' %}">
+                                            <span class="fa fa-plus"></span> {% trans 'Add case' %}
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="panel-body testrun-section-body js-section-body" style="padding: 0;">
+                                <div class="list-group tree-list-view-pf js-section-executions-list" style="margin-bottom: 0;">
+                                </div>
+                                <div class="js-section-empty text-muted kiwi-padding-10 hidden" style="font-style: italic; padding-left: 30px;">
+                                    {% trans 'No test executions in this section' %}
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template id="test-execution-row">
                             <div class="list-group-item test-execution-element">
                                 <div class="list-group-item-header">
                                     <div class="list-view-pf-main-info">
@@ -507,8 +545,10 @@
                                 </div>
                             </div>
                         </template>
+
+                        <div id="test-executions-container">
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div> <!-- /row -->
@@ -639,4 +679,141 @@
 {{ comment_form.media }}
 
 {% include 'include/comments_for_object_template.html' %}
+
+<style>
+#test-plan-family-tree {
+    overflow: hidden;
+}
+
+#test-plan-family-tree .list-group-item .list-group-item .list-group-item-header::before {
+    border: none;
+}
+
+#test-plan-family-tree .list-group-item-container .list-group-item {
+    padding-left: 25px;
+}
+
+#test-plan-family-tree a {
+    cursor: pointer;
+}
+
+#test-plan-family-tree .list-group-item.active > .list-group-item-header a {
+    font-weight: bold;
+    color: #00659c;
+}
+
+/* TestRail-style unified section list for Test Runs */
+.testrun-section {
+    margin-bottom: 15px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.testrun-section.section-highlight {
+    border-color: #0088ce !important;
+    box-shadow: 0 0 12px rgba(0, 136, 206, 0.5) !important;
+}
+
+.testrun-section-heading {
+    background-color: #f8f8f8;
+    padding: 9px 14px;
+    border-bottom: 1px solid #e7e7e7;
+    cursor: pointer;
+    user-select: none;
+}
+
+.testrun-section-heading:hover {
+    background-color: #f0f0f0;
+}
+
+.testrun-section-header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.testrun-section-toggle {
+    cursor: pointer;
+    width: 16px;
+    font-size: 15px;
+    color: #6a6e73;
+    transition: transform 0.15s ease;
+}
+
+.testrun-section-toggle:hover {
+    color: #151515;
+}
+
+.testrun-section-checkbox {
+    margin: 0 !important;
+    cursor: pointer;
+}
+
+.testrun-section-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.testrun-section-link {
+    color: #151515;
+    text-decoration: none;
+}
+
+.testrun-section-link:hover {
+    color: #00659c;
+    text-decoration: underline;
+}
+
+.testrun-section-badge {
+    background-color: #72767b;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.testrun-section-progress-container {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.testrun-section-progress {
+    background-color: #ededed;
+}
+
+.testrun-section-actions {
+    margin-left: auto;
+}
+
+/* Depth indentation & accent borders */
+.testrun-section-depth-0 {
+    border-left: 4px solid #0088ce;
+}
+
+.testrun-section-depth-1 {
+    margin-left: 20px;
+    border-left: 4px solid #39a5dc;
+}
+
+.testrun-section-depth-2 {
+    margin-left: 40px;
+    border-left: 4px solid #703fec;
+}
+
+.testrun-section-depth-3 {
+    margin-left: 60px;
+    border-left: 4px solid #f0ab00;
+}
+
+.testrun-section-depth-4 {
+    margin-left: 80px;
+    border-left: 4px solid #ec7a08;
+}
+
+.testrun-section-body .list-group-item:last-child {
+    border-bottom: none;
+}
+</style>
 {% endblock %}
