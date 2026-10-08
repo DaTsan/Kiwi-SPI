@@ -153,12 +153,7 @@ function adjustTestPlanFamilyTree () {
             if (targetSection.length > 0) {
                 e.preventDefault()
 
-                // Expand if collapsed
-                const body = targetSection.find('.js-section-body')
-                if (body.hasClass('hidden')) {
-                    body.removeClass('hidden')
-                    targetSection.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
-                }
+                expandSectionAndAncestors(planId)
 
                 // Smooth scroll to section
                 $('html, body').animate({
@@ -198,6 +193,7 @@ function renderAllSections (testPlanId, permissions) {
         const sectionEl = sectionNode.find('.testplan-section')
         sectionEl.attr('id', `plan-section-${section.id}`)
         sectionEl.attr('data-plan-id', section.id)
+        sectionEl.attr('data-parent-id', section.parent_id || '')
         sectionEl.attr('data-depth', section.tree_depth)
 
         const depthClass = `testplan-section-depth-${Math.min(section.tree_depth, 4)}`
@@ -258,21 +254,17 @@ function renderAllSections (testPlanId, permissions) {
 }
 
 function attachSectionEvents (testPlanId, permissions) {
+    $('.js-section-toggle').off('click').on('click', function (e) {
+        e.stopPropagation()
+        toggleSection($(this).closest('.testplan-section'))
+    })
+
     // Header click to toggle collapse/expand
     $('.testplan-section-heading').off('click').on('click', function (e) {
         if ($(e.target).closest('input, button, a, .dropdown-menu').length) {
             return
         }
-        const section = $(this).closest('.testplan-section')
-        const body = section.find('.js-section-body')
-        const toggleIcon = section.find('.js-section-toggle')
-
-        body.toggleClass('hidden')
-        if (body.hasClass('hidden')) {
-            toggleIcon.removeClass('fa-angle-down').addClass('fa-angle-right')
-        } else {
-            toggleIcon.removeClass('fa-angle-right').addClass('fa-angle-down')
-        }
+        toggleSection($(this).closest('.testplan-section'))
     })
 
     // Section checkbox click to toggle all cases in this section
@@ -299,8 +291,74 @@ function attachSectionEvents (testPlanId, permissions) {
     })
 }
 
+function toggleSection (sectionEl) {
+    const body = sectionEl.find('.js-section-body')
+    const toggleIcon = sectionEl.find('.js-section-toggle')
+
+    body.toggleClass('hidden')
+    if (body.hasClass('hidden')) {
+        toggleIcon.removeClass('fa-angle-down').addClass('fa-angle-right')
+    } else {
+        toggleIcon.removeClass('fa-angle-right').addClass('fa-angle-down')
+    }
+
+    updateSubsectionsVisibility()
+    syncCheckboxStates()
+}
+
+function updateSubsectionsVisibility () {
+    const expandedMap = {}
+    sections.forEach(sec => {
+        const secEl = $(`#plan-section-${sec.id}`)
+        expandedMap[sec.id] = !secEl.find('.js-section-body').hasClass('hidden')
+    })
+
+    const isSearchActive = $('#toolbar-filter').length && $('#toolbar-filter').val().trim().length > 0
+
+    sections.forEach(sec => {
+        const secEl = $(`#plan-section-${sec.id}`)
+        let shouldShow = true
+        let currentParentId = sec.parent_id
+
+        while (currentParentId) {
+            const parentSec = sections.find(s => s.id === currentParentId)
+            if (!parentSec) break
+            if (!expandedMap[parentSec.id]) {
+                shouldShow = false
+                break
+            }
+            currentParentId = parentSec.parent_id
+        }
+
+        if (shouldShow) {
+            if (!isSearchActive || secEl.find('.js-testcase-row:visible').length > 0) {
+                secEl.show()
+            }
+        } else {
+            secEl.hide()
+        }
+    })
+}
+
+function expandSectionAndAncestors (planId) {
+    let currentId = Number(planId)
+    while (currentId) {
+        const sec = sections.find(s => s.id === currentId)
+        if (!sec) break
+
+        const secEl = $(`#plan-section-${sec.id}`)
+        const body = secEl.find('.js-section-body')
+        if (body.hasClass('hidden')) {
+            body.removeClass('hidden')
+            secEl.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
+        }
+        currentId = sec.parent_id
+    }
+    updateSubsectionsVisibility()
+}
+
 function syncCheckboxStates () {
-    $('.testplan-section').each(function () {
+    $('.testplan-section:visible').each(function () {
         const sec = $(this)
         const secInputs = sec.find('.js-testcase-row:visible input[type="checkbox"]')
         const secChecked = sec.find('.js-testcase-row:visible input[type="checkbox"]:checked')
@@ -923,6 +981,7 @@ function filterTestCasesByProperty (planId, testCases, filterBy, filterValue) {
         $('.js-testcase-row').show()
         updateAllSectionBadges()
         $('.test-cases-count').text(testCases.length)
+        updateSubsectionsVisibility()
         return
     }
 

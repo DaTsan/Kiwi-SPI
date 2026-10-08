@@ -298,6 +298,7 @@ function filterTestExecutionsByProperty (runId, executions, filterBy, filterValu
         $('.test-execution-element').show()
         updateAllSectionBadges()
         $('.test-executions-count').text(executions.length)
+        updateSubsectionsVisibility()
         return
     }
 
@@ -515,6 +516,7 @@ function renderTestExecutions (testExecutions) {
         const sectionEl = sectionNode.find('.testrun-section')
         sectionEl.attr('id', `plan-section-${section.id}`)
         sectionEl.attr('data-plan-id', section.id)
+        sectionEl.attr('data-parent-id', section.parent_id || '')
         sectionEl.attr('data-depth', section.tree_depth)
 
         const depthClass = `testrun-section-depth-${Math.min(section.tree_depth, 4)}`
@@ -606,7 +608,7 @@ function bindSectionEvents () {
     })
 
     $('.testrun-section-heading').off('click').on('click', function (e) {
-        if ($(e.target).is('input, a, button, .dropdown-toggle, .fa-plus')) {
+        if ($(e.target).closest('input, a, button, .dropdown-toggle, .dropdown-menu').length) {
             return
         }
         toggleSection($(this).closest('.testrun-section'))
@@ -636,6 +638,60 @@ function toggleSection (sectionEl) {
     } else {
         toggleIcon.removeClass('fa-angle-right').addClass('fa-angle-down')
     }
+
+    updateSubsectionsVisibility()
+    updateSectionCheckboxState(sectionEl)
+}
+
+function updateSubsectionsVisibility () {
+    const expandedMap = {}
+    sections.forEach(sec => {
+        const secEl = $(`#plan-section-${sec.id}`)
+        expandedMap[sec.id] = !secEl.find('.js-section-body').hasClass('hidden')
+    })
+
+    const filtered = isFiltered()
+
+    sections.forEach(sec => {
+        const secEl = $(`#plan-section-${sec.id}`)
+        let shouldShow = true
+        let currentParentId = sec.parent_id
+
+        while (currentParentId) {
+            const parentSec = sections.find(s => s.id === currentParentId)
+            if (!parentSec) break
+            if (!expandedMap[parentSec.id]) {
+                shouldShow = false
+                break
+            }
+            currentParentId = parentSec.parent_id
+        }
+
+        if (shouldShow) {
+            if (!filtered || secEl.find('.test-execution-element:visible').length > 0) {
+                secEl.show()
+            }
+        } else {
+            secEl.hide()
+        }
+    })
+}
+
+function expandSectionAndAncestors (planId) {
+    let currentId = Number(planId)
+    while (currentId) {
+        const sec = sections.find(s => s.id === currentId)
+        if (!sec) break
+
+        const secEl = $(`#plan-section-${sec.id}`)
+        const body = secEl.find('.js-section-body')
+        if (body.hasClass('hidden')) {
+            body.removeClass('hidden')
+            secEl.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
+        }
+        currentId = sec.parent_id
+    }
+    updateSubsectionsVisibility()
 }
 
 function updateSectionCheckboxState (sectionEl) {
@@ -721,12 +777,7 @@ function adjustTestPlanFamilyTree () {
             if (targetSection.length > 0) {
                 e.preventDefault()
 
-                // Expand if collapsed
-                const body = targetSection.find('.js-section-body')
-                if (body.hasClass('hidden')) {
-                    body.removeClass('hidden')
-                    targetSection.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
-                }
+                expandSectionAndAncestors(targetPlanId)
 
                 $('html, body').animate({
                     scrollTop: targetSection.offset().top - 70
@@ -815,6 +866,7 @@ function getExpandArea (testExecution) {
                     if (body.hasClass('hidden')) {
                         body.removeClass('hidden')
                         parentSection.find('.js-section-toggle').removeClass('fa-angle-right').addClass('fa-angle-down')
+                        updateSubsectionsVisibility()
                     }
                     nextRow.find('.list-group-item-header').click()
                 }
