@@ -84,3 +84,16 @@
     - Реализована функция `expandSectionAndAncestors(planId)`: при клике в дереве быстрого перехода раскрываются все предки целевого подраздела, гарантируя его видимость и корректный скролл.
     - Синхронизировано состояние чекбоксов (`:visible`) и поведение при сбросе поискового фильтра.
   - Бандл Webpack пересобран (`npx webpack`), синхронизирован с Docker-контейнером `kiwi-local-web-1`, линтинг ESLint успешно пройден (0 ошибок).
+
+### [2026-10-09]
+- Удалена кнопка добавления тест-кейса («+ Add case») из полоски заголовка категорий/секций в тест-ранах (`TestRun`):
+  - Создана ветка `feature/remove-add-case-from-testrun-sections`.
+  - В `tcms/testruns/templates/testruns/get.html`:
+    - Из шаблона `#test_run_section` удален блок `.testrun-section-actions` с кнопкой `.js-section-add-cases`.
+    - Удалены неиспользуемые CSS-стили `.testrun-section-actions`.
+  - В `tcms/testruns/static/testruns/js/get.js`:
+    - Удален обработчик клика по `.js-section-add-cases` и неиспользуемые переменные `productId` и `testRunId` в функции `renderTestExecutions()`.
+  - Бандл Webpack пересобран (`npx webpack`), синхронизирован с рабочим Docker-контейнером `kiwi-local-web-1`.
+  - Линтинг ESLint пройден без замечаний (0 ошибок).
+  - Набор тестов `tcms.testruns` пройден успешно (47 тестов).
+

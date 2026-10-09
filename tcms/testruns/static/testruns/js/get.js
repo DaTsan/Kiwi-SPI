@@ -488,9 +488,6 @@ function renderTestExecutions (testExecutions) {
     const container = $('#test-executions-container')
     container.empty()
 
-    const productId = $('#test_run_pk').data('product-id')
-    const testRunId = $('#test_run_pk').data('pk')
-
     // Group executions by section
     const executionsBySection = {}
     sections.forEach(sec => {
@@ -529,22 +526,6 @@ function renderTestExecutions (testExecutions) {
             ? '<span class="fa fa-folder-open-o text-muted"></span> '
             : '<span class="fa fa-folder-o text-primary"></span> '
         titleLink.html(`${iconHtml}TP-${section.id}: ${section.name}`)
-
-        // Add case button
-        const addCasesBtn = sectionNode.find('.js-section-add-cases')
-        if (addCasesBtn.length) {
-            addCasesBtn.on('click', function (e) {
-                e.preventDefault()
-                e.stopPropagation()
-                const searchUrl = `/cases/search/?plan=${section.id}&product=${productId}&allow_select=1`
-                return advancedSearchAndAddTestCases(
-                    testRunId,
-                    'TestRun.add_case',
-                    searchUrl,
-                    $('#test_run_pk').data('trans-error-adding-cases')
-                )
-            })
-        }
 
         const sectionExecutions = executionsBySection[section.id] || []
         sectionExecutions.sort((te1, te2) => te1.sortkey - te2.sortkey)
