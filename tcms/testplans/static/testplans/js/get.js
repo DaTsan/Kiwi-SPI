@@ -187,6 +187,7 @@ function renderAllSections (testPlanId, permissions) {
     }
 
     const sortOrder = getCurrentSortOrder()
+    const newCaseBaseUrl = $('#test_plan_pk').data('new-testcase-url') || '/cases/new/'
 
     sections.forEach(section => {
         const sectionNode = $(sectionTemplate.cloneNode(true))
@@ -208,7 +209,7 @@ function renderAllSections (testPlanId, permissions) {
         titleLink.html(`${iconHtml}TP-${section.id}: ${section.name}`)
 
         // Add case buttons
-        sectionNode.find('.js-section-add-new-case').attr('href', `/case/new/?from_plan=${section.id}`)
+        sectionNode.find('.js-section-add-new-case').attr('href', `${newCaseBaseUrl}?from_plan=${section.id}`)
         sectionNode.find('.js-section-link-cases').attr('data-plan-id', section.id)
 
         // Gather test cases belonging to this section

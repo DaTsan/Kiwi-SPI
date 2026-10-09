@@ -96,4 +96,11 @@
   - Бандл Webpack пересобран (`npx webpack`), синхронизирован с рабочим Docker-контейнером `kiwi-local-web-1`.
   - Линтинг ESLint пройден без замечаний (0 ошибок).
   - Набор тестов `tcms.testruns` пройден успешно (47 тестов).
+- Исправлена ошибка 404 при добавлении нового тест-кейса через кнопку в заголовке секции тест-плана (`TestPlan`):
+  - Создана ветка `feature/fix-section-new-case-404`.
+  - В `tcms/testplans/templates/testplans/get.html` добавлен data-атрибут `data-new-testcase-url="{% url 'testcases-new' %}"`.
+  - В `tcms/testplans/static/testplans/js/get.js` исправлен путь создания нового кейса с некорректного `/case/new/` на `/cases/new/?from_plan=${section.id}` (с использованием динамического `data-new-testcase-url`).
+  - Бандл Webpack пересобран (`npx webpack`), синхронизирован с рабочим контейнером `kiwi-local-web-1`.
+  - Линтинг ESLint пройден без замечаний (0 ошибок).
+  - Наборы тестов `tcms.testplans` (37 тестов) и `tcms.testcases` (57 тестов) выполнены успешно.
 
