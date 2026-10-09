@@ -12,7 +12,7 @@ from guardian.decorators import permission_required as object_permission_require
 
 from tcms.core.forms import SimpleCommentForm
 from tcms.management.models import Priority
-from tcms.testcases.models import TestCaseStatus
+from tcms.testcases.models import TestCaseFieldSettings, TestCaseStatus
 from tcms.testplans.forms import (
     ClonePlanForm,
     NewPlanForm,
@@ -142,6 +142,10 @@ class TestPlanGetView(DetailView):
         context["test_runs"] = TestRun.objects.filter(
             plan_id=self.object.pk, stop_date__isnull=True
         ).order_by("-id")[:5]
+        case_fields_settings = TestCaseFieldSettings.get_settings()
+        context["case_fields_settings"] = case_fields_settings
+        context["page_type"] = "plan"
+        context["disabled_layout_blocks"] = case_fields_settings.get_disabled_blocks("plan")
         context["OBJECT_MENU_ITEMS"] = [
             (
                 "...",

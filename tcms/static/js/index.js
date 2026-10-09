@@ -21,6 +21,7 @@ import { pageTelemetryReadyHandler } from '../../telemetry/static/telemetry/js/i
 
 import { jsonRPC } from './jsonrpc'
 import { initSimpleMDE } from './simplemde_security_override'
+import { initLayoutEditor } from './layout_editor'
 
 function pageInitDBReadyHandler () {
     $('.js-initialize-btn').click(function () {
@@ -56,6 +57,8 @@ const pageHandlers = {
 }
 
 $(() => {
+    initLayoutEditor()
+
     const body = $('body')
     const pageId = body.attr('id')
     const readyFunc = pageHandlers[pageId]

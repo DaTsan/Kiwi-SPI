@@ -163,3 +163,65 @@ input[type="submit"].grp-warning {
 .inline-display {
     display: inline;
 }
+
+/* Layout customizer and block visibility */
+body:not(.layout-edit-mode) .layout-block.layout-block-disabled-init:not(.is-enabled),
+body:not(.layout-edit-mode) .layout-block.is-disabled {
+    display: none !important;
+}
+
+body.layout-edit-mode .layout-block {
+    position: relative !important;
+    display: block !important;
+    transition: opacity 0.2s ease, outline 0.2s ease;
+}
+
+body.layout-edit-mode .layout-block.is-disabled .card-pf,
+body.layout-edit-mode .layout-block.layout-block-disabled-init:not(.is-enabled) .card-pf {
+    opacity: 0.35 !important;
+    filter: grayscale(80%) !important;
+    pointer-events: none !important;
+}
+
+body.layout-edit-mode .layout-block.is-disabled,
+body.layout-edit-mode .layout-block.layout-block-disabled-init:not(.is-enabled) {
+    outline: 2px dashed #d9534f !important;
+    outline-offset: -2px;
+    background-color: rgba(217, 83, 79, 0.05) !important;
+}
+
+body.layout-edit-mode .layout-block.is-enabled,
+body.layout-edit-mode .layout-block:not(.is-disabled):not(.layout-block-disabled-init) {
+    outline: 2px dashed #0088ce !important;
+    outline-offset: -2px;
+}
+
+body.layout-edit-mode .layout-block:hover {
+    outline-width: 3px !important;
+}
+
+.layout-block-ctrl {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 25px;
+    z-index: 1050;
+}
+
+body.layout-edit-mode .layout-block-ctrl {
+    display: block !important;
+}
+
+.layout-block-ctrl .btn {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 11px;
+}
+
+.js-btn-edit-layout {
+    margin-left: 10px;
+    font-weight: 500;
+}
+

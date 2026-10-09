@@ -4,7 +4,7 @@ from django.test import override_settings
 from django.urls import reverse
 from parameterized import parameterized
 
-from tcms.testcases.models import BugSystem
+from tcms.testcases.models import BugSystem, TestCaseFieldSettings
 from tcms.tests import LoggedInTestCase
 from tcms.tests.factories import TestCaseFactory
 from tcms.utils.permissions import initiate_user_with_default_setups
@@ -119,3 +119,62 @@ class TestBugSystemAdmin(LoggedInTestCase):
         self.assertEqual(
             "tcms.issuetracker.types.Bugzilla", self.bug_system.tracker_type
         )
+
+
+class TestTestCaseFieldSettingsAdmin(LoggedInTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        initiate_user_with_default_setups(cls.tester)
+
+    def test_changelist_redirects_to_change_view(self):
+        settings_obj = TestCaseFieldSettings.get_settings()
+        response = self.client.get(
+            reverse("admin:testcases_testcasefieldsettings_changelist")
+        )
+        self.assertRedirects(
+            response,
+            reverse(
+                "admin:testcases_testcasefieldsettings_change",
+                args=[settings_obj.pk],
+            ),
+        )
+
+    def test_change_view_saves_updated_settings(self):
+        settings_obj = TestCaseFieldSettings.get_settings()
+        response = self.client.post(
+            reverse(
+                "admin:testcases_testcasefieldsettings_change",
+                args=[settings_obj.pk],
+            ),
+            {
+                "plan_show_status": "on",
+                "plan_show_automated": "on",
+                "plan_show_priority": "on",
+                "plan_show_category": "on",
+                "plan_show_product": "on",
+                # plan_show_author omitted -> turns False
+                "plan_show_default_tester": "on",
+                "plan_show_reviewer": "on",
+                "run_show_status": "on",
+                "run_show_automated": "on",
+                "run_show_priority": "on",
+                "run_show_category": "on",
+                "run_show_product": "on",
+                "run_show_author": "on",
+                "run_show_default_tester": "on",
+                "run_show_assignee": "on",
+                "run_show_tested_by": "on",
+                "run_show_bugs": "on",
+                "run_show_tags": "on",
+                "run_show_components": "on",
+            },
+            follow=True,
+        )
+        self.assertEqual(HTTPStatus.OK, response.status_code)
+        settings_obj.refresh_from_db()
+        self.assertFalse(settings_obj.plan_show_author)
+        self.assertTrue(settings_obj.plan_show_product)
+        self.assertTrue(settings_obj.run_show_author)
+        self.assertTrue(settings_obj.run_show_product)
+

@@ -54,6 +54,10 @@ class TestGetRun(BaseCaseRun):
         response = self.client.get(url)
 
         self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertIn("case_fields_settings", response.context)
+        self.assertEqual(response.context["page_type"], "run")
+        self.assertIn("disabled_layout_blocks", response.context)
+        self.assertContains(response, "test-execution-priority")
         _tags = _("Tags")
         self.assertContains(
             response,

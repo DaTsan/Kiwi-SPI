@@ -407,6 +407,7 @@ function getTestCaseRowContent (rowContent, testCase, permissions) {
     row.find('.js-test-case-status').html(`${testCase.case_status__name}`)
     row.find('.js-test-case-priority').html(`${testCase.priority__value}`)
     row.find('.js-test-case-category').html(`${testCase.category__name}`)
+    row.find('.js-test-case-product').html(`${testCase.category__product__name || '-'}`)
     row.find('.js-test-case-author').html(`${testCase.author__username}`)
     row.find('.js-test-case-tester').html(`${testCase.default_tester__username || '-'}`)
     row.find('.js-test-case-reviewer').html(`${testCase.reviewer__username || '-'}`)
@@ -424,25 +425,27 @@ function getTestCaseRowContent (rowContent, testCase, permissions) {
     if (!isTestCaseConfirmed(testCase.case_status)) {
         row.find('.list-group-item-header').addClass('bg-danger')
         row.find('.js-test-case-status-icon').addClass('fa-times')
-        row.find('.js-test-case-tester-div').toggleClass('hidden')
-        row.find('.js-test-case-reviewer-div').toggleClass('hidden')
+        row.find('.js-test-case-tester-div').addClass('hidden')
+        row.find('.js-test-case-reviewer-div').removeClass('hidden')
     } else {
         row.find('.js-test-case-status-icon').addClass('fa-check-square')
     }
 
     // handle automated icon
     const automationIndicationElement = row.find('.js-test-case-automated')
-    let automatedClassToRemove = 'fa-cog'
+    if (automationIndicationElement.length) {
+        let automatedClassToRemove = 'fa-cog'
 
-    if (testCase.is_automated) {
-        automatedClassToRemove = 'fa-hand-paper-o'
+        if (testCase.is_automated) {
+            automatedClassToRemove = 'fa-hand-paper-o'
+        }
+
+        automationIndicationElement.parent().attr(
+            'title',
+            automationIndicationElement.data(testCase.is_automated.toString())
+        )
+        automationIndicationElement.removeClass(automatedClassToRemove)
     }
-
-    automationIndicationElement.parent().attr(
-        'title',
-        automationIndicationElement.data(testCase.is_automated.toString())
-    )
-    automationIndicationElement.removeClass(automatedClassToRemove)
 
     const planSuffix = testCase.section_plan_id ? `-${testCase.section_plan_id}` : ''
     row.find('textarea')[0].id = `comment-for-testcase-${testCase.id}${planSuffix}`

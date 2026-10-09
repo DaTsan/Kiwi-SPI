@@ -31,10 +31,15 @@
               data-new-testcase-url="{% url 'testcases-new' %}"
         >TP-{{ object.pk }}:</span> {{ object.name }}
         {% if not object.is_active %}</s>{% endif %}
+        {% if perms.testcases.change_page_layout or user.is_superuser %}
+        <button type="button" class="btn btn-default btn-sm pull-right js-btn-edit-layout" data-page-type="plan">
+            <i class="fa fa-th-large"></i> {% trans "Customize layout" %}
+        </button>
+        {% endif %}
     </h1>
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-9">
+        <div class="col-xs-12 col-sm-12 col-md-9 layout-block {% if 'plan-text-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="plan-text-card" data-layout-title="{% trans 'Description' %}">
             <div class="card-pf card-pf-accented">
                 <div class="card-pf-body">
                     <div class="markdown-text" id="testplan-text">
@@ -50,34 +55,45 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-3" id="testplan-info">
+        <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'plan-info-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" id="testplan-info" data-layout-block="plan-info-card" data-layout-title="{% trans 'Plan details' %}">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">
+                {% if not case_fields_settings or case_fields_settings.plan_card_show_author %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa pficon-user"></span>{% trans 'Author' %}:
                     <a href="{% url "tcms-profile" object.author.pk %}">{{ object.author.username }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.plan_card_show_create_date %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-calendar"></span>{{ object.create_date }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.plan_card_show_product %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                 <span id="product_pk"
                       class="fa fa-shopping-cart"></span>{% trans 'Product' %}:
                     <a href="{% url "plans-search" %}?product={{ object.product_id }}"
                        title="Search plans of {{ object.product }} ">{{ object.product }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.plan_card_show_version %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-random"></span>{% trans 'Version' %}:
                     {{ object.product_version.value }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.plan_card_show_type %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-cube"></span>{% trans 'Plan Type' %}:
                     {{ object.type.name  }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.plan_card_show_extra_link %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-link"></span>{% trans 'Reference link' %}:
                     {% if object.extra_link %}
@@ -86,6 +102,7 @@
                         -
                     {% endif %}
                 </h2>
+                {% endif %}
 
                 <div class="card-pf-body">
                     {{ object.tree_view_html|safe }}
@@ -95,7 +112,7 @@
     </div>
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 layout-block {% if 'plan-cases-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="plan-cases-card" data-layout-title="{% trans 'Test cases' %}">
             <div class="card-pf card-pf-accented">
                 <div class="card-pf-heading">
                     <h2 class="card-pf-title">
@@ -284,7 +301,7 @@
     </div>
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'plan-runs-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="plan-runs-card" data-layout-title="{% trans 'Active test runs' %}">
             <div class="card-pf card-pf-accented">
                 <div class="card-pf-heading">
                     <h2 class="card-pf-title">
@@ -322,11 +339,11 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-3 layout-block {% if 'plan-tags-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="plan-tags-card" data-layout-title="{% trans 'Tags' %}">
             {% include 'include/tags_card.html' with add_perm=perms.testcases.add_testcasetag %}
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-6 col-md-6 layout-block {% if 'plan-attachments-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="plan-attachments-card" data-layout-title="{% trans 'Attachments' %}">
             {% include 'include/attachments.html' %}
         </div>
     </div>
@@ -400,35 +417,55 @@
                          </div>
                     </div>
                     <div class="list-view-pf-additional-info">
-                        <div title="{% trans 'Status' %}" class="list-view-pf-additional-info-item">
+                        {% if case_fields_settings.plan_show_status %}
+                        <div title="{% trans 'Status' %}" class="list-view-pf-additional-info-item js-test-case-status-div">
                             <!-- add customizable icon as part of #1932 -->
                             <span class="js-test-case-status-icon fa"></span>
                             <span class="js-test-case-status"></span>
                         </div>
-                        <div class="list-view-pf-additional-info-item">
+                        {% endif %}
+                        {% if case_fields_settings.plan_show_automated %}
+                        <div class="list-view-pf-additional-info-item js-test-case-automated-div">
                             <span class="fa fa-cog fa-hand-paper-o js-test-case-automated" data-true="{% trans 'Automated' %}" data-false="{% trans 'Manual' %}"></span>{# one of the classes is removed by the js #}
                         </div>
-                        <div title="{% trans 'Priority' %}" class="list-view-pf-additional-info-item">
+                        {% endif %}
+                        {% if case_fields_settings.plan_show_priority %}
+                        <div title="{% trans 'Priority' %}" class="list-view-pf-additional-info-item js-test-case-priority-div">
                             <span class="fa fa-hourglass"></span>
                             <span class="js-test-case-priority"></span>
                         </div>
-                        <div title="{% trans 'Category' %}" class="list-view-pf-additional-info-item">
+                        {% endif %}
+                        {% if case_fields_settings.plan_show_category %}
+                        <div title="{% trans 'Category' %}" class="list-view-pf-additional-info-item js-test-case-category-div">
                             <span class="fa fa-tag"></span>
                             <span class="js-test-case-category"></span>
                         </div>
-                        <div title="{% trans 'Author' %}" class="list-view-pf-additional-info-item">
+                        {% endif %}
+                        {% if case_fields_settings.plan_show_product %}
+                        <div title="{% trans 'Product' %}" class="list-view-pf-additional-info-item js-test-case-product-div">
+                            <span class="fa fa-shopping-cart"></span>
+                            <span class="js-test-case-product"></span>
+                        </div>
+                        {% endif %}
+                        {% if case_fields_settings.plan_show_author %}
+                        <div title="{% trans 'Author' %}" class="list-view-pf-additional-info-item js-test-case-author-div">
                             <span class="fa pficon-user"></span>
                             <span class="js-test-case-author"></span>
                         </div>
+                        {% endif %}
+                        {% if case_fields_settings.plan_show_default_tester %}
                         <div title="{% trans 'Default tester' %}" class="list-view-pf-additional-info-item js-test-case-tester-div">
                             <span class="fa fa-search"></span>
                             <span class="js-test-case-tester"></span>
                         </div>
+                        {% endif %}
 
+                        {% if case_fields_settings.plan_show_reviewer %}
                         <div title="{% trans 'Reviewer' %}" class="list-view-pf-additional-info-item js-test-case-reviewer-div hidden">
                             <span class="fa fa-history"></span>
                             <span class="js-test-case-reviewer"></span>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

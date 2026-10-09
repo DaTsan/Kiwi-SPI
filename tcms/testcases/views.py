@@ -19,7 +19,7 @@ from tcms.testcases.forms import (
     SearchCaseForm,
     TestCaseForm,
 )
-from tcms.testcases.models import Template, TestCase
+from tcms.testcases.models import Template, TestCase, TestCaseFieldSettings
 from tcms.testplans.models import TestPlan
 
 
@@ -123,6 +123,10 @@ class TestCaseGetView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        case_fields_settings = TestCaseFieldSettings.get_settings()
+        context["case_fields_settings"] = case_fields_settings
+        context["page_type"] = "case"
+        context["disabled_layout_blocks"] = case_fields_settings.get_disabled_blocks("case")
         context["executions"] = self.object.executions.select_related(
             "run", "tested_by", "assignee", "case", "status"
         ).order_by("run__plan", "run")

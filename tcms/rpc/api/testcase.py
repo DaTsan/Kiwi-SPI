@@ -11,8 +11,29 @@ from tcms.management.models import Component, Tag
 from tcms.rpc import utils
 from tcms.rpc.api.forms.testcase import NewForm, UpdateForm
 from tcms.rpc.decorators import permissions_required
-from tcms.rpc.views import rpc_method
-from tcms.testcases.models import Property, TestCase, TestCasePlan
+
+try:
+    from tcms.rpc.views import rpc_method
+except (ImportError, ModuleNotFoundError):
+    from modernrpc.core import rpc_method as _modernrpc_method
+
+    def rpc_method(name=None, auth=None, **kwargs):
+        kwargs.pop("context_target", None)
+
+        def decorator(func):
+            f = func
+            if auth is not None:
+                f = auth(f)
+            return _modernrpc_method(name=name, **kwargs)(f)
+
+        return decorator
+
+from tcms.testcases.models import (
+    Property,
+    TestCase,
+    TestCaseFieldSettings,
+    TestCasePlan,
+)
 
 
 @rpc_method(
@@ -313,6 +334,8 @@ def filter(query=None):  # pylint: disable=redefined-builtin
             "case_status__name",
             "category",
             "category__name",
+            "category__product",
+            "category__product__name",
             "priority",
             "priority__value",
             "author",
@@ -690,3 +713,46 @@ def add_property(case_id, name, value):
     """
     prop, _ = Property.objects.get_or_create(case_id=case_id, name=name, value=value)
     return model_to_dict(prop)
+
+
+@rpc_method(
+    name="TestCase.get_field_settings",
+    auth=permissions_required("testcases.view_testcase"),
+)
+def get_field_settings():
+    """
+    .. function:: TestCase.get_field_settings()
+
+        Returns dictionary of enabled/disabled test case fields in Test Plans and Test Runs.
+
+        :return: Dict with 'plan' and 'run' field visibility settings
+        :rtype: dict
+        :raises PermissionDenied: if missing *testcases.view_testcase* permission
+    """
+    return TestCaseFieldSettings.get_settings().to_dict()
+
+
+@rpc_method(
+    name="TestCase.set_layout_block_visibility",
+    auth=permissions_required("testcases.change_page_layout"),
+)
+def set_layout_block_visibility(page_type, block_id, is_visible):
+    """
+    .. function:: TestCase.set_layout_block_visibility(page_type, block_id, is_visible)
+
+        Update layout block visibility for the specified page type ('case', 'plan', 'run').
+
+        :param page_type: Type of page ('case', 'plan', or 'run')
+        :type page_type: str
+        :param block_id: Identifier of the layout block
+        :type block_id: str
+        :param is_visible: True if visible, False if hidden
+        :type is_visible: bool
+        :return: Updated disabled_blocks dictionary
+        :rtype: dict
+        :raises PermissionDenied: if missing *testcases.change_page_layout* permission
+    """
+    settings = TestCaseFieldSettings.get_settings()
+    settings.set_block_visibility(page_type, block_id, is_visible)
+    return settings.disabled_blocks
+

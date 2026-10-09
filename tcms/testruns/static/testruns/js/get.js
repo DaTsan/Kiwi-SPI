@@ -997,12 +997,17 @@ function renderAdditionalInformation (testRunId, execution) {
 
                         row.find('.test-execution-priority').html(testCase.priority__value)
                         row.find('.test-execution-category').html(testCase.category__name)
+                        row.find('.test-execution-product').html(testCase.category__product__name || '-')
+                        row.find('.test-execution-author').html(testCase.author__username || '-')
+                        row.find('.test-execution-case-tester').html(testCase.default_tester__username || '-')
 
                         const isAutomatedElement = row.find('.test-execution-automated')
-                        const isAutomatedIcon = testCase.is_automated ? 'fa-cog' : 'fa-hand-paper-o'
-                        const isAutomatedAttr = testCase.is_automated ? isAutomatedElement.data('automated') : isAutomatedElement.data('manual')
-                        isAutomatedElement.addClass(isAutomatedIcon)
-                        isAutomatedElement.attr('title', isAutomatedAttr)
+                        if (isAutomatedElement.length) {
+                            const isAutomatedIcon = testCase.is_automated ? 'fa-cog' : 'fa-hand-paper-o'
+                            const isAutomatedAttr = testCase.is_automated ? isAutomatedElement.data('automated') : isAutomatedElement.data('manual')
+                            isAutomatedElement.addClass(isAutomatedIcon)
+                            isAutomatedElement.attr('title', isAutomatedAttr)
+                        }
 
                         // test case isn't part of the parent test plan or any subplan
                         const isPartOfPlanTree = casesInPlan.indexOf(testCase.id) > -1 || caseIdToSectionId[testCase.id] !== undefined
@@ -1021,8 +1026,10 @@ function renderAdditionalInformation (testRunId, execution) {
                         }
                         if (testCase.tagNames.length) {
                             const tagsRow = row.find('.js-row-tags')
-                            tagsRow.toggleClass('hidden')
-                            tagsRow.html(tagsRow.html() + testCase.tagNames.join(', '))
+                            if (tagsRow.length) {
+                                tagsRow.toggleClass('hidden')
+                                tagsRow.html(tagsRow.html() + testCase.tagNames.join(', '))
+                            }
                         }
 
                         testCase.componentNames = []
@@ -1035,8 +1042,10 @@ function renderAdditionalInformation (testRunId, execution) {
                         }
                         if (testCase.componentNames.length) {
                             const componentsRow = row.find('.js-row-components')
-                            componentsRow.toggleClass('hidden')
-                            componentsRow.html(componentsRow.html() + testCase.componentNames.join(', '))
+                            if (componentsRow.length) {
+                                componentsRow.toggleClass('hidden')
+                                componentsRow.html(componentsRow.html() + testCase.componentNames.join(', '))
+                            }
                         }
 
                         // update internal data structure
