@@ -1,0 +1,16 @@
+name: kiwi-spi-tests
+
+services:
+  tests:
+    image: kiwi-spi:tests
+    build:
+      context: .
+      dockerfile: local/Dockerfile
+      target: tests
+    environment:
+      DJANGO_SETTINGS_MODULE: local.test_settings
+      LANG: en_US.UTF-8
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    command: ["python", "manage.py", "test", "tcms.workflow.tests", "--noinput", "--settings=local.test_settings"]

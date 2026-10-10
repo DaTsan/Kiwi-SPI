@@ -1,0 +1,59 @@
+name: kiwi-spi-local
+
+services:
+  db:
+    image: mariadb:11.4
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_DATABASE: kiwi
+      MARIADB_USER: kiwi
+      MARIADB_PASSWORD: ${KIWI_DB_PASSWORD:?Run start-local.ps1 first}
+      MARIADB_ROOT_PASSWORD: ${KIWI_DB_ROOT_PASSWORD:?Run start-local.ps1 first}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+
+  web:
+    image: kiwi-spi:local
+    build:
+      context: .
+      dockerfile: local/Dockerfile
+      target: app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DJANGO_SETTINGS_MODULE: tcms.settings.product
+      KIWI_DB_HOST: db
+      KIWI_DB_PORT: "3306"
+      KIWI_DB_NAME: kiwi
+      KIWI_DB_USER: kiwi
+      KIWI_DB_PASSWORD: ${KIWI_DB_PASSWORD:?Run start-local.ps1 first}
+      KIWI_SECRET_KEY: ${KIWI_SECRET_KEY:?Run start-local.ps1 first}
+      KIWI_ADMIN_USERNAME: ${KIWI_ADMIN_USERNAME:-admin}
+      KIWI_ADMIN_EMAIL: ${KIWI_ADMIN_EMAIL:-admin@localhost.local}
+      KIWI_ADMIN_PASSWORD: ${KIWI_ADMIN_PASSWORD:?Run start-local.ps1 first}
+      KIWI_TIME_ZONE: Asia/Novosibirsk
+      KIWI_USE_TZ: "True"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - uploads:/Kiwi/uploads
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/accounts/login/', timeout=5)"]
+      interval: 10s
+      timeout: 10s
+      retries: 18
+      start_period: 60s
+    init: true
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  uploads:

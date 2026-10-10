@@ -352,6 +352,7 @@ TENANT_APPS = [
     "tcms.testcases.apps.AppConfig",
     "tcms.testplans.apps.AppConfig",
     "tcms.testruns.apps.AppConfig",
+    "tcms.workflow.apps.WorkflowConfig",
 ]
 
 # if you wish to disable Kiwi TCMS bug tracker
@@ -442,6 +443,14 @@ MENU_ITEMS = [
             (_("Groups"), reverse_lazy("admin-groups-router")),
             ("-", "-"),
             (_("Everything else"), "/admin/"),
+        ],
+    ),
+    (
+        _("WORKFLOW"),
+        [
+            (_("Planning"), reverse_lazy("workflow:hub")),
+            (_("My tasks"), reverse_lazy("workflow:todo")),
+            (_("Progress report"), reverse_lazy("workflow:report")),
         ],
     ),
     (_("MORE"), []),

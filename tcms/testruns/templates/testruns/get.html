@@ -33,6 +33,8 @@
         >TR-{{ object.pk }}:</span> {{ object.summary }}
     </h1>
 
+    <div class="col-md-12"><a class="btn btn-primary" href="{% url 'workflow:run' object.pk %}">Step execution, results &amp; planning</a></div>
+
     <div class="row row-cards-pf">
         <div class="col-xs-12 col-sm-12 col-md-3">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">

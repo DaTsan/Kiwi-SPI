@@ -1,0 +1,39 @@
+{% extends 'workflow/base.html' %}
+{% block heading %}Planning{% endblock %}
+{% block workflow_content %}
+<div class="workflow-toolbar">
+  <form method="get"><label for="workflow-product">Product</label>
+    <select name="product" id="workflow-product" class="form-control">
+      <option value="">All visible products</option>
+      {% for item in products %}<option value="{{ item.pk }}" {% if item.pk == product.pk %}selected{% endif %}>{{ item }}</option>{% endfor %}
+    </select><button class="btn btn-default">Apply</button>
+  </form>
+  {% if perms.workflow.add_milestone %}<a class="btn btn-primary" href="{% url 'workflow:milestone-new' %}{% if product %}?product={{ product.pk }}{% endif %}">New milestone</a>{% endif %}
+  {% if perms.workflow.add_testcycle %}<a class="btn btn-default" href="{% url 'workflow:cycle-new' %}{% if product %}?product={{ product.pk }}{% endif %}">New cycle</a>{% endif %}
+</div>
+<div class="workflow-grid">
+<section class="workflow-panel"><h2>Milestones</h2>
+  {% for item in milestones %}<div class="workflow-list-row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+    <span>{{ item.product }} · {{ item.get_status_display }}{% if item.due_date %} · {{ item.due_date }}{% endif %}</span>
+  </div>{% empty %}<p>Create a release or sprint milestone to track scope, dates and progress.</p>{% endfor %}
+</section>
+<section class="workflow-panel"><h2>Test cycles</h2>
+  {% for item in cycles %}<div class="workflow-list-row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+    <span>{{ item.product }}{% if item.milestone %} · {{ item.milestone }}{% endif %} · {% if item.is_completed %}Completed{% else %}Open{% endif %}</span>
+  </div>{% empty %}<p>Group runs from several Kiwi plans and configurations in one cycle.</p>{% endfor %}
+</section>
+<section class="workflow-panel"><h2>Shared step library</h2>
+  {% if perms.workflow.add_sharedstepset %}<a href="{% url 'workflow:shared-new' %}{% if product %}?product={{ product.pk }}{% endif %}">New shared step set</a>{% endif %}
+  {% for item in libraries %}<div class="workflow-list-row"><a href="{% url 'workflow:shared' item.pk %}">{{ item.name }}</a><span>{{ item.product }} · {{ item.steps|length }} steps</span></div>
+  {% empty %}<p>Reuse common procedures across test cases.</p>{% endfor %}
+</section>
+<section class="workflow-panel"><h2>Custom fields</h2>
+  {% if perms.workflow.add_customfield %}<a href="{% url 'workflow:field-new' %}{% if product %}?product={{ product.pk }}{% endif %}">New custom field</a>{% endif %}
+  {% for item in fields %}<div class="workflow-list-row">
+    {% if perms.workflow.change_customfield %}<a href="{% url 'workflow:field-edit' item.pk %}">{{ item.label }}</a>{% else %}<strong>{{ item.label }}</strong>{% endif %}
+    <span>{{ item.product }} · {{ item.get_entity_display }} · {{ item.get_kind_display }}{% if item.required %} · Required{% endif %}{% if not item.is_active %} · Inactive{% endif %}</span>
+  </div>{% empty %}<p>An administrator can define typed fields for cases and results.</p>{% endfor %}
+</section>
+</div>
+<p class="workflow-muted">The first 100 items in each section are displayed. Filter by product to narrow the list.</p>
+{% endblock %}

@@ -167,13 +167,12 @@ class TestCase(models.Model, UrlMixin):
     emailing = property(_get_email_conf)
 
     def clone(self, new_author, test_plans):
-        values = self.__dict__.copy()
-        del values["_state"]
-        del values["id"]
-        if "sortkey" in values:
-            sortkey = values.pop("sortkey")
-        else:
-            sortkey = None
+        values = {
+            field.attname: getattr(self, field.attname)
+            for field in self._meta.concrete_fields
+            if not field.primary_key
+        }
+        sortkey = getattr(self, "sortkey", None)
 
         values["case_status_id"] = (
             TestCaseStatus.objects.filter(is_confirmed=False).first().pk
@@ -216,6 +215,9 @@ class TestCase(models.Model, UrlMixin):
                     )
                 new_tc.add_component(new_component)
 
+        from tcms.workflow.services import clone_case_workflow
+
+        clone_case_workflow(self, new_tc)
         return new_tc
 
 

@@ -1,0 +1,16 @@
+{% extends 'workflow/base.html' %}
+{% block heading %}{{ object.name }}{% endblock %}
+{% block workflow_content %}
+<div class="workflow-toolbar"><span>{{ object.product }} · {{ object.get_status_display }}</span>
+  {% if can_edit %}<a class="btn btn-default" href="{% url 'workflow:milestone-edit' object.pk %}">Edit milestone</a>{% endif %}
+  <a class="btn btn-default" href="{% url 'workflow:report' %}?milestone={{ object.pk }}">Report / CSV</a>
+</div>
+<p>{{ object.start_date|default:'—' }} → {{ object.due_date|default:'—' }}</p>
+<p>{{ object.description|linebreaksbr }}</p>{% if object.references %}<p>References: {{ object.references }}</p>{% endif %}
+{% include 'workflow/stats.html' %}
+<section class="workflow-panel"><h2>Runs</h2>{% include 'workflow/runs.html' %}</section>
+<div class="workflow-grid">
+<section class="workflow-panel"><h2>Cycles</h2>{% for item in cycles %}<p><a href="{{ item.get_absolute_url }}">{{ item }}</a></p>{% empty %}<p>No cycles.</p>{% endfor %}</section>
+<section class="workflow-panel"><h2>Child milestones</h2>{% for item in children %}<p><a href="{{ item.get_absolute_url }}">{{ item }}</a></p>{% empty %}<p>No child milestones.</p>{% endfor %}</section>
+</div><p class="workflow-muted">Progress includes visible runs directly assigned to this milestone. Child milestones have separate progress.</p>
+{% endblock %}

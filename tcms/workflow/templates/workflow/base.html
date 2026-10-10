@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Planning & execution · Kiwi{% endblock %}
+{% block page_id %}page-workflow{% endblock %}
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'workflow/workflow.css' %}">
+<script src="{% static 'workflow/editor.js' %}" defer></script>
+{% endblock %}
+{% block contents %}
+<main class="workflow">
+  <nav class="workflow-nav" aria-label="Planning navigation">
+    <a href="{% url 'workflow:hub' %}">Planning</a>
+    <a href="{% url 'workflow:todo' %}">My tasks</a>
+    <a href="{% url 'workflow:report' %}">Progress & reports</a>
+  </nav>
+  <h1>{% block heading %}Planning & execution{% endblock %}</h1>
+  {% block workflow_content %}{% endblock %}
+</main>
+{% endblock %}

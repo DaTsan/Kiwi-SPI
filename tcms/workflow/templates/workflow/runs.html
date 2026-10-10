@@ -1,0 +1,7 @@
+<div class="workflow-table-scroll"><table class="table table-striped">
+  <thead><tr><th>Run</th><th>Product</th><th>Build</th><th>State</th></tr></thead>
+  <tbody>{% for run in runs %}<tr>
+    <td><a href="{% url 'workflow:run' run.pk %}">TR-{{ run.pk }}: {{ run.summary }}</a></td>
+    <td>{{ run.plan.product }}</td><td>{{ run.build }}</td><td>{% if run.stop_date %}Closed{% else %}Open{% endif %}</td>
+  </tr>{% empty %}<tr><td colspan="4">No visible runs yet.</td></tr>{% endfor %}</tbody>
+</table></div>
