@@ -2,64 +2,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiwitcms\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 19:00+0000\n"
-"PO-Revision-Date: 2026-07-13 21:06\n"
+"POT-Creation-Date: 2026-10-10 19:37+0000\n"
+"PO-Revision-Date: 2026-10-11 02:30+0700\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 "
+"&& n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 "
+"&& n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
 "X-Crowdin-Project: kiwitcms\n"
 "X-Crowdin-Project-ID: 295734\n"
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-File: /master/tcms/locale/en/LC_MESSAGES/django.po\n"
 "X-Crowdin-File-ID: 19\n"
 
-#: tcms/bugs/forms.py:33
-msgid "Description of problem:\n\n\n"
-"How often reproducible:\n\n\n"
-"Steps to Reproduce:\n"
-"1.\n"
-"2.\n"
-"3.\n\n"
-"Actual results:\n\n\n"
-"Expected results:\n\n\n"
-"Additional info:"
-msgstr "Описание проблемы:\n\n\n"
-"Как часто воспроизводится:\n\n\n"
-"Шаги для воспроизведения:\n"
-"1.\n"
-"2.\n"
-"3.\n\n"
-"Фактический результат:\n\n\n"
-"Ожидаемый результат:\n\n\n"
-"Дополнительная информация:"
+#: tcms/bugs/apps.py:9 tcms/bugs/models.py:90
+#: tcms/testcases/templates/testcases/get.html:154
+msgid "Bugs"
+msgstr "Ошибки"
 
-#: tcms/bugs/models.py:24 tcms/bugs/templates/bugs/get.html:50
-#: tcms/bugs/templates/bugs/mutable.html:27
-#: tcms/bugs/templates/bugs/search.html:22
-#: tcms/bugs/templates/bugs/search.html:112
-msgid "Severity"
-msgstr "Важность"
-
-#: tcms/bugs/templates/bugs/get.html:37 tcms/bugs/templates/bugs/search.html:93
-#: tcms/issuetracker/kiwitcms.py:49 tcms/templates/include/bug_details.html:3
-msgid "Open"
-msgstr "Открыто"
-
-#: tcms/bugs/templates/bugs/get.html:39 tcms/issuetracker/kiwitcms.py:49
-#: tcms/templates/include/bug_details.html:3
-msgid "Closed"
-msgstr "Закрыто"
-
-#: tcms/bugs/templates/bugs/get.html:59 tcms/bugs/templates/bugs/search.html:83
-#: tcms/bugs/templates/bugs/search.html:118
-#: tcms/templates/include/bug_details.html:7
-msgid "Reporter"
-msgstr "Сообщивший"
-
+#: tcms/bugs/forms.py:27 tcms/bugs/models.py:43
 #: tcms/bugs/templates/bugs/get.html:64
 #: tcms/bugs/templates/bugs/mutable.html:94
 #: tcms/bugs/templates/bugs/search.html:88
@@ -67,67 +32,250 @@ msgstr "Сообщивший"
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:42
 #: tcms/templates/include/bug_details.html:10
 #: tcms/testcases/templates/testcases/mutable.html:198
-#: tcms/testruns/templates/testruns/get.html:215
-#: tcms/testruns/templates/testruns/get.html:275
+#: tcms/testruns/models.py:282 tcms/testruns/templates/testruns/get.html:220
+#: tcms/testruns/templates/testruns/get.html:280
+#: tcms/workflow/templates/workflow/run.html:9 tcms/workflow/views.py:532
 msgid "Assignee"
 msgstr "Исполнитель"
 
-#: tcms/bugs/templates/bugs/get.html:75
+#: tcms/bugs/forms.py:30 tcms/bugs/forms.py:96 tcms/testcases/forms.py:51
+#: tcms/testcases/models.py:78 tcms/testcases/models.py:471
+#: tcms/testcases/templates/testcases/search.html:132
+#: tcms/testplans/forms.py:17 tcms/testplans/models.py:37
+#: tcms/workflow/models.py:228
+msgid "Text"
+msgstr "Текст"
+
+#: tcms/bugs/forms.py:33
+msgid ""
+"Description of problem:\n"
+"\n"
+"\n"
+"How often reproducible:\n"
+"\n"
+"\n"
+"Steps to Reproduce:\n"
+"1.\n"
+"2.\n"
+"3.\n"
+"\n"
+"Actual results:\n"
+"\n"
+"\n"
+"Expected results:\n"
+"\n"
+"\n"
+"Additional info:"
+msgstr ""
+"Описание проблемы:\n"
+"\n"
+"\n"
+"Как часто воспроизводится:\n"
+"\n"
+"\n"
+"Шаги для воспроизведения:\n"
+"1.\n"
+"2.\n"
+"3.\n"
+"\n"
+"Фактический результат:\n"
+"\n"
+"\n"
+"Ожидаемый результат:\n"
+"\n"
+"\n"
+"Дополнительная информация:"
+
+#: tcms/bugs/forms.py:91 tcms/bugs/models.py:89
+msgid "Bug"
+msgstr "Дефект"
+
+#: tcms/bugs/models.py:14 tcms/core/models/abstract.py:6
+#: tcms/management/models.py:12 tcms/management/models.py:26
+#: tcms/management/models.py:86 tcms/management/models.py:167
+#: tcms/management/models.py:198 tcms/templates/include/tags_card.html:13
+#: tcms/testcases/models.py:18 tcms/testcases/models.py:37
+#: tcms/testcases/models.py:342 tcms/testcases/models.py:470
+#: tcms/testcases/templates/testcases/get.html:169
+#: tcms/testcases/templates/testcases/get.html:217 tcms/testplans/forms.py:75
+#: tcms/testplans/models.py:19 tcms/testplans/models.py:36
+#: tcms/testplans/templates/testplans/clone.html:14
+#: tcms/testplans/templates/testplans/get.html:207
+#: tcms/testplans/templates/testplans/mutable.html:24
+#: tcms/testplans/templates/testplans/search.html:20
+#: tcms/testruns/models.py:263 tcms/testruns/models.py:410
+#: tcms/testruns/templates/testruns/get.html:622 tcms/workflow/models.py:29
+#: tcms/workflow/models.py:95 tcms/workflow/models.py:193
+msgid "Name"
+msgstr "Наименование"
+
+#: tcms/bugs/models.py:15 tcms/testruns/models.py:265
+msgid "Weight"
+msgstr "Вес"
+
+#: tcms/bugs/models.py:16 tcms/testruns/models.py:266
+msgid "Icon"
+msgstr "Значок"
+
+#: tcms/bugs/models.py:17 tcms/testruns/models.py:267
+msgid "Color"
+msgstr "Цвет"
+
+#: tcms/bugs/models.py:23 tcms/bugs/models.py:24 tcms/bugs/models.py:61
+#: tcms/bugs/templates/bugs/get.html:50
+#: tcms/bugs/templates/bugs/mutable.html:27
+#: tcms/bugs/templates/bugs/search.html:22
+#: tcms/bugs/templates/bugs/search.html:112
+msgid "Severity"
+msgstr "Важность"
+
+#: tcms/bugs/models.py:28 tcms/bugs/templates/bugs/mutable.html:20
+#: tcms/bugs/templates/bugs/search.html:17
+#: tcms/bugs/templates/bugs/search.html:113
+#: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:31
+#: tcms/testcases/models.py:73
+#: tcms/testcases/templates/testcases/mutable.html:24
+#: tcms/testcases/templates/testcases/search.html:17
+#: tcms/testcases/templates/testcases/search.html:166
+#: tcms/testplans/templates/testplans/get.html:214
+#: tcms/testplans/templates/testplans/get.html:494
+#: tcms/testplans/templates/testplans/toolbar_dropdown.html:3
+#: tcms/testruns/models.py:46 tcms/testruns/templates/testruns/get.html:264
+#: tcms/testruns/templates/testruns/get.html:271
+#: tcms/testruns/templates/testruns/get.html:274
+#: tcms/testruns/templates/testruns/mutable.html:23
+#: tcms/testruns/templates/testruns/mutable.html:229
+#: tcms/testruns/templates/testruns/search.html:18
+#: tcms/testruns/templates/testruns/search.html:185
+msgid "Summary"
+msgstr "Название"
+
+#: tcms/bugs/models.py:30 tcms/workflow/models.py:353
+msgid "Created at"
+msgstr "Дата создания"
+
+#: tcms/bugs/models.py:33
+#: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:34
+#: tcms/templates/include/bug_details.html:3
+#: tcms/testcases/templates/testcases/get.html:61
+#: tcms/testcases/templates/testcases/mutable.html:74
+#: tcms/testcases/templates/testcases/search.html:95
+#: tcms/testcases/templates/testcases/search.html:172
+#: tcms/testplans/templates/testplans/get.html:151
+#: tcms/testplans/templates/testplans/get.html:370
+#: tcms/testplans/templates/testplans/get.html:403
+#: tcms/testplans/templates/testplans/get.html:495
+#: tcms/testplans/templates/testplans/toolbar_dropdown.html:4
+#: tcms/testruns/models.py:320 tcms/testruns/templates/testruns/get.html:202
+#: tcms/testruns/templates/testruns/get.html:282
+#: tcms/testruns/templates/testruns/get.html:426
+#: tcms/testruns/templates/testruns/mutable.html:232 tcms/workflow/forms.py:254
+#: tcms/workflow/forms.py:277 tcms/workflow/models.py:37
+#: tcms/workflow/models.py:356 tcms/workflow/templates/workflow/run.html:9
+#: tcms/workflow/templates/workflow/todo.html:6 tcms/workflow/views.py:531
+msgid "Status"
+msgstr "Состояние"
+
+#: tcms/bugs/models.py:37 tcms/bugs/templates/bugs/get.html:59
+#: tcms/bugs/templates/bugs/search.html:83
+#: tcms/bugs/templates/bugs/search.html:118
+#: tcms/templates/include/bug_details.html:7
+msgid "Reporter"
+msgstr "Сообщивший"
+
+#: tcms/bugs/models.py:51 tcms/bugs/templates/bugs/get.html:75
 #: tcms/bugs/templates/bugs/mutable.html:45
 #: tcms/bugs/templates/bugs/search.html:51
 #: tcms/bugs/templates/bugs/search.html:115
-#: tcms/core/templates/dashboard.html:53 tcms/management/admin.py:133
-#: tcms/management/models.py:56
+#: tcms/core/templates/dashboard.html:54 tcms/management/admin.py:84
+#: tcms/management/admin.py:134 tcms/management/models.py:57
+#: tcms/management/models.py:89 tcms/management/models.py:120
 #: tcms/telemetry/templates/telemetry/include/filters.html:8
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:35
-#: tcms/templates/include/bug_details.html:13
-#: tcms/testcases/templates/testcases/get.html:44
-#: tcms/testcases/templates/testcases/get.html:170
+#: tcms/templates/include/bug_details.html:13 tcms/testcases/forms.py:36
+#: tcms/testcases/forms.py:110 tcms/testcases/models.py:40
+#: tcms/testcases/templates/testcases/get.html:46
+#: tcms/testcases/templates/testcases/get.html:172
 #: tcms/testcases/templates/testcases/mutable.html:43
-#: tcms/testcases/templates/testcases/search.html:55
-#: tcms/testplans/templates/testplans/clone.html:21
-#: tcms/testplans/templates/testplans/get.html:64
+#: tcms/testcases/templates/testcases/search.html:55 tcms/testplans/forms.py:78
+#: tcms/testplans/models.py:64 tcms/testplans/templates/testplans/clone.html:21
+#: tcms/testplans/templates/testplans/get.html:66
 #: tcms/testplans/templates/testplans/mutable.html:33
 #: tcms/testplans/templates/testplans/search.html:52
-#: tcms/testplans/templates/testplans/search.html:119
-#: tcms/testruns/templates/testruns/get.html:45
+#: tcms/testplans/templates/testplans/search.html:119 tcms/testruns/forms.py:42
+#: tcms/testruns/forms.py:97 tcms/testruns/templates/testruns/get.html:48
 #: tcms/testruns/templates/testruns/mutable.html:46
 #: tcms/testruns/templates/testruns/search.html:39
-#: tcms/testruns/templates/testruns/search.html:187
+#: tcms/testruns/templates/testruns/search.html:187 tcms/workflow/models.py:20
+#: tcms/workflow/models.py:86 tcms/workflow/models.py:191
+#: tcms/workflow/models.py:236 tcms/workflow/templates/workflow/hub.html:6
+#: tcms/workflow/templates/workflow/report.html:6
+#: tcms/workflow/templates/workflow/runs.html:3
 msgid "Product"
 msgstr "Продукт"
 
-#: tcms/bugs/templates/bugs/get.html:80
+#: tcms/bugs/models.py:54 tcms/bugs/templates/bugs/get.html:80
 #: tcms/bugs/templates/bugs/mutable.html:60
 #: tcms/bugs/templates/bugs/search.html:61
-#: tcms/bugs/templates/bugs/search.html:116 tcms/management/models.py:118
+#: tcms/bugs/templates/bugs/search.html:116 tcms/management/models.py:128
+#: tcms/management/models.py:170
 #: tcms/telemetry/templates/telemetry/include/filters.html:17
-#: tcms/templates/include/bug_details.html:15 tcms/templates/navbar.html:71
-#: tcms/testplans/templates/testplans/clone.html:36
-#: tcms/testplans/templates/testplans/get.html:70
+#: tcms/templates/include/bug_details.html:15 tcms/templates/navbar.html:87
+#: tcms/testplans/forms.py:83 tcms/testplans/templates/testplans/clone.html:36
+#: tcms/testplans/templates/testplans/get.html:72
 #: tcms/testplans/templates/testplans/mutable.html:48
 #: tcms/testplans/templates/testplans/search.html:62
 #: tcms/testplans/templates/testplans/search.html:120
-#: tcms/testruns/templates/testruns/get.html:50
+#: tcms/testruns/forms.py:100 tcms/testruns/templates/testruns/get.html:53
 #: tcms/testruns/templates/testruns/search.html:49
 #: tcms/testruns/templates/testruns/search.html:188
 msgid "Version"
 msgstr "Версия"
 
-#: tcms/bugs/templates/bugs/get.html:85
+#: tcms/bugs/models.py:57 tcms/bugs/templates/bugs/get.html:85
 #: tcms/bugs/templates/bugs/mutable.html:78
 #: tcms/bugs/templates/bugs/search.html:71
-#: tcms/bugs/templates/bugs/search.html:117 tcms/management/models.py:164
+#: tcms/bugs/templates/bugs/search.html:117 tcms/management/models.py:179
 #: tcms/telemetry/templates/telemetry/include/filters.html:25
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:36
-#: tcms/templates/include/bug_details.html:17
-#: tcms/testruns/templates/testruns/get.html:55
-#: tcms/testruns/templates/testruns/get.html:422
+#: tcms/templates/include/bug_details.html:17 tcms/testruns/models.py:58
+#: tcms/testruns/models.py:323 tcms/testruns/templates/testruns/get.html:58
+#: tcms/testruns/templates/testruns/get.html:455
 #: tcms/testruns/templates/testruns/mutable.html:89
 #: tcms/testruns/templates/testruns/search.html:59
-#: tcms/testruns/templates/testruns/search.html:189
+#: tcms/testruns/templates/testruns/search.html:189 tcms/workflow/forms.py:301
+#: tcms/workflow/templates/workflow/runs.html:3
 msgid "Build"
 msgstr "Сборка"
+
+#: tcms/bugs/models.py:68 tcms/core/templates/dashboard.html:56
+#: tcms/templates/include/tc_executions.html:7
+msgid "Executions"
+msgstr "Запуски"
+
+#: tcms/bugs/models.py:71 tcms/management/models.py:203
+#: tcms/templates/include/tags_card.html:6
+#: tcms/testcases/templates/testcases/search.html:176
+#: tcms/testplans/templates/testplans/get.html:463
+#: tcms/testplans/templates/testplans/search.html:123
+#: tcms/testruns/templates/testruns/get.html:394
+#: tcms/testruns/templates/testruns/search.html:194
+msgid "Tags"
+msgstr "Теги"
+
+#: tcms/bugs/templates/bugs/get.html:37 tcms/bugs/templates/bugs/search.html:93
+#: tcms/issuetracker/kiwitcms.py:49 tcms/templates/include/bug_details.html:3
+#: tcms/workflow/models.py:16 tcms/workflow/templates/workflow/cycle.html:5
+#: tcms/workflow/templates/workflow/hub.html:23
+#: tcms/workflow/templates/workflow/runs.html:6
+msgid "Open"
+msgstr "Открыто"
+
+#: tcms/bugs/templates/bugs/get.html:39 tcms/issuetracker/kiwitcms.py:49
+#: tcms/templates/include/bug_details.html:3
+#: tcms/workflow/templates/workflow/runs.html:6
+msgid "Closed"
+msgstr "Закрыто"
 
 #: tcms/bugs/templates/bugs/get.html:119
 msgid "commented on"
@@ -141,37 +289,20 @@ msgstr "Переоткрыть"
 #: tcms/bugs/templates/bugs/mutable.html:114
 #: tcms/kiwi_auth/templates/accounts/reset_user_email.html:78
 #: tcms/testcases/templates/testcases/mutable.html:265
-#: tcms/testplans/templates/testplans/get.html:482
+#: tcms/testplans/templates/testplans/get.html:484
 #: tcms/testplans/templates/testplans/mutable.html:173
-#: tcms/testruns/templates/testruns/get.html:488
-#: tcms/testruns/templates/testruns/get.html:601
+#: tcms/testruns/templates/testruns/get.html:521
+#: tcms/testruns/templates/testruns/get.html:636
 #: tcms/testruns/templates/testruns/mutable.html:210
+#: tcms/workflow/templates/workflow/form.html:6
 msgid "Save"
 msgstr "Сохранить"
 
-#: tcms/bugs/templates/bugs/get.html:153
+#: tcms/bugs/templates/bugs/get.html:153 tcms/templates/base.html:41
+#: tcms/testruns/templates/testruns/get.html:608
+#: tcms/testruns/templates/testruns/get.html:647
 msgid "Close"
 msgstr "Закрыть"
-
-#: tcms/bugs/templates/bugs/mutable.html:20
-#: tcms/bugs/templates/bugs/search.html:17
-#: tcms/bugs/templates/bugs/search.html:113
-#: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:31
-#: tcms/testcases/templates/testcases/mutable.html:24
-#: tcms/testcases/templates/testcases/search.html:17
-#: tcms/testcases/templates/testcases/search.html:166
-#: tcms/testplans/templates/testplans/get.html:212
-#: tcms/testplans/templates/testplans/get.html:492
-#: tcms/testplans/templates/testplans/toolbar_dropdown.html:3
-#: tcms/testruns/templates/testruns/get.html:259
-#: tcms/testruns/templates/testruns/get.html:266
-#: tcms/testruns/templates/testruns/get.html:269
-#: tcms/testruns/templates/testruns/mutable.html:23
-#: tcms/testruns/templates/testruns/mutable.html:229
-#: tcms/testruns/templates/testruns/search.html:18
-#: tcms/testruns/templates/testruns/search.html:185
-msgid "Summary"
-msgstr "Название"
 
 #: tcms/bugs/templates/bugs/mutable.html:28
 msgid "add new Severity"
@@ -213,11 +344,11 @@ msgstr "Поиск ошибок"
 #: tcms/templates/include/attachments.html:35
 #: tcms/templates/include/bugs_table.html:4
 #: tcms/testcases/templates/testcases/search.html:11
-#: tcms/testplans/templates/testplans/get.html:337
+#: tcms/testplans/templates/testplans/get.html:339
 #: tcms/testplans/templates/testplans/search.html:13
 #: tcms/testruns/templates/testruns/search.html:11
 msgid "No records found"
-msgstr "Записей не найдены"
+msgstr "Записей не найдено"
 
 #: tcms/bugs/templates/bugs/search.html:12
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:12
@@ -263,7 +394,7 @@ msgstr "После"
 #: tcms/testcases/templates/testcases/search.html:128
 #: tcms/testplans/templates/testplans/search.html:86
 #: tcms/testplans/templates/testplans/search.html:92
-#: tcms/testruns/templates/testruns/get.html:532
+#: tcms/testruns/templates/testruns/get.html:567
 #: tcms/testruns/templates/testruns/search.html:73
 #: tcms/testruns/templates/testruns/search.html:79
 msgid "Username"
@@ -294,8 +425,9 @@ msgstr "Имя пользователя"
 #: tcms/testplans/templates/testplans/mutable.html:154
 #: tcms/testplans/templates/testplans/mutable.html:167
 #: tcms/testplans/templates/testplans/search.html:46
-#: tcms/testruns/templates/testruns/get.html:595
+#: tcms/testruns/templates/testruns/get.html:630
 #: tcms/testruns/templates/testruns/search.html:85
+#: tcms/workflow/templatetags/workflow.py:11
 msgid "Yes"
 msgstr "Да"
 
@@ -324,23 +456,24 @@ msgstr "Да"
 #: tcms/testplans/templates/testplans/mutable.html:154
 #: tcms/testplans/templates/testplans/mutable.html:167
 #: tcms/testplans/templates/testplans/search.html:46
-#: tcms/testruns/templates/testruns/get.html:595
+#: tcms/testruns/templates/testruns/get.html:630
 #: tcms/testruns/templates/testruns/search.html:85
+#: tcms/workflow/templatetags/workflow.py:13
 msgid "No"
 msgstr "Нет"
 
 #: tcms/bugs/templates/bugs/search.html:101
 #: tcms/testcases/templates/testcases/search.html:154
-#: tcms/testplans/templates/testplans/get.html:221
+#: tcms/testplans/templates/testplans/get.html:223
 #: tcms/testplans/templates/testplans/search.html:105
-#: tcms/testruns/templates/testruns/get.html:281
+#: tcms/testruns/templates/testruns/get.html:286
 #: tcms/testruns/templates/testruns/search.html:174
 msgid "Search"
 msgstr "Поиск"
 
 #: tcms/bugs/templates/bugs/search.html:111
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:30
-#: tcms/testcases/templates/testcases/get.html:166
+#: tcms/testcases/templates/testcases/get.html:168
 #: tcms/testcases/templates/testcases/search.html:148
 #: tcms/testcases/templates/testcases/search.html:165
 #: tcms/testplans/templates/testplans/search.html:116
@@ -356,27 +489,27 @@ msgstr "Идентификатор"
 msgid "Created on"
 msgstr "Создано"
 
-#: tcms/bugs/views.py:42 tcms/testcases/views.py:133
-#: tcms/testplans/templates/testplans/get.html:385 tcms/testplans/views.py:149
-#: tcms/testruns/views.py:194 tcms/testruns/views.py:308
+#: tcms/bugs/views.py:42 tcms/testcases/views.py:134
+#: tcms/testplans/templates/testplans/get.html:387 tcms/testplans/views.py:149
+#: tcms/testruns/views.py:191 tcms/testruns/views.py:310
 msgid "Edit"
 msgstr "Изменить"
 
-#: tcms/bugs/views.py:45 tcms/testcases/views.py:146
-#: tcms/testplans/views.py:157 tcms/testruns/views.py:207
-#: tcms/testruns/views.py:316
+#: tcms/bugs/views.py:45 tcms/testcases/views.py:147
+#: tcms/testplans/views.py:157 tcms/testruns/views.py:204
+#: tcms/testruns/views.py:318
 msgid "Object permissions"
 msgstr "Права доступа к объекту"
 
 #: tcms/bugs/views.py:50
 #: tcms/templates/include/comments_for_object_template.html:10
 #: tcms/templates/include/properties_card.html:32
-#: tcms/templates/include/properties_card.html:47 tcms/testcases/views.py:154
-#: tcms/testplans/templates/testplans/get.html:193
-#: tcms/testplans/templates/testplans/get.html:389 tcms/testplans/views.py:165
-#: tcms/testruns/templates/testruns/get.html:246
-#: tcms/testruns/templates/testruns/get.html:458 tcms/testruns/views.py:215
-#: tcms/testruns/views.py:324
+#: tcms/templates/include/properties_card.html:47 tcms/testcases/views.py:155
+#: tcms/testplans/templates/testplans/get.html:195
+#: tcms/testplans/templates/testplans/get.html:391 tcms/testplans/views.py:165
+#: tcms/testruns/templates/testruns/get.html:251
+#: tcms/testruns/templates/testruns/get.html:491 tcms/testruns/views.py:212
+#: tcms/testruns/views.py:326
 msgid "Delete"
 msgstr "Удалить"
 
@@ -403,100 +536,196 @@ msgstr "ОБНОВЛЕНИЕ: %(model_name)s #%(pk)d - %(title)s"
 
 #: tcms/core/history.py:61
 #, python-format
-msgid "Updated on %(history_date)s\n"
-"Updated by %(username)s\n\n"
-"%(diff)s\n\n"
+msgid ""
+"Updated on %(history_date)s\n"
+"Updated by %(username)s\n"
+"\n"
+"%(diff)s\n"
+"\n"
 "For more information:\n"
 "%(instance_url)s"
-msgstr "Обновлено %(history_date)s\n"
-"Пользователем %(username)s\n\n"
-"%(diff)s\n\n"
+msgstr ""
+"Обновлено %(history_date)s\n"
+"Пользователем %(username)s\n"
+"\n"
+"%(diff)s\n"
+"\n"
 "Дополнительная информация:\n"
 "%(instance_url)s"
+
+#: tcms/core/models/abstract.py:7 tcms/management/models.py:73
+#: tcms/management/models.py:117
+msgid "Value"
+msgstr "Значение"
 
 #: tcms/core/templates/dashboard.html:3 tcms/settings/common.py:430
 msgid "Dashboard"
 msgstr "Панель управления"
 
-#: tcms/core/templates/dashboard.html:8
-#: tcms/testruns/templates/testruns/get.html:153
+#: tcms/core/templates/dashboard.html:7
+msgid "Planning & milestones"
+msgstr "Планирование и этапы"
+
+#: tcms/core/templates/dashboard.html:7
+msgid "My testing tasks"
+msgstr "Мои задачи тестирования"
+
+#: tcms/core/templates/dashboard.html:9 tcms/testruns/models.py:357
+#: tcms/testruns/templates/testruns/get.html:158
 msgid "Test executions"
 msgstr "Запуски тестов"
 
-#: tcms/core/templates/dashboard.html:15
+#: tcms/core/templates/dashboard.html:16
 #, python-format
 msgid "%(amount)s%% complete"
 msgstr "%(amount)s%% выполнено"
 
-#: tcms/core/templates/dashboard.html:24
+#: tcms/core/templates/dashboard.html:25
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:44
-#: tcms/testruns/templates/testruns/get.html:78
+#: tcms/testruns/templates/testruns/get.html:81
 msgid "Started at"
 msgstr "Запущеннo в"
 
-#: tcms/core/templates/dashboard.html:32
+#: tcms/core/templates/dashboard.html:33
 #, python-format
-msgid "%(total_count)s TestRun(s) or TestCase(s) assigned to you need to be executed.\n"
+msgid ""
+"%(total_count)s TestRun(s) or TestCase(s) assigned to you need to be "
+"executed.\n"
 "Here are the latest %(count)s."
-msgstr "%(total_count)s Тестовых запусков или Тестовых случаев назначенных вам должны быть выполнены.\n"
+msgstr ""
+"%(total_count)s Тестовых запусков или Тестовых случаев назначенных вам "
+"должны быть выполнены.\n"
 "Это последние %(count)s."
 
-#: tcms/core/templates/dashboard.html:36 tcms/core/templates/dashboard.html:80
+#: tcms/core/templates/dashboard.html:37 tcms/core/templates/dashboard.html:81
 msgid "SEE ALL"
 msgstr "СМОТРЕТЬ ВСЕ"
 
-#: tcms/core/templates/dashboard.html:39
+#: tcms/core/templates/dashboard.html:40
 msgid "There are no TestRun(s) assigned to you"
 msgstr "Нет тестовых запусков назначенных вам"
 
-#: tcms/core/templates/dashboard.html:46
+#: tcms/core/templates/dashboard.html:47
 msgid "Your Test plans"
 msgstr "Ваши планы тестов"
 
-#: tcms/core/templates/dashboard.html:52
+#: tcms/core/templates/dashboard.html:53
 msgid "TestPlan"
 msgstr "План теста"
 
-#: tcms/core/templates/dashboard.html:54
-#: tcms/testcases/templates/testcases/get.html:169
+#: tcms/core/templates/dashboard.html:55 tcms/testcases/models.py:345
+#: tcms/testcases/templates/testcases/get.html:171 tcms/testplans/models.py:68
 #: tcms/testplans/templates/testplans/mutable.html:66
 #: tcms/testplans/templates/testplans/search.html:72
 #: tcms/testplans/templates/testplans/search.html:121
+#: tcms/workflow/models.py:243
 msgid "Type"
 msgstr "Тип"
 
-#: tcms/core/templates/dashboard.html:55
-#: tcms/templates/include/tc_executions.html:7
-msgid "Executions"
-msgstr "Запуски"
-
-#: tcms/core/templates/dashboard.html:76
+#: tcms/core/templates/dashboard.html:77
 #, python-format
-msgid "You manage %(total_count)s TestPlan(s), %(disabled_count)s are disabled.\n"
+msgid ""
+"You manage %(total_count)s TestPlan(s), %(disabled_count)s are disabled.\n"
 "Here are the latest %(count)s."
-msgstr "Вы управляете %(total_count)s тестовыми планами, %(disabled_count)s отключены.\n"
+msgstr ""
+"Вы управляете %(total_count)s тестовыми планами, %(disabled_count)s "
+"отключены.\n"
 "Это последние %(count)s."
 
-#: tcms/core/templates/dashboard.html:83
+#: tcms/core/templates/dashboard.html:84
 msgid "There are no TestPlan(s) that belong to you"
 msgstr "Нет планов тестирования, принадлежащих вам"
 
+#: tcms/core/translation_strings.py:8
+msgid "- Select an option -"
+msgstr "— Выберите вариант —"
+
+#: tcms/core/translation_strings.py:11
+msgid "PROPOSED"
+msgstr "ПРЕДЛОЖЕН"
+
+#: tcms/core/translation_strings.py:12 tcms/telemetry/api.py:62
+msgid "CONFIRMED"
+msgstr "ПОДТВЕРЖДЁН"
+
+#: tcms/core/translation_strings.py:13
+msgid "DISABLED"
+msgstr "ОТКЛЮЧЁН"
+
+#: tcms/core/translation_strings.py:14
+msgid "NEED_UPDATE"
+msgstr "ТРЕБУЕТ ОБНОВЛЕНИЯ"
+
+#: tcms/core/translation_strings.py:15
+msgid "IDLE"
+msgstr "НЕ ВЫПОЛНЯЛСЯ"
+
+#: tcms/core/translation_strings.py:16
+msgid "RUNNING"
+msgstr "ВЫПОЛНЯЕТСЯ"
+
+#: tcms/core/translation_strings.py:17
+msgid "PAUSED"
+msgstr "ПРИОСТАНОВЛЕН"
+
+#: tcms/core/translation_strings.py:18
+msgid "PASSED"
+msgstr "ПРОЙДЕНО"
+
+#: tcms/core/translation_strings.py:19
+msgid "FAILED"
+msgstr "НЕ ПРОЙДЕНО"
+
+#: tcms/core/translation_strings.py:20
+msgid "BLOCKED"
+msgstr "ЗАБЛОКИРОВАН"
+
+#: tcms/core/translation_strings.py:21
+msgid "ERROR"
+msgstr "ОШИБКА"
+
+#: tcms/core/translation_strings.py:22
+msgid "WAIVED"
+msgstr "ПРОПУЩЕН"
+
 #: tcms/core/views.py:48
 #, python-brace-format
-msgid "Base URL is not configured! See <a href=\"{doc_url}\">documentation</a> and <a href=\"{admin_url}\">change it</a>"
+msgid ""
+"Base URL is not configured! See <a href=\"{doc_url}\">documentation</a> and "
+"<a href=\"{admin_url}\">change it</a>"
 msgstr ""
+"Базовый URL не настроен! См. <a href=\"{doc_url}\">документацию</a> и <a "
+"href=\"{admin_url}\">измените настройку</a>"
 
 #: tcms/core/views.py:70
 #, python-brace-format
-msgid "You have {unapplied_migration_count} unapplied migration(s). See <a href=\"{doc_url}\">documentation</a>"
+msgid ""
+"You have {unapplied_migration_count} unapplied migration(s). See <a "
+"href=\"{doc_url}\">documentation</a>"
 msgstr ""
+"Есть неприменённые миграции: {unapplied_migration_count}. См. <a "
+"href=\"{doc_url}\">документацию</a>"
 
 #: tcms/core/views.py:89
 #, python-brace-format
-msgid "You are not using a secure connection. See <a href=\"{doc_url}\">documentation</a> and enable SSL."
+msgid ""
+"You are not using a secure connection. See <a "
+"href=\"{doc_url}\">documentation</a> and enable SSL."
 msgstr ""
+"Соединение не защищено. См. <a href=\"{doc_url}\">документацию</a> и "
+"включите SSL."
 
-#: tcms/kiwi_attachments/validators.py:101
+#: tcms/kiwi_attachments/validators.py:13
+#, python-brace-format
+msgid "File contains forbidden tag: <{tag_name}>"
+msgstr "Файл содержит запрещённый тег: <{tag_name}>"
+
+#: tcms/kiwi_attachments/validators.py:99
+#, python-brace-format
+msgid "File contains forbidden attribute: `{attr_name}`"
+msgstr "Файл содержит запрещённый атрибут: `{attr_name}`"
+
+#: tcms/kiwi_attachments/validators.py:106
 msgid "Uploading executable files is forbidden"
 msgstr "Загрузка исполняемых файлов запрещена"
 
@@ -515,7 +744,7 @@ msgstr "Учетные записи '%s' были отключены"
 
 #: tcms/kiwi_auth/admin.py:106
 #: tcms/kiwi_auth/templates/accounts/reset_user_email.html:5
-#: tcms/templates/navbar.html:102
+#: tcms/templates/navbar.html:118
 msgid "Reset email address"
 msgstr "Сбросить адрес электронной почты"
 
@@ -531,6 +760,10 @@ msgstr "Права доступа"
 msgid "This is the last superuser, it cannot be deleted!"
 msgstr "Это последний суперпользователь, он не может быть удален!"
 
+#: tcms/kiwi_auth/apps.py:7
+msgid "Kiwi authentication"
+msgstr "Учётные записи Kiwi"
+
 #: tcms/kiwi_auth/forms.py:28
 msgid "A user with that email already exists."
 msgstr "Пользователь с таким email уже существует."
@@ -539,22 +772,63 @@ msgstr "Пользователь с таким email уже существует
 msgid "Please confirm your Kiwi TCMS account email address"
 msgstr "Пожалуйста, подтвердите ваш email адрес для аккаунта Kiwi TCMS"
 
-#: tcms/kiwi_auth/forms.py:142
+#: tcms/kiwi_auth/forms.py:58
+msgid "Email"
+msgstr "Email"
+
+#: tcms/kiwi_auth/forms.py:135
+msgid "Email 1"
+msgstr "Электронная почта 1"
+
+#: tcms/kiwi_auth/forms.py:139
+msgid "Email 2"
+msgstr "Электронная почта 2"
+
+#: tcms/kiwi_auth/forms.py:146
 msgid "Email mismatch"
 msgstr "Адреса электронной почты не совпадают"
+
+#: tcms/kiwi_auth/models.py:13
+msgid "User activation key"
+msgstr "Ключ активации пользователя"
+
+#: tcms/kiwi_auth/models.py:14
+msgid "User activation keys"
+msgstr "Ключи активации пользователей"
+
+#: tcms/kiwi_auth/models.py:17 tcms/testruns/models.py:402
+msgid "User"
+msgstr "Пользователь"
+
+#: tcms/kiwi_auth/models.py:20
+msgid "Activation key"
+msgstr "Ключ активации"
+
+#: tcms/kiwi_auth/models.py:23
+msgid "Key expires"
+msgstr "Срок действия ключа"
 
 #: tcms/kiwi_auth/templates/accounts/reset_user_email.html:14
 msgid "Warning"
 msgstr "Внимание"
 
 #: tcms/kiwi_auth/templates/accounts/reset_user_email.html:19
-msgid "After clicking the 'Save' button your account will become <strong>inactive</strong>\n"
-"and you will be <strong>logged out</strong>! A confirmation email will be sent to the newly specified address!<br>\n"
-"Double check that your new email address is <strong>entered correctly</strong> otherwise\n"
+msgid ""
+"After clicking the 'Save' button your account will become <strong>inactive</"
+"strong>\n"
+"and you will be <strong>logged out</strong>! A confirmation email will be "
+"sent to the newly specified address!<br>\n"
+"Double check that your new email address is <strong>entered correctly</"
+"strong> otherwise\n"
 "<strong>you may be left locked out</strong> of your account!\n"
 "After following the activation link you will be able to log in as usual!"
-msgstr "После нажатия кнопки \"Сохранить\" ваша учетная запись станет <strong>неактивной</strong>, и будет выполнен <strong>выход из системы</strong>! На вновь указанный адрес будет отправлено электронное письмо с подтверждением!<br>\n"
-"Дважды проверьте <strong>правильность ввода</strong> вашего нового адреса электронной почты, в случае ошибки\n"
+msgstr ""
+"После нажатия кнопки \"Сохранить\" ваша учетная запись станет "
+"<strong>неактивной</strong>, и будет выполнен <strong>выход из системы</"
+"strong>! На вновь указанный адрес будет отправлено электронное письмо с "
+"подтверждением!<br>\n"
+"Дважды проверьте <strong>правильность ввода</strong> вашего нового адреса "
+"электронной почты, в случае ошибки\n"
 "<strong>вы можете потерять доступ</strong> к вашему аккаунту!\n"
 "Перейдя по ссылке для активации, вы сможете войти в систему в обычном режиме!"
 
@@ -576,119 +850,146 @@ msgstr "Подтвердить"
 
 #: tcms/kiwi_auth/templates/accounts/reset_user_email.html:71
 msgid "Please type! Do not copy-and-paste value from previous field!"
-msgstr "Пожалуйста, введите! Не копировать - вставлять значение из предыдущего поля!"
+msgstr ""
+"Пожалуйста, введите! Не копировать - вставлять значение из предыдущего поля!"
 
 #: tcms/kiwi_auth/views.py:70
-msgid "Your account has been created, please check your mailbox for confirmation"
-msgstr "Ваша учетная запись была создана и ожидает подтверждение через указанный вами адрес электронной почты"
+msgid ""
+"Your account has been created, please check your mailbox for confirmation"
+msgstr ""
+"Ваша учетная запись была создана и ожидает подтверждение через указанный "
+"вами адрес электронной почты"
 
 #: tcms/kiwi_auth/views.py:75
-msgid "Your account has been created, but you need an administrator to activate it"
+msgid ""
+"Your account has been created, but you need an administrator to activate it"
 msgstr "Ваша учетная запись была создана и ожидает активации администратором"
 
 #: tcms/kiwi_auth/views.py:80
 msgid "Following is the administrator list"
 msgstr "Список администраторов"
 
-#: tcms/kiwi_auth/views.py:126
+#: tcms/kiwi_auth/views.py:124
 msgid "This activation key no longer exists in the database"
 msgstr "Ключ активации больше не существует в базе данных"
 
-#: tcms/kiwi_auth/views.py:132
+#: tcms/kiwi_auth/views.py:130
 msgid "This activation key has expired"
 msgstr "Срок действия ключа активации истек"
 
-#: tcms/kiwi_auth/views.py:144
+#: tcms/kiwi_auth/views.py:142
 msgid "Your account has been activated successfully"
 msgstr "Ваша учетная запись успешно активирована"
 
-#: tcms/kiwi_auth/views.py:171 tcms/kiwi_auth/views.py:180
-#: tcms/kiwi_auth/views.py:199 tcms/kiwi_auth/views.py:208
+#: tcms/kiwi_auth/views.py:169 tcms/kiwi_auth/views.py:178
+#: tcms/kiwi_auth/views.py:197 tcms/kiwi_auth/views.py:206
 #, python-format
 msgid "You are viewing records from tenant '%s'"
 msgstr "Вы просматриваете записи экземпляра '%s'"
 
-#: tcms/kiwi_auth/views.py:259
-msgid "Email address has been reset, please check inbox for further instructions"
-msgstr "Адрес электронной почты был сброшен, пожалуйста, проверьте почту для дальнейших инструкций"
+#: tcms/kiwi_auth/views.py:257
+msgid ""
+"Email address has been reset, please check inbox for further instructions"
+msgstr ""
+"Адрес электронной почты был сброшен, пожалуйста, проверьте почту для "
+"дальнейших инструкций"
+
+#: tcms/management/apps.py:7
+msgid "Product management"
+msgstr "Управление продуктами"
+
+#: tcms/management/models.py:19 tcms/management/models.py:28
+msgid "Classification"
+msgstr "Классификация"
 
 #: tcms/management/models.py:20
-msgid "Classification"
-msgstr ""
-
-#: tcms/management/models.py:21
 msgid "Classifications"
-msgstr ""
+msgstr "Классификации"
 
-#: tcms/management/models.py:57
+#: tcms/management/models.py:30 tcms/management/models.py:101
+#: tcms/testcases/models.py:19 tcms/testcases/models.py:44
+#: tcms/testplans/models.py:20 tcms/testruns/models.py:411
+#: tcms/workflow/models.py:30 tcms/workflow/models.py:96
+msgid "Description"
+msgstr "Описание"
+
+#: tcms/management/models.py:58
 msgid "Products"
-msgstr ""
+msgstr "Продукты"
 
-#: tcms/management/models.py:77
+#: tcms/management/models.py:74 tcms/management/models.py:174
+#: tcms/testplans/models.py:42
+#: tcms/testplans/templates/testplans/mutable.html:165
+#: tcms/testplans/templates/testplans/search.html:43
+#: tcms/workflow/models.py:251
+msgid "Active"
+msgstr "Активно"
+
+#: tcms/management/models.py:78
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:32
-#: tcms/testcases/templates/testcases/get.html:64
+#: tcms/testcases/forms.py:31 tcms/testcases/forms.py:121
+#: tcms/testcases/models.py:97 tcms/testcases/templates/testcases/get.html:66
 #: tcms/testcases/templates/testcases/mutable.html:86
 #: tcms/testcases/templates/testcases/search.html:86
 #: tcms/testcases/templates/testcases/search.html:171
-#: tcms/testplans/templates/testplans/get.html:162
-#: tcms/testplans/templates/testplans/get.html:376
-#: tcms/testplans/templates/testplans/get.html:409
-#: tcms/testplans/templates/testplans/get.html:495
+#: tcms/testplans/templates/testplans/get.html:164
+#: tcms/testplans/templates/testplans/get.html:378
+#: tcms/testplans/templates/testplans/get.html:411
+#: tcms/testplans/templates/testplans/get.html:497
 #: tcms/testplans/templates/testplans/toolbar_dropdown.html:6
-#: tcms/testruns/templates/testruns/get.html:273
-#: tcms/testruns/templates/testruns/get.html:371
+#: tcms/testruns/templates/testruns/get.html:278
+#: tcms/testruns/templates/testruns/get.html:404
 #: tcms/testruns/templates/testruns/mutable.html:234
 msgid "Priority"
 msgstr "Приоритет"
 
-#: tcms/management/models.py:78
+#: tcms/management/models.py:79
 #: tcms/telemetry/templates/telemetry/testing/breakdown.html:34
 msgid "Priorities"
 msgstr "Приоритеты"
 
-#: tcms/management/models.py:100
+#: tcms/management/models.py:95
+msgid "Initial owner"
+msgstr "Первоначальный владелец"
+
+#: tcms/management/models.py:107 tcms/testcases/forms.py:116
+#: tcms/testcases/models.py:132 tcms/testcases/models.py:286
 #: tcms/testcases/templates/testcases/search.html:116
 #: tcms/testcases/templates/testcases/search.html:170
-#: tcms/testplans/templates/testplans/get.html:216
-#: tcms/testruns/templates/testruns/get.html:270
+#: tcms/testplans/templates/testplans/get.html:218
+#: tcms/testruns/templates/testruns/get.html:275
 msgid "Component"
 msgstr "Компонент"
 
-#: tcms/management/models.py:101
+#: tcms/management/models.py:108
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:37
-#: tcms/testcases/templates/testcases/get.html:208
-#: tcms/testplans/templates/testplans/get.html:452
-#: tcms/testruns/templates/testruns/get.html:357
+#: tcms/testcases/templates/testcases/get.html:210
+#: tcms/testplans/templates/testplans/get.html:454
+#: tcms/testruns/templates/testruns/get.html:390
 msgid "Components"
 msgstr "Компоненты"
 
-#: tcms/management/models.py:119
+#: tcms/management/models.py:129
 msgid "Versions"
-msgstr ""
+msgstr "Версии"
 
-#: tcms/management/models.py:165
+#: tcms/management/models.py:180
 msgid "Builds"
 msgstr "Сборки"
 
-#: tcms/management/models.py:187
+#: tcms/management/models.py:202 tcms/testcases/models.py:139
+#: tcms/testcases/models.py:296
 #: tcms/testcases/templates/testcases/search.html:140
-#: tcms/testplans/templates/testplans/get.html:217
-#: tcms/testplans/templates/testplans/search.html:96
-#: tcms/testruns/templates/testruns/get.html:271
+#: tcms/testplans/models.py:71 tcms/testplans/models.py:303
+#: tcms/testplans/templates/testplans/get.html:219
+#: tcms/testplans/templates/testplans/search.html:96 tcms/testruns/models.py:79
+#: tcms/testruns/models.py:328 tcms/testruns/models.py:368
+#: tcms/testruns/models.py:384 tcms/testruns/templates/testruns/get.html:276
 #: tcms/testruns/templates/testruns/search.html:31
 msgid "Tag"
 msgstr "Тег"
 
-#: tcms/management/models.py:188 tcms/templates/include/tags_card.html:6
-#: tcms/testcases/templates/testcases/search.html:176
-#: tcms/testplans/templates/testplans/get.html:461
-#: tcms/testplans/templates/testplans/search.html:123
-#: tcms/testruns/templates/testruns/get.html:361
-#: tcms/testruns/templates/testruns/search.html:194
-msgid "Tags"
-msgstr "Теги"
-
-#: tcms/rpc/api/bug.py:69
+#: tcms/rpc/api/bug.py:75
 msgid "Enable reporting to this Issue Tracker by configuring its base_url!"
 msgstr "Включить отчетность к трекеру задач, настроив его base_url!"
 
@@ -706,12 +1007,13 @@ msgstr "Новый план тестирования"
 
 #: tcms/settings/common.py:395
 #: tcms/testcases/templates/testcases/mutable.html:12
-#: tcms/testplans/templates/testplans/get.html:131
+#: tcms/testplans/templates/testplans/get.html:133
+#: tcms/testplans/templates/testplans/get.html:522
 msgid "New Test Case"
 msgstr "Новый тестовый случай"
 
-#: tcms/settings/common.py:397 tcms/testplans/templates/testplans/get.html:121
-#: tcms/testruns/templates/testruns/get.html:180
+#: tcms/settings/common.py:397 tcms/testplans/templates/testplans/get.html:123
+#: tcms/testruns/templates/testruns/get.html:185
 #: tcms/testruns/templates/testruns/mutable.html:11
 msgid "New Test Run"
 msgstr "Новый тестовый прогон"
@@ -778,31 +1080,50 @@ msgstr "Группы"
 msgid "Everything else"
 msgstr "Прочее"
 
-#: tcms/settings/common.py:449
+#: tcms/settings/common.py:450
+msgid "WORKFLOW"
+msgstr "ПЛАНИРОВАНИЕ"
+
+#: tcms/settings/common.py:452 tcms/workflow/templates/workflow/base.html:14
+#: tcms/workflow/templates/workflow/hub.html:3
+#: tcms/workflow/templates/workflow/run.html:11
+msgid "Planning"
+msgstr "Планирование"
+
+#: tcms/settings/common.py:453 tcms/workflow/templates/workflow/base.html:15
+#: tcms/workflow/templates/workflow/todo.html:3
+msgid "My tasks"
+msgstr "Мои задачи"
+
+#: tcms/settings/common.py:454
+msgid "Progress report"
+msgstr "Отчёт о ходе тестирования"
+
+#: tcms/settings/common.py:457
 msgid "MORE"
 msgstr "ЕЩЕ"
 
-#: tcms/settings/common.py:459
+#: tcms/settings/common.py:467
 msgid "Report an Issue"
 msgstr "Сообщить о проблеме"
 
-#: tcms/settings/common.py:462
+#: tcms/settings/common.py:470
 msgid "Ask for help on StackOverflow"
 msgstr "Запросить помощь в StackOverflow"
 
-#: tcms/settings/common.py:466
+#: tcms/settings/common.py:474
 msgid "Donate €5 via Open Collective"
 msgstr "Пожертвовать €5 через Open Collective"
 
-#: tcms/settings/common.py:468
+#: tcms/settings/common.py:476
 msgid "Administration Guide"
 msgstr "Руководство администратора"
 
-#: tcms/settings/common.py:469
+#: tcms/settings/common.py:477
 msgid "User Guide"
 msgstr "Руководство пользователя"
 
-#: tcms/settings/common.py:470
+#: tcms/settings/common.py:478
 msgid "API Help"
 msgstr "Справка по API"
 
@@ -820,34 +1141,38 @@ msgstr "НОВЫЙ: тест-прогон #%(pk)d - %(summary)s"
 msgid "Bug #%(pk)d - %(summary)s"
 msgstr "Ошибка #%(pk)d - %(summary)s"
 
-#: tcms/telemetry/api.py:60 testcases.TestCaseStatus/name:2
-msgid "CONFIRMED"
-msgstr "ПОДТВЕРЖДЕНО"
-
-#: tcms/telemetry/api.py:61
+#: tcms/telemetry/api.py:63
 msgid "OTHER"
 msgstr "ДРУГОЕ"
 
-#: tcms/telemetry/api.py:133 tcms/telemetry/api.py:185
-#: tcms/telemetry/api.py:191
+#: tcms/telemetry/api.py:139 tcms/telemetry/api.py:191
+#: tcms/telemetry/api.py:197
 #: tcms/telemetry/templates/telemetry/testing/execution-trends.html:9
 #: tcms/telemetry/templates/telemetry/testing/execution-trends.html:13
-#: tcms/testruns/templates/testruns/get.html:129
+#: tcms/testruns/templates/testruns/get.html:134
 msgid "TOTAL"
 msgstr "ИТОГО"
 
 #: tcms/telemetry/templates/telemetry/include/filters.html:36
+#: tcms/testcases/forms.py:149 tcms/testcases/models.py:125
+#: tcms/testcases/models.py:268
 #: tcms/testcases/templates/testcases/search.html:72
+#: tcms/testplans/models.py:297 tcms/testplans/models.py:306
+#: tcms/testplans/models.py:317
 #: tcms/testplans/templates/testplans/search.html:117
-#: tcms/testruns/templates/testruns/get.html:40
+#: tcms/testruns/models.py:52 tcms/testruns/templates/testruns/get.html:43
 #: tcms/testruns/templates/testruns/mutable.html:67
-#: tcms/testruns/templates/testruns/search.html:186
+#: tcms/testruns/templates/testruns/search.html:186 tcms/workflow/forms.py:299
 msgid "Test plan"
 msgstr "План тестирования"
 
 #: tcms/telemetry/templates/telemetry/include/filters.html:66
 #: tcms/telemetry/templates/telemetry/testing/status-matrix.html:32
 #: tcms/testcases/templates/testcases/search.html:146
+#: tcms/testruns/models.py:252 tcms/testruns/models.py:309
+#: tcms/testruns/models.py:372 tcms/testruns/models.py:397
+#: tcms/testruns/models.py:444 tcms/workflow/forms.py:326
+#: tcms/workflow/models.py:140 tcms/workflow/models.py:162
 msgid "Test run"
 msgstr "Прогонка теста"
 
@@ -861,31 +1186,32 @@ msgid "Testing Breakdown"
 msgstr "Этапы тестирования"
 
 #: tcms/telemetry/templates/telemetry/testing/breakdown.html:14
+#: tcms/workflow/templates/workflow/report.html:9
 msgid "Total"
 msgstr "Итого"
 
 #: tcms/telemetry/templates/telemetry/testing/breakdown.html:24
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:33
-#: tcms/testcases/templates/testcases/get.html:93
+#: tcms/testcases/models.py:62 tcms/testcases/templates/testcases/get.html:95
 #: tcms/testcases/templates/testcases/mutable.html:98
 #: tcms/testcases/templates/testcases/search.html:40
 #: tcms/testcases/templates/testcases/search.html:173
-#: tcms/testplans/templates/testplans/get.html:407
-#: tcms/testplans/templates/testplans/get.html:494
+#: tcms/testplans/templates/testplans/get.html:409
+#: tcms/testplans/templates/testplans/get.html:496
 #: tcms/testplans/templates/testplans/toolbar_dropdown.html:5
-#: tcms/testruns/templates/testruns/get.html:272
-#: tcms/testruns/templates/testruns/get.html:369
+#: tcms/testruns/templates/testruns/get.html:277
+#: tcms/testruns/templates/testruns/get.html:402
 msgid "Automated"
 msgstr "Автоматизирован"
 
 #: tcms/telemetry/templates/telemetry/testing/breakdown.html:28
-#: tcms/testplans/templates/testplans/get.html:407
-#: tcms/testruns/templates/testruns/get.html:369
+#: tcms/testplans/templates/testplans/get.html:409
+#: tcms/testruns/templates/testruns/get.html:402
 msgid "Manual"
 msgstr "Ручной"
 
 #: tcms/telemetry/templates/telemetry/testing/breakdown.html:39
-#: tcms/testcases/models.py:44
+#: tcms/testcases/models.py:49
 msgid "Categories"
 msgstr "Категории"
 
@@ -898,38 +1224,22 @@ msgstr "Панель исполнения"
 msgid "Child TPs"
 msgstr "Вложенные планы тестирования"
 
-#: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:34
-#: tcms/templates/include/bug_details.html:3
-#: tcms/testcases/templates/testcases/get.html:59
-#: tcms/testcases/templates/testcases/mutable.html:74
-#: tcms/testcases/templates/testcases/search.html:95
-#: tcms/testcases/templates/testcases/search.html:172
-#: tcms/testplans/templates/testplans/get.html:149
-#: tcms/testplans/templates/testplans/get.html:368
-#: tcms/testplans/templates/testplans/get.html:401
-#: tcms/testplans/templates/testplans/get.html:493
-#: tcms/testplans/templates/testplans/toolbar_dropdown.html:4
-#: tcms/testruns/templates/testruns/get.html:197
-#: tcms/testruns/templates/testruns/get.html:277
-#: tcms/testruns/templates/testruns/get.html:393
-#: tcms/testruns/templates/testruns/mutable.html:232
-msgid "Status"
-msgstr "Состояние"
-
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:39
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:40
-#: tcms/testcases/templates/testcases/get.html:33
+#: tcms/testcases/forms.py:29 tcms/testcases/models.py:109
+#: tcms/testcases/templates/testcases/get.html:35
 #: tcms/testcases/templates/testcases/mutable.html:36
 #: tcms/testcases/templates/testcases/mutable.html:207
 #: tcms/testcases/templates/testcases/search.html:175
-#: tcms/testplans/templates/testplans/get.html:175
-#: tcms/testplans/templates/testplans/get.html:383
-#: tcms/testplans/templates/testplans/get.html:421
-#: tcms/testplans/templates/testplans/get.html:498
+#: tcms/testplans/forms.py:63 tcms/testplans/templates/testplans/get.html:177
+#: tcms/testplans/templates/testplans/get.html:385
+#: tcms/testplans/templates/testplans/get.html:423
+#: tcms/testplans/templates/testplans/get.html:500
 #: tcms/testplans/templates/testplans/mutable.html:133
 #: tcms/testplans/templates/testplans/search.html:90
 #: tcms/testplans/templates/testplans/toolbar_dropdown.html:9
-#: tcms/testruns/templates/testruns/get.html:66
+#: tcms/testruns/forms.py:17 tcms/testruns/forms.py:93
+#: tcms/testruns/models.py:70 tcms/testruns/templates/testruns/get.html:69
 #: tcms/testruns/templates/testruns/mutable.html:36
 #: tcms/testruns/templates/testruns/search.html:77
 #: tcms/testruns/templates/testruns/search.html:193
@@ -945,14 +1255,14 @@ msgid "TR"
 msgstr "Выполнение тестов"
 
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:43
-#: tcms/testruns/templates/testruns/get.html:276
-#: tcms/testruns/templates/testruns/get.html:383
+#: tcms/testruns/models.py:290 tcms/testruns/templates/testruns/get.html:281
+#: tcms/testruns/templates/testruns/get.html:416 tcms/workflow/views.py:533
 msgid "Tested by"
 msgstr "Проверено"
 
 #: tcms/telemetry/templates/telemetry/testing/execution-dashboard.html:45
-#: tcms/testruns/templates/testruns/get.html:96
-#: tcms/testruns/templates/testruns/get.html:413
+#: tcms/testruns/templates/testruns/get.html:99
+#: tcms/testruns/templates/testruns/get.html:446
 #: tcms/testruns/templates/testruns/mutable.html:140
 msgid "Finished at"
 msgstr "Завершено"
@@ -970,6 +1280,8 @@ msgid "Neutral"
 msgstr "Нейтральный"
 
 #: tcms/telemetry/templates/telemetry/testing/execution-trends.html:27
+#: tcms/workflow/templates/workflow/report.html:9
+#: tcms/workflow/templates/workflow/run.html:8
 msgid "Negative"
 msgstr "Отрицательный"
 
@@ -990,8 +1302,14 @@ msgid "Descending"
 msgstr "По убыванию"
 
 #: tcms/telemetry/templates/telemetry/testing/status-matrix.html:32
+#: tcms/testcases/forms.py:145 tcms/testcases/models.py:256
+#: tcms/testcases/models.py:262 tcms/testcases/models.py:271
+#: tcms/testcases/models.py:283 tcms/testcases/models.py:299
+#: tcms/testcases/models.py:391 tcms/testruns/forms.py:36
+#: tcms/testruns/models.py:315 tcms/workflow/models.py:224
+#: tcms/workflow/models.py:287 tcms/workflow/templates/workflow/editor.html:5
 msgid "Test case"
-msgstr "Тестовый случай"
+msgstr "Тест-кейс"
 
 #: tcms/telemetry/templates/telemetry/testing/test-case-health.html:12
 msgid "Most frequently failing test cases"
@@ -1068,23 +1386,33 @@ msgstr "лидер в системах управления тестами с о
 
 #: tcms/templates/email/confirm_registration.txt:1
 #, python-format
-msgid "Welcome to Kiwi TCMS!\n\n"
+msgid ""
+"Welcome to Kiwi TCMS!\n"
+"\n"
 "To confirm email address for username `%(user)s` and activate your account\n"
 "please follow this URL:\n"
-"%(confirm_url)s\n\n"
+"%(confirm_url)s\n"
+"\n"
 "Regards,\n"
 "Kiwi TCMS"
-msgstr "Добро пожаловать в Kiwi TCMS!\n\n"
-"Чтобы подтвердить адрес электронной почты для имени пользователя \"%(user)s\" и активировать свою учетную\n"
+msgstr ""
+"Добро пожаловать в Kiwi TCMS!\n"
+"\n"
+"Чтобы подтвердить адрес электронной почты для имени пользователя "
+"\"%(user)s\" и активировать свою учетную\n"
 "запись, пожалуйста, перейдите по этой ссылке:\n"
-"%(confirm_url)s\n\n"
+"%(confirm_url)s\n"
+"\n"
 "С уважением,\n"
 "Kiwi TCMS"
 
 #: tcms/templates/email/post_bug_save/email.txt:2
 #, python-format
-msgid "Bug %(pk)s has been updated.\n\n"
-"Link: %(bug_url)s\n\n"
+msgid ""
+"Bug %(pk)s has been updated.\n"
+"\n"
+"Link: %(bug_url)s\n"
+"\n"
 "Summary: %(summary)s\n"
 "Created at: %(creation_date)s\n"
 "Reporter: %(reporter)s\n"
@@ -1094,8 +1422,11 @@ msgid "Bug %(pk)s has been updated.\n\n"
 "Build: %(build)s\n"
 "Last comment:\n"
 "%(last_comment)s"
-msgstr "Ошибка %(pk)s была назначена вам.\n\n"
-"Ссылка: %(bug_url)s\n\n"
+msgstr ""
+"Ошибка %(pk)s была назначена вам.\n"
+"\n"
+"Ссылка: %(bug_url)s\n"
+"\n"
 "Итоги: %(summary)s\n"
 "Создано: %(creation_date)s\n"
 "Сообщивший: %(reporter)s\n"
@@ -1113,47 +1444,63 @@ msgstr "Тестовый случай был удален %(username)s!"
 
 #: tcms/templates/email/post_run_save/email.txt:2
 #, python-format
-msgid "Test run %(pk)s has been created or updated for you.\n\n"
+msgid ""
+"Test run %(pk)s has been created or updated for you.\n"
+"\n"
 "### Links ###\n"
 "Test run: %(run_url)s\n"
-"Test plan: %(plan_url)s\n\n"
+"Test plan: %(plan_url)s\n"
+"\n"
 "### Basic run information ###\n"
-"Summary: %(summary)s\n\n"
+"Summary: %(summary)s\n"
+"\n"
 "Managed: %(manager)s.\n"
-"Default tester: %(default_tester)s.\n\n"
+"Default tester: %(default_tester)s.\n"
+"\n"
 "Product: %(product)s\n"
 "Product version: %(version)s\n"
-"Build: %(build)s\n\n"
+"Build: %(build)s\n"
+"\n"
 "Notes:\n"
 "%(notes)s"
-msgstr "Тестовый запуск %(pk)s был создан или обновлен для вас.\n\n"
+msgstr ""
+"Тестовый запуск %(pk)s был создан или обновлен для вас.\n"
+"\n"
 "### Ссылки ###\n"
 "Испытательный запуск: %(run_url)s\n"
-"Тестовый план: %(plan_url)s\n\n"
+"Тестовый план: %(plan_url)s\n"
+"\n"
 "### Базовая информация об исполнении ###\n"
-"Сводка: %(summary)s\n\n"
+"Сводка: %(summary)s\n"
+"\n"
 "Управляется: %(manager)s.\n"
-"Тестер по умолчанию: %(default_tester)s.\n\n"
+"Тестер по умолчанию: %(default_tester)s.\n"
+"\n"
 "Продукт: %(product)s\n"
 "Версия продукта: %(version)s\n"
-"Сборка: %(build)s\n\n"
+"Сборка: %(build)s\n"
+"\n"
 "Заметки:\n"
 "%(notes)s"
 
 #: tcms/templates/email/user_registered/notify_admins.txt:2
 #, python-format
-msgid "Dear Administrator,\n"
+msgid ""
+"Dear Administrator,\n"
 "somebody just registered an account with username %(username)s at your\n"
-"Kiwi TCMS instance and is awaiting your approval!\n\n"
+"Kiwi TCMS instance and is awaiting your approval!\n"
+"\n"
 "Go to %(user_url)s to activate the account!"
-msgstr "Уважаемый администратор,\n"
+msgstr ""
+"Уважаемый администратор,\n"
 "кто-то зарегистрировал аккаунт с именем пользователя %(username)s в \n"
-"Kiwi TCMS и ожидает вашего подтверждения!\n\n"
+"Kiwi TCMS и ожидает вашего подтверждения!\n"
+"\n"
 "Перейдите на %(user_url)s, чтобы активировать учетную запись!"
 
 #: tcms/templates/include/attachments.html:10
-#: tcms/testplans/templates/testplans/get.html:442
-#: tcms/testruns/templates/testruns/get.html:495
+#: tcms/testplans/templates/testplans/get.html:444
+#: tcms/testruns/templates/testruns/get.html:528
 msgid "Attachments"
 msgstr "Вложения"
 
@@ -1165,17 +1512,17 @@ msgstr "Файл"
 msgid "Owner"
 msgstr "Владелец"
 
-#: tcms/templates/include/attachments.html:20
+#: tcms/templates/include/attachments.html:20 tcms/workflow/models.py:232
 msgid "Date"
 msgstr "Дата"
 
 #: tcms/templates/include/bugs_table.html:15
-#: tcms/testruns/templates/testruns/get.html:581
+#: tcms/testruns/templates/testruns/get.html:616 tcms/workflow/models.py:233
 msgid "URL"
 msgstr "URL"
 
 #: tcms/templates/include/properties_card.html:9 tcms/testruns/admin.py:116
-#: tcms/testruns/templates/testruns/get.html:353
+#: tcms/testruns/templates/testruns/get.html:386
 msgid "Parameters"
 msgstr "Параметры"
 
@@ -1190,24 +1537,13 @@ msgstr "название=значение"
 
 #: tcms/templates/include/properties_card.html:69
 #: tcms/templates/include/tags_card.html:28
-#: tcms/testcases/templates/testcases/get.html:184
-#: tcms/testcases/templates/testcases/get.html:229
-#: tcms/testplans/templates/testplans/get.html:258
-#: tcms/testruns/templates/testruns/get.html:300
-#: tcms/testruns/templates/testruns/get.html:554
+#: tcms/testcases/templates/testcases/get.html:186
+#: tcms/testcases/templates/testcases/get.html:231
+#: tcms/testplans/templates/testplans/get.html:260
+#: tcms/testruns/templates/testruns/get.html:305
+#: tcms/testruns/templates/testruns/get.html:589
 msgid "Add"
 msgstr "Добавить"
-
-#: tcms/templates/include/tags_card.html:13
-#: tcms/testcases/templates/testcases/get.html:167
-#: tcms/testcases/templates/testcases/get.html:215
-#: tcms/testplans/templates/testplans/clone.html:14
-#: tcms/testplans/templates/testplans/get.html:205
-#: tcms/testplans/templates/testplans/mutable.html:24
-#: tcms/testplans/templates/testplans/search.html:20
-#: tcms/testruns/templates/testruns/get.html:587
-msgid "Name"
-msgstr "Наименование"
 
 #: tcms/templates/initdb.html:5 tcms/templates/initdb.html:17
 #: tcms/templates/initdb.html:29
@@ -1215,12 +1551,19 @@ msgid "Initialize database"
 msgstr "Инициализация базы данных"
 
 #: tcms/templates/initdb.html:20
-msgid "Your database has not been initialized yet. Click the button below to initialize it!"
-msgstr "Ваша база данных еще не инициализирована. Нажмите кнопку ниже, чтобы инициализировать ее!"
+msgid ""
+"Your database has not been initialized yet. Click the button below to "
+"initialize it!"
+msgstr ""
+"Ваша база данных еще не инициализирована. Нажмите кнопку ниже, чтобы "
+"инициализировать ее!"
 
 #: tcms/templates/initdb.html:22
-msgid "WARNING: this operation will take a while! This page will redirect when done."
-msgstr "ПРЕДУПРЕЖДЕНИЕ: эта операция займет некоторое время! Эта страница будет обновлена после завершения."
+msgid ""
+"WARNING: this operation will take a while! This page will redirect when done."
+msgstr ""
+"ПРЕДУПРЕЖДЕНИЕ: эта операция займет некоторое время! Эта страница будет "
+"обновлена после завершения."
 
 #: tcms/templates/initdb.html:27
 msgid "Please wait"
@@ -1238,60 +1581,69 @@ msgstr "Панель управления"
 msgid "Language"
 msgstr "Язык"
 
-#: tcms/templates/navbar.html:45
+#: tcms/templates/navbar.html:49
+msgid "Interface language"
+msgstr "Язык интерфейса"
+
+#: tcms/templates/navbar.html:57 tcms/workflow/templates/workflow/hub.html:10
+#: tcms/workflow/templates/workflow/report.html:6
+msgid "Apply"
+msgstr "Применить"
+
+#: tcms/templates/navbar.html:61
 msgid "Change language"
 msgstr "Изменить язык"
 
-#: tcms/templates/navbar.html:46
+#: tcms/templates/navbar.html:62
 msgid "Supported languages"
 msgstr "Поддерживаемые языки"
 
-#: tcms/templates/navbar.html:47
+#: tcms/templates/navbar.html:63
 msgid "Request new language"
 msgstr "Запросить новый язык"
 
-#: tcms/templates/navbar.html:53
+#: tcms/templates/navbar.html:69
 msgid "Translation mode"
 msgstr "Режим перевода"
 
-#: tcms/templates/navbar.html:57
+#: tcms/templates/navbar.html:73
 msgid "Translation guide"
 msgstr "Руководство по переводу"
 
-#: tcms/templates/navbar.html:63
+#: tcms/templates/navbar.html:79
 msgid "Help"
 msgstr "Помощь"
 
-#: tcms/templates/navbar.html:78
+#: tcms/templates/navbar.html:94
 msgid "Welcome Guest"
 msgstr "Добро пожаловать, гость"
 
-#: tcms/templates/navbar.html:84
+#: tcms/templates/navbar.html:100
 msgid "My Test Runs"
 msgstr "Мой тестовые прогоны"
 
-#: tcms/templates/navbar.html:88
+#: tcms/templates/navbar.html:104
 msgid "My Test Plans"
 msgstr "Мои планы тестирования"
 
-#: tcms/templates/navbar.html:94
+#: tcms/templates/navbar.html:110
 msgid "My profile"
 msgstr "Мой профиль"
 
-#: tcms/templates/navbar.html:98
+#: tcms/templates/navbar.html:114
 #: tcms/templates/registration/password_reset_confirm.html:30
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: tcms/templates/navbar.html:108
+#: tcms/templates/navbar.html:124
 msgid "Logout"
 msgstr "Выйти"
 
-#: tcms/templates/navbar.html:113 tcms/templates/registration/login.html:4
+#: tcms/templates/navbar.html:129 tcms/templates/registration/login.html:4
 msgid "Login"
 msgstr "Вход"
 
-#: tcms/templates/navbar.html:120
+#: tcms/templates/navbar.html:136
 #: tcms/templates/registration/registration_form.html:53
 msgid "Register"
 msgstr "Регистрация"
@@ -1335,17 +1687,29 @@ msgid "Your password has been set. You may go ahead and"
 msgstr "Ваш пароль был установлен. Вы можете продолжить и"
 
 #: tcms/templates/registration/password_reset_complete.html:13
+msgid "log in"
+msgstr "войти"
+
+#: tcms/templates/registration/password_reset_complete.html:13
 msgid "now"
 msgstr "сейчас"
 
 #: tcms/templates/registration/password_reset_confirm.html:44
-msgid "Please enter your new password twice so we can verify you typed it in correctly"
-msgstr "Пожалуйста, введите ваш новый пароль дважды, чтобы мы могли проверить, что вы ввели его правильно"
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly"
+msgstr ""
+"Пожалуйста, введите ваш новый пароль дважды, чтобы мы могли проверить, что "
+"вы ввели его правильно"
 
 #: tcms/templates/registration/password_reset_confirm.html:47
 #, python-format
-msgid "The password reset link was invalid, possibly because it has already been used. Please <a href=\"%(reset_url)s\">request a new password reset</a>."
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please <a href=\"%(reset_url)s\">request a new password reset</a>."
 msgstr ""
+"Ссылка для сброса пароля недействительна. Возможно, она уже использована. <a "
+"href=\"%(reset_url)s\">Запросите новую ссылку</a>."
 
 #: tcms/templates/registration/password_reset_done.html:11
 msgid "Password reset email was sent"
@@ -1364,56 +1728,122 @@ msgid "Register new account"
 msgstr "Регистрация нового аккаунта"
 
 #: tcms/testcases/admin.py:27
-msgid "For more information about customizing test case statuses see\n"
-"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-case-statuses\">\n"
+msgid ""
+"For more information about customizing test case statuses see\n"
+"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-"
+"case-statuses\">\n"
 "        the documentation</a>!"
-msgstr "Для получения дополнительной информации о настройках статусов выполнения тестов смотрите\n"
-"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-case-statuses\">\n"
+msgstr ""
+"Для получения дополнительной информации о настройках статусов выполнения "
+"тестов смотрите\n"
+"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-"
+"case-statuses\">\n"
 "        документацию</a>!"
 
 #: tcms/testcases/admin.py:54
 msgid "1 confirmed & 1 uncomfirmed status required!"
 msgstr "Требуется 1 подтвержденный и 1 не подтвержденный статус!"
 
-#: tcms/testcases/admin.py:129
+#: tcms/testcases/admin.py:131
 msgid "Bug URL"
 msgstr "Ссылка на ошибку"
 
-#: tcms/testcases/admin.py:149
+#: tcms/testcases/admin.py:151
 msgid "External Issue Tracker Integration"
 msgstr "Интеграция внешней системы ведения задач"
 
-#: tcms/testcases/admin.py:158
-msgid "<h1>Warning: read the\n"
-"<a href=\"http://kiwitcms.readthedocs.io/en/latest/admin.html#configure-external-bug-trackers\">\n"
-"Configure external bug trackers</a> section before editting the values below!</h1>"
-msgstr "<h1>Предупреждение: прочитайте\n"
-"<a href=\"http://kiwitcms.readthedocs.io/en/latest/admin.html#configure-external-bug-trackers\">\n"
+#: tcms/testcases/admin.py:160
+msgid ""
+"<h1>Warning: read the\n"
+"<a href=\"http://kiwitcms.readthedocs.io/en/latest/admin.html#configure-"
+"external-bug-trackers\">\n"
+"Configure external bug trackers</a> section before editting the values below!"
+"</h1>"
+msgstr ""
+"<h1>Предупреждение: прочитайте\n"
+"<a href=\"http://kiwitcms.readthedocs.io/en/latest/admin.html#configure-"
+"external-bug-trackers\">\n"
 "Настройка внешних багтрекеров</a> перед редактированием значений ниже!</h1>"
 
-#: tcms/testcases/admin.py:164
+#: tcms/testcases/admin.py:166
 msgid "Configuration health check"
 msgstr "Проверка конфигурации"
 
-#: tcms/testcases/admin.py:168
-msgid "Kiwi TCMS will try fetching details for the given bug URL using the integration defined above! Click the `Save and continue` button and watch out for messages at the top of the screen. <strong>WARNING:</strong> in case of failures some issue trackers will fall back to fetching details via the OpenGraph protocol. In that case the result will include field named `from_open_graph`."
-msgstr "Kiwi TCMS попытается получить подробную информацию по указанному адресу ошибки, используя интеграцию описанную выше! Нажмите кнопку «Сохранить и продолжить» и следите за сообщениями в верхней части экрана. <strong>ВНИМАНИЕ:</strong> в случае сбоев некоторые багтрекеры ошибок вернутся к выборке деталей по протоколу OpenGraph. В этом случае будет включено поле `from_open_graph`."
+#: tcms/testcases/admin.py:170
+msgid ""
+"Kiwi TCMS will try fetching details for the given bug URL using the "
+"integration defined above! Click the `Save and continue` button and watch "
+"out for messages at the top of the screen. <strong>WARNING:</strong> in case "
+"of failures some issue trackers will fall back to fetching details via the "
+"OpenGraph protocol. In that case the result will include field named "
+"`from_open_graph`."
+msgstr ""
+"Kiwi TCMS попытается получить подробную информацию по указанному адресу "
+"ошибки, используя интеграцию описанную выше! Нажмите кнопку «Сохранить и "
+"продолжить» и следите за сообщениями в верхней части экрана. "
+"<strong>ВНИМАНИЕ:</strong> в случае сбоев некоторые багтрекеры ошибок "
+"вернутся к выборке деталей по протоколу OpenGraph. В этом случае будет "
+"включено поле `from_open_graph`."
 
-#: tcms/testcases/admin.py:188
+#: tcms/testcases/admin.py:190
 msgid "Failed creating Issue Tracker"
 msgstr "Не удалось создать трекер ошибок"
 
-#: tcms/testcases/admin.py:197
-msgid "Details extracted via OpenGraph. Issue Tracker may still be configured incorrectly!"
-msgstr "Детали извлечены из OpenGraph. Трэкер ошибок все еще может быть настроен неправильно!"
+#: tcms/testcases/admin.py:199
+msgid ""
+"Details extracted via OpenGraph. Issue Tracker may still be configured "
+"incorrectly!"
+msgstr ""
+"Детали извлечены из OpenGraph. Трэкер ошибок все еще может быть настроен "
+"неправильно!"
 
-#: tcms/testcases/admin.py:206
+#: tcms/testcases/admin.py:208
 msgid "Details extracted via API. Issue Tracker configuration looks good!"
-msgstr "Детали извлечены из API. Конфигурация трэкера ошибок выглядит правильно!"
+msgstr ""
+"Детали извлечены из API. Конфигурация трэкера ошибок выглядит правильно!"
 
-#: tcms/testcases/admin.py:219
+#: tcms/testcases/admin.py:221
 msgid "Issue Tracker configuration check failed"
 msgstr "Проверка конфигурации трекера ошибок пройдена"
+
+#: tcms/testcases/apps.py:9 tcms/testcases/models.py:257
+#: tcms/testplans/templates/testplans/get.html:102
+msgid "Test cases"
+msgstr "Тест-кейсы"
+
+#: tcms/testcases/forms.py:41 tcms/testcases/models.py:80
+#: tcms/testcases/templates/testcases/get.html:75
+#: tcms/testcases/templates/testcases/mutable.html:120
+msgid "Setup duration"
+msgstr "Длительность установки"
+
+#: tcms/testcases/forms.py:46 tcms/testcases/models.py:83
+#: tcms/testcases/templates/testcases/get.html:80
+#: tcms/testcases/templates/testcases/mutable.html:127
+msgid "Testing duration"
+msgstr "Длительность тестирования"
+
+#: tcms/testcases/forms.py:83
+msgid "Cc list"
+msgstr "Получатели копии"
+
+#: tcms/testcases/forms.py:113 tcms/testcases/models.py:47
+#: tcms/testcases/models.py:91 tcms/testcases/templates/testcases/get.html:51
+#: tcms/testcases/templates/testcases/mutable.html:58
+#: tcms/testcases/templates/testcases/search.html:104
+#: tcms/testcases/templates/testcases/search.html:169
+#: tcms/testplans/templates/testplans/get.html:415
+#: tcms/testplans/templates/testplans/get.html:498
+#: tcms/testplans/templates/testplans/toolbar_dropdown.html:7
+#: tcms/testruns/templates/testruns/get.html:279
+#: tcms/testruns/templates/testruns/get.html:408
+#: tcms/testruns/templates/testruns/mutable.html:233
+msgid "Category"
+msgstr "Категория"
+
+#: tcms/testcases/forms.py:127 tcms/testcases/models.py:87
+msgid "Case status"
+msgstr "Статус тест-кейса"
 
 #: tcms/testcases/helpers/email.py:14
 #, python-format
@@ -1422,21 +1852,28 @@ msgstr "НОВЫЙ: тест-прогон #%(pk)d - %(summary)s"
 
 #: tcms/testcases/helpers/email.py:20
 #, python-format
-msgid "Test case %(pk)d has been created.\n\n"
+msgid ""
+"Test case %(pk)d has been created.\n"
+"\n"
 "### Basic information ###\n"
-"Summary: %(summary)s\n\n"
+"Summary: %(summary)s\n"
+"\n"
 "Product: %(product)s\n"
 "Category: %(category)s\n"
-"Priority: %(priority)s\n\n"
+"Priority: %(priority)s\n"
+"\n"
 "Default tester: %(default_tester)s\n"
 "Text:\n"
 "%(text)s"
-msgstr "Тест-прогон #%(pk)d создан\n\n"
+msgstr ""
+"Тест-прогон #%(pk)d создан\n"
+"\n"
 "### Базовая информация ###\n"
 "Сводка: %(summary)s\n"
 "Продукт: %(product)s\n"
 "Категория: %(category)s\n"
-"Приоритет: %(priority)s\n\n"
+"Приоритет: %(priority)s\n"
+"\n"
 "Тестировщик по умолчанию: %(default_tester)s\n"
 "Текст:\n"
 "%(text)s"
@@ -1446,20 +1883,188 @@ msgstr "Тест-прогон #%(pk)d создан\n\n"
 msgid "DELETED: TestCase #%(pk)d - %(summary)s"
 msgstr "УДАЛЕНО: тестовый случай #%(pk)d - %(summary)s"
 
-#: tcms/testcases/models.py:24
+#: tcms/testcases/models.py:21
+msgid "Confirmed"
+msgstr "Подтверждён"
+
+#: tcms/testcases/models.py:25
 msgid "Test case status"
 msgstr "Статус тестового случая"
 
-#: tcms/testcases/models.py:25
+#: tcms/testcases/models.py:26
 msgid "Test case statuses"
 msgstr "Статусы тестового случая"
 
-#: tcms/testcases/models.py:387
+#: tcms/testcases/models.py:60 tcms/testplans/models.py:39
+msgid "Creation date"
+msgstr "Дата создания"
+
+#: tcms/testcases/models.py:63 tcms/testcases/templates/testcases/get.html:100
+#: tcms/testcases/templates/testcases/mutable.html:143
+msgid "Script"
+msgstr "Скрипт"
+
+#: tcms/testcases/models.py:64 tcms/testcases/templates/testcases/get.html:105
+#: tcms/testcases/templates/testcases/mutable.html:149
+msgid "Arguments"
+msgstr "Аргументы"
+
+#: tcms/testcases/models.py:66 tcms/testplans/models.py:45
+msgid "Extra link"
+msgstr "Дополнительная ссылка"
+
+#: tcms/testcases/models.py:75 tcms/workflow/models.py:323
+#: tcms/workflow/views.py:530
+msgid "Requirement"
+msgstr "Требование"
+
+#: tcms/testcases/models.py:77 tcms/testcases/templates/testcases/get.html:135
+#: tcms/testcases/templates/testcases/mutable.html:170
+#: tcms/testplans/templates/testplans/get.html:440
+#: tcms/testplans/templates/testplans/get.html:441 tcms/testruns/models.py:48
+#: tcms/testruns/templates/testruns/get.html:441
+#: tcms/testruns/templates/testruns/mutable.html:202
+msgid "Notes"
+msgstr "Примечания"
+
+#: tcms/testcases/models.py:103 tcms/testcases/templates/testcases/get.html:30
+#: tcms/testcases/templates/testcases/get.html:170
+#: tcms/testcases/templates/testcases/mutable.html:184
+#: tcms/testcases/templates/testcases/search.html:126
+#: tcms/testcases/templates/testcases/search.html:174
+#: tcms/testplans/forms.py:60 tcms/testplans/models.py:60
+#: tcms/testplans/templates/testplans/get.html:56
+#: tcms/testplans/templates/testplans/get.html:419
+#: tcms/testplans/templates/testplans/get.html:499
+#: tcms/testplans/templates/testplans/mutable.html:121
+#: tcms/testplans/templates/testplans/search.html:84
+#: tcms/testplans/templates/testplans/search.html:122
+#: tcms/testplans/templates/testplans/toolbar_dropdown.html:8
+#: tcms/testruns/templates/testruns/mutable.html:230
+#: tcms/workflow/models.py:349
+msgid "Author"
+msgstr "Автор"
+
+#: tcms/testcases/models.py:117 tcms/testplans/templates/testplans/get.html:184
+#: tcms/testplans/templates/testplans/get.html:428
+#: tcms/testplans/templates/testplans/get.html:501
+#: tcms/testplans/templates/testplans/toolbar_dropdown.html:10
+msgid "Reviewer"
+msgstr "Рецензент"
+
+#: tcms/testcases/models.py:273 tcms/testruns/models.py:305
+msgid "Sort order"
+msgstr "Порядок сортировки"
+
+#: tcms/testcases/models.py:276
+msgid "Test case plan"
+msgstr "Связь тест-кейса с планом"
+
+#: tcms/testcases/models.py:277
+msgid "Test case plans"
+msgstr "Связи тест-кейсов с планами"
+
+#: tcms/testcases/models.py:290
+msgid "Test case component"
+msgstr "Компонент тест-кейса"
+
+#: tcms/testcases/models.py:291
+msgid "Test case components"
+msgstr "Компоненты тест-кейсов"
+
+#: tcms/testcases/models.py:303
+msgid "Test case tag"
+msgstr "Метка тест-кейса"
+
+#: tcms/testcases/models.py:304
+msgid "Test case tags"
+msgstr "Метки тест-кейсов"
+
+#: tcms/testcases/models.py:346
+msgid "This determines how Kiwi TCMS integrates with the IT system"
+msgstr ""
+"Определяет способ интеграции Kiwi TCMS с системой отслеживания дефектов"
+
+#: tcms/testcases/models.py:354
+msgid "Base URL"
+msgstr "Базовый URL"
+
+#: tcms/testcases/models.py:356
+msgid ""
+"Base URL, for example <strong>https://bugzilla.example.com</strong>!\n"
+"Leave empty to disable!\n"
+msgstr ""
+"Базовый URL, например <strong>https://bugzilla.example.com</strong>.\n"
+"Оставьте пустым, чтобы отключить интеграцию.\n"
+
+#: tcms/testcases/models.py:365
+msgid "API URL"
+msgstr "URL API"
+
+#: tcms/testcases/models.py:367
+msgid ""
+"This is the URL to which API requests will be sent. Leave empty to disable!"
+msgstr ""
+"Адрес для отправки запросов API. Оставьте пустым, чтобы отключить интеграцию."
+
+#: tcms/testcases/models.py:373
+msgid "API username"
+msgstr "Имя пользователя API"
+
+#: tcms/testcases/models.py:377
+msgid "API password or token"
+msgstr "Пароль или токен API"
+
+#: tcms/testcases/models.py:381
+msgid "Bug tracker"
+msgstr "Система отслеживания дефектов"
+
+#: tcms/testcases/models.py:382
+msgid "Bug trackers"
+msgstr "Системы отслеживания дефектов"
+
+#: tcms/testcases/models.py:396 tcms/testplans/models.py:334
+msgid "Notify on case update"
+msgstr "Уведомлять об изменении тест-кейса"
+
+#: tcms/testcases/models.py:399
+msgid "Notify on case delete"
+msgstr "Уведомлять об удалении тест-кейса"
+
+#: tcms/testcases/models.py:402
+msgid "Auto to case author"
+msgstr "Отправлять автору тест-кейса"
+
+#: tcms/testcases/models.py:405
+msgid "Auto to case tester"
+msgstr "Отправлять тестировщику тест-кейса"
+
+#: tcms/testcases/models.py:408
+msgid "Auto to run manager"
+msgstr "Отправлять руководителю прогона"
+
+#: tcms/testcases/models.py:411
+msgid "Auto to run tester"
+msgstr "Отправлять тестировщику прогона"
+
+#: tcms/testcases/models.py:414
+msgid "Auto to execution assignee"
+msgstr "Отправлять исполнителю теста"
+
+#: tcms/testcases/models.py:417
+msgid "CC list"
+msgstr "Копии уведомлений"
+
+#: tcms/testcases/models.py:463 tcms/testcases/models.py:464
+msgid "Test case email settings"
+msgstr "Настройки уведомлений тест-кейса"
+
+#: tcms/testcases/models.py:474
 #: tcms/testcases/templates/testcases/mutable.html:107
 msgid "Template"
 msgstr "Шаблон"
 
-#: tcms/testcases/models.py:388
+#: tcms/testcases/models.py:475
 msgid "Templates"
 msgstr "Шаблоны"
 
@@ -1475,93 +2080,36 @@ msgstr "Добавить новый тестовый случай в план т
 msgid "Selected TC"
 msgstr "Выбранные тестовые случаи"
 
-#: tcms/testcases/templates/testcases/clone.html:45 tcms/testcases/views.py:137
+#: tcms/testcases/templates/testcases/clone.html:45 tcms/testcases/views.py:138
 #: tcms/testplans/templates/testplans/clone.html:73
-#: tcms/testplans/templates/testplans/get.html:138
-#: tcms/testplans/templates/testplans/get.html:363 tcms/testplans/views.py:150
-#: tcms/testruns/views.py:198
+#: tcms/testplans/templates/testplans/get.html:140
+#: tcms/testplans/templates/testplans/get.html:365 tcms/testplans/views.py:150
+#: tcms/testruns/views.py:195
 msgid "Clone"
 msgstr "Клонировать"
 
-#: tcms/testcases/templates/testcases/get.html:28
-#: tcms/testcases/templates/testcases/get.html:168
-#: tcms/testcases/templates/testcases/mutable.html:184
-#: tcms/testcases/templates/testcases/search.html:126
-#: tcms/testcases/templates/testcases/search.html:174
-#: tcms/testplans/templates/testplans/get.html:54
-#: tcms/testplans/templates/testplans/get.html:417
-#: tcms/testplans/templates/testplans/get.html:497
-#: tcms/testplans/templates/testplans/mutable.html:121
-#: tcms/testplans/templates/testplans/search.html:84
-#: tcms/testplans/templates/testplans/search.html:122
-#: tcms/testplans/templates/testplans/toolbar_dropdown.html:8
-#: tcms/testruns/templates/testruns/mutable.html:230
-msgid "Author"
-msgstr "Автор"
+#: tcms/testcases/templates/testcases/get.html:24
+msgid "Structured steps & custom fields"
+msgstr "Шаги и пользовательские поля"
 
-#: tcms/testcases/templates/testcases/get.html:49
-#: tcms/testcases/templates/testcases/mutable.html:58
-#: tcms/testcases/templates/testcases/search.html:104
-#: tcms/testcases/templates/testcases/search.html:169
-#: tcms/testplans/templates/testplans/get.html:413
-#: tcms/testplans/templates/testplans/get.html:496
-#: tcms/testplans/templates/testplans/toolbar_dropdown.html:7
-#: tcms/testruns/templates/testruns/get.html:274
-#: tcms/testruns/templates/testruns/get.html:375
-#: tcms/testruns/templates/testruns/mutable.html:233
-msgid "Category"
-msgstr "Категория"
-
-#: tcms/testcases/templates/testcases/get.html:73
-#: tcms/testcases/templates/testcases/mutable.html:120
-msgid "Setup duration"
-msgstr "Длительность установки"
-
-#: tcms/testcases/templates/testcases/get.html:78
-#: tcms/testcases/templates/testcases/mutable.html:127
-msgid "Testing duration"
-msgstr "Длительность тестирования"
-
-#: tcms/testcases/templates/testcases/get.html:83
+#: tcms/testcases/templates/testcases/get.html:85
 msgid "Expected duration"
 msgstr "Ожидаемая длительность"
 
-#: tcms/testcases/templates/testcases/get.html:98
-#: tcms/testcases/templates/testcases/mutable.html:143
-msgid "Script"
-msgstr "Скрипт"
-
-#: tcms/testcases/templates/testcases/get.html:103
-#: tcms/testcases/templates/testcases/mutable.html:149
-msgid "Arguments"
-msgstr "Аргументы"
-
-#: tcms/testcases/templates/testcases/get.html:108
+#: tcms/testcases/templates/testcases/get.html:110
 #: tcms/testcases/templates/testcases/mutable.html:157
 msgid "Requirements"
 msgstr "Требования"
 
-#: tcms/testcases/templates/testcases/get.html:113
+#: tcms/testcases/templates/testcases/get.html:115
 #: tcms/testcases/templates/testcases/mutable.html:162
-#: tcms/testplans/templates/testplans/get.html:80
+#: tcms/testplans/templates/testplans/get.html:82
 #: tcms/testplans/templates/testplans/mutable.html:102
 msgid "Reference link"
 msgstr "Ссылка"
 
-#: tcms/testcases/templates/testcases/get.html:133
-#: tcms/testcases/templates/testcases/mutable.html:170
-#: tcms/testplans/templates/testplans/get.html:438
-#: tcms/testplans/templates/testplans/get.html:439
-#: tcms/testruns/templates/testruns/get.html:408
-#: tcms/testruns/templates/testruns/mutable.html:202
-msgid "Notes"
-msgstr "Примечания"
-
-#: tcms/testcases/templates/testcases/get.html:152
-msgid "Bugs"
-msgstr "Ошибки"
-
-#: tcms/testcases/templates/testcases/get.html:159
+#: tcms/testcases/templates/testcases/get.html:161 tcms/testplans/apps.py:8
+#: tcms/testplans/models.py:298
 msgid "Test plans"
 msgstr "Планы тестирований"
 
@@ -1578,7 +2126,7 @@ msgid "add new Template"
 msgstr "добавить новый шаблон"
 
 #: tcms/testcases/templates/testcases/mutable.html:180
-#: tcms/testruns/templates/testruns/get.html:525
+#: tcms/testruns/templates/testruns/get.html:560
 msgid "Notify"
 msgstr "Уведомления"
 
@@ -1612,12 +2160,17 @@ msgid "CC to"
 msgstr "Копия к"
 
 #: tcms/testcases/templates/testcases/mutable.html:250
-msgid "Email addresses separated by comma. A notification email will be sent to each Email address within CC list."
-msgstr "E-mail адреса, разделяются запятыми. Письма с уведомлениями будут отправлены на каждый адрес электронной почты из списка."
+msgid ""
+"Email addresses separated by comma. A notification email will be sent to "
+"each Email address within CC list."
+msgstr ""
+"E-mail адреса, разделяются запятыми. Письма с уведомлениями будут отправлены "
+"на каждый адрес электронной почты из списка."
 
 #: tcms/testcases/templates/testcases/mutable.html:264
-#: tcms/testruns/templates/testruns/get.html:600
-#: tcms/testruns/templates/testruns/get.html:631
+#: tcms/testruns/templates/testruns/get.html:635
+#: tcms/testruns/templates/testruns/get.html:666
+#: tcms/workflow/templates/workflow/form.html:6
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -1637,10 +2190,6 @@ msgstr "включить в поисковый запрос"
 msgid "include child test plans"
 msgstr "включить вложенные планы тестирования"
 
-#: tcms/testcases/templates/testcases/search.html:132
-msgid "Text"
-msgstr "Текст"
-
 #: tcms/testcases/templates/testcases/search.html:143
 #: tcms/testplans/templates/testplans/search.html:99
 #: tcms/testruns/templates/testruns/search.html:34
@@ -1649,24 +2198,72 @@ msgstr "Разделяйте значения через запятые (,)"
 
 #: tcms/testcases/templates/testcases/search.html:168
 msgid "Last modified"
-msgstr ""
+msgstr "Последнее изменение"
 
 #: tcms/testcases/templates/testcases/search.html:183
 msgid "Select"
 msgstr "Выбрать"
 
-#: tcms/testcases/views.py:141 tcms/testplans/views.py:152
-#: tcms/testruns/templates/testruns/get.html:466 tcms/testruns/views.py:202
+#: tcms/testcases/views.py:142 tcms/testplans/views.py:152
+#: tcms/testruns/templates/testruns/get.html:499 tcms/testruns/views.py:199
 msgid "History"
 msgstr "История"
 
-#: tcms/testcases/views.py:253
+#: tcms/testcases/views.py:259
 msgid "TestCase cloning was successful"
 msgstr "Клонирование тестового случая прошло успешно"
 
-#: tcms/testcases/views.py:284
+#: tcms/testcases/views.py:290
 msgid "At least one TestCase is required"
 msgstr "Требуется хотя бы один тестовый случай"
+
+#: tcms/testplans/forms.py:88
+msgid "Copy testcases"
+msgstr "Копировать тест-кейсы"
+
+#: tcms/testplans/forms.py:89
+msgid "Set parent"
+msgstr "Указать родительский план"
+
+#: tcms/testplans/models.py:27
+msgid "Plan type"
+msgstr "Тип плана"
+
+#: tcms/testplans/models.py:28
+msgid "Plan types"
+msgstr "Типы планов"
+
+#: tcms/testplans/models.py:55
+msgid "Product version"
+msgstr "Версия продукта"
+
+#: tcms/testplans/models.py:310
+msgid "Test plan tag"
+msgstr "Метка плана тестирования"
+
+#: tcms/testplans/models.py:311
+msgid "Test plan tags"
+msgstr "Метки планов тестирования"
+
+#: tcms/testplans/models.py:322
+msgid "Auto to plan author"
+msgstr "Отправлять автору плана"
+
+#: tcms/testplans/models.py:325
+msgid "Auto to case owner"
+msgstr "Отправлять владельцу тест-кейса"
+
+#: tcms/testplans/models.py:328
+msgid "Auto to case default tester"
+msgstr "Отправлять тестировщику тест-кейса по умолчанию"
+
+#: tcms/testplans/models.py:331
+msgid "Notify on plan update"
+msgstr "Уведомлять об изменении плана"
+
+#: tcms/testplans/models.py:338 tcms/testplans/models.py:339
+msgid "Test plan email settings"
+msgstr "Настройки уведомлений плана"
 
 #: tcms/testplans/templates/testplans/clone.html:5
 msgid "Clone TestPlan"
@@ -1678,7 +2275,9 @@ msgstr "Клонировать тестовый случай"
 
 #: tcms/testplans/templates/testplans/clone.html:59
 msgid "Clone or link existing TCs into new TP"
-msgstr "Клонировать или связать существующие тестовый случай в новый план тестирования"
+msgstr ""
+"Клонировать или связать существующие тестовый случай в новый план "
+"тестирования"
 
 #: tcms/testplans/templates/testplans/clone.html:63
 msgid "Parent TP"
@@ -1686,95 +2285,118 @@ msgstr "Родительский план тестирования"
 
 #: tcms/testplans/templates/testplans/clone.html:67
 msgid "Set the source TP as parent of new TP"
-msgstr "Установить исходный план тестирования как родитель нового плана тестирования"
+msgstr ""
+"Установить исходный план тестирования как родитель нового плана тестирования"
 
 #: tcms/testplans/templates/testplans/get.html:25
-#: tcms/testruns/templates/testruns/get.html:23
+#: tcms/testruns/templates/testruns/get.html:24
 msgid "Enter username, email or user ID:"
 msgstr "Введите имя пользователя, email или ID пользователя:"
 
 #: tcms/testplans/templates/testplans/get.html:26
-#: tcms/testruns/templates/testruns/get.html:22
+#: tcms/testruns/templates/testruns/get.html:23
 msgid "No rows selected! Please select at least one!"
 msgstr "Не выбрано ни одной строчки. Выберите по крайней мере одну строчку!"
 
 #: tcms/testplans/templates/testplans/get.html:27
-#: tcms/testruns/templates/testruns/get.html:24
+#: tcms/testruns/templates/testruns/get.html:25
 msgid "Are you sure?"
 msgstr "Уверены?"
 
 #: tcms/testplans/templates/testplans/get.html:28
 msgid "Cannot create TestRun with unconfirmed test cases"
-msgstr "Не удается создать тестовый прогон с неподтвержденными тестовыми случаями"
+msgstr ""
+"Не удается создать тестовый прогон с неподтвержденными тестовыми случаями"
 
 #: tcms/testplans/templates/testplans/get.html:29
 msgid "Error adding test cases"
 msgstr "Ошибка при добавлении тестового случая"
 
-#: tcms/testplans/templates/testplans/get.html:43
+#: tcms/testplans/templates/testplans/get.html:45
 msgid "Show more"
 msgstr "Показать ещё"
 
-#: tcms/testplans/templates/testplans/get.html:75
+#: tcms/testplans/templates/testplans/get.html:68
+#, python-format
+msgid "Search plans of %(name)s"
+msgstr "Найти планы: %(name)s"
+
+#: tcms/testplans/templates/testplans/get.html:77
 msgid "Plan Type"
 msgstr "Тип плана"
 
-#: tcms/testplans/templates/testplans/get.html:100
-msgid "Test cases"
-msgstr "Тестовые случаи"
-
-#: tcms/testplans/templates/testplans/get.html:182
-#: tcms/testplans/templates/testplans/get.html:426
-#: tcms/testplans/templates/testplans/get.html:499
-#: tcms/testplans/templates/testplans/toolbar_dropdown.html:10
-msgid "Reviewer"
-msgstr "Рецензент"
-
-#: tcms/testplans/templates/testplans/get.html:231
-#: tcms/testplans/templates/testplans/get.html:234
+#: tcms/testplans/templates/testplans/get.html:233
+#: tcms/testplans/templates/testplans/get.html:236
 msgid "Sort key"
 msgstr "Ключи сортировки"
 
-#: tcms/testplans/templates/testplans/get.html:244
+#: tcms/testplans/templates/testplans/get.html:246
 msgid "Re-order cases"
 msgstr "Переупорядочить случаи"
 
-#: tcms/testplans/templates/testplans/get.html:254
-#: tcms/testruns/templates/testruns/get.html:296
+#: tcms/testplans/templates/testplans/get.html:256
+#: tcms/testruns/templates/testruns/get.html:301
 msgid "Search and add test cases"
 msgstr "Поиск и добавление тестовых случаев"
 
-#: tcms/testplans/templates/testplans/get.html:263
-#: tcms/testruns/templates/testruns/get.html:306
+#: tcms/testplans/templates/testplans/get.html:265
+#: tcms/testruns/templates/testruns/get.html:311
 msgid "Advanced search"
 msgstr "Расширенный поиск"
 
-#: tcms/testplans/templates/testplans/get.html:271
-#: tcms/testruns/templates/testruns/get.html:314
+#: tcms/testplans/templates/testplans/get.html:273
+#: tcms/testruns/templates/testruns/get.html:319
 msgid "records"
 msgstr "записи"
 
-#: tcms/testplans/templates/testplans/get.html:291
+#: tcms/testplans/templates/testplans/get.html:293
 msgid "Active test runs"
 msgstr "Активные тестовые запуски"
 
-#: tcms/testplans/templates/testplans/get.html:313
+#: tcms/testplans/templates/testplans/get.html:315
 msgid "More"
 msgstr "Еще"
 
-#: tcms/testplans/templates/testplans/get.html:315
+#: tcms/testplans/templates/testplans/get.html:317
+#: tcms/workflow/templates/workflow/hub.html:35
 msgid "Inactive"
 msgstr "Неактивный"
 
-#: tcms/testplans/templates/testplans/get.html:449
-#: tcms/testruns/templates/testruns/get.html:502
+#: tcms/testplans/templates/testplans/get.html:451
+#: tcms/testruns/templates/testruns/get.html:535
 msgid "No attachments"
 msgstr "Без вложений"
 
-#: tcms/testplans/templates/testplans/get.html:474
-#: tcms/testruns/templates/testruns/get.html:491
+#: tcms/testplans/templates/testplans/get.html:476
+#: tcms/testruns/templates/testruns/get.html:524
 msgid "Comments"
 msgstr "Комментарии"
+
+#: tcms/testplans/templates/testplans/get.html:508
+#: tcms/testruns/templates/testruns/get.html:330
+msgid "Collapse/Expand section"
+msgstr "Свернуть или развернуть раздел"
+
+#: tcms/testplans/templates/testplans/get.html:509
+#: tcms/testruns/templates/testruns/get.html:331
+msgid "Select all in this section"
+msgstr "Выбрать всё в разделе"
+
+#: tcms/testplans/templates/testplans/get.html:513
+msgid "Test cases count"
+msgstr "Количество тест-кейсов"
+
+#: tcms/testplans/templates/testplans/get.html:518
+msgid "Add case"
+msgstr "Добавить тест-кейс"
+
+#: tcms/testplans/templates/testplans/get.html:525
+msgid "Link existing cases"
+msgstr "Связать существующие тест-кейсы"
+
+#: tcms/testplans/templates/testplans/get.html:537
+msgid "No test cases in this section"
+msgstr "В этом разделе нет тест-кейсов"
 
 #: tcms/testplans/templates/testplans/mutable.html:10
 msgid "Edit TestPlan"
@@ -1816,11 +2438,6 @@ msgstr "План тестирования обновлен"
 msgid "Test cases are updated"
 msgstr "Планы тестирования обновлены"
 
-#: tcms/testplans/templates/testplans/mutable.html:165
-#: tcms/testplans/templates/testplans/search.html:43
-msgid "Active"
-msgstr "Активно"
-
 #: tcms/testplans/templates/testplans/search.html:12
 msgid "Some child test plans do not match search criteria"
 msgstr "Некоторые вложенные планы не соответствуют критериям поиска"
@@ -1834,11 +2451,16 @@ msgid "Permission denied: TestRun does not belong to you"
 msgstr "Доступ запрещен: тестовый прогон не принадлежит вам"
 
 #: tcms/testruns/admin.py:39
-msgid "For more information about customizing test execution statuses see\n"
-"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-execution-statuses\">\n"
+msgid ""
+"For more information about customizing test execution statuses see\n"
+"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-"
+"execution-statuses\">\n"
 "        the documentation</a>!"
-msgstr "Для получения дополнительной информации о настройках статусов выполнения тестов смотрите\n"
-"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-execution-statuses\">\n"
+msgstr ""
+"Для получения дополнительной информации о настройках статусов выполнения "
+"тестов смотрите\n"
+"        <a href=\"https://kiwitcms.readthedocs.io/en/latest/admin.html#test-"
+"execution-statuses\">\n"
 "        документацию</a>!"
 
 #: tcms/testruns/admin.py:95
@@ -1849,120 +2471,212 @@ msgstr "Требуется 1 отрицательный, 1 нейтральны�
 msgid "Edit parameters"
 msgstr "Редактировать параметры"
 
-#: tcms/testruns/forms.py:39
-msgid "Full"
-msgstr "Все"
+#: tcms/testruns/apps.py:8 tcms/testruns/models.py:253
+#: tcms/workflow/models.py:100
+msgid "Test runs"
+msgstr "Тестовые прогоны"
 
-#: tcms/testruns/forms.py:40
-msgid "Pairwise"
-msgstr "Попарно"
-
-#: tcms/testruns/models.py:230
-msgid "Test execution statuses"
-msgstr "Статусы выполнения тестов"
-
-#: tcms/testruns/templates/testruns/get.html:25
-msgid "Unconfirmed test cases were not added"
-msgstr "Неподтвержденные тесты не были добавлены"
-
-#: tcms/testruns/templates/testruns/get.html:26
-msgid "Type 0 or 1"
-msgstr "Тип 0 или 1"
-
-#: tcms/testruns/templates/testruns/get.html:27
-msgid "Comment"
-msgstr "Комментарий"
-
-#: tcms/testruns/templates/testruns/get.html:60
+#: tcms/testruns/forms.py:16 tcms/testruns/forms.py:92
+#: tcms/testruns/models.py:64 tcms/testruns/templates/testruns/get.html:63
 #: tcms/testruns/templates/testruns/mutable.html:29
 #: tcms/testruns/templates/testruns/search.html:71
 #: tcms/testruns/templates/testruns/search.html:192
 msgid "Manager"
 msgstr "Менеджер"
 
-#: tcms/testruns/templates/testruns/get.html:73
+#: tcms/testruns/forms.py:18 tcms/testruns/models.py:33
+#: tcms/testruns/models.py:300 tcms/testruns/templates/testruns/search.html:90
+#: tcms/testruns/templates/testruns/search.html:190 tcms/workflow/models.py:34
+msgid "Start date"
+msgstr "Дата запуска"
+
+#: tcms/testruns/forms.py:19 tcms/testruns/models.py:36
+#: tcms/testruns/models.py:303 tcms/testruns/templates/testruns/search.html:110
+#: tcms/testruns/templates/testruns/search.html:191
+msgid "Stop date"
+msgstr "Дата остановки"
+
+#: tcms/testruns/forms.py:20 tcms/testruns/models.py:39
+#: tcms/testruns/templates/testruns/get.html:76
 #: tcms/testruns/templates/testruns/mutable.html:110
 #: tcms/testruns/templates/testruns/search.html:131
 msgid "Planned start"
 msgstr "Запланированный старт"
 
-#: tcms/testruns/templates/testruns/get.html:84
-msgid "Start"
-msgstr "Запуск"
-
-#: tcms/testruns/templates/testruns/get.html:91
+#: tcms/testruns/forms.py:21 tcms/testruns/models.py:42
+#: tcms/testruns/templates/testruns/get.html:94
 #: tcms/testruns/templates/testruns/mutable.html:123
 #: tcms/testruns/templates/testruns/search.html:151
 msgid "Planned stop"
 msgstr "Запланированная остановка"
 
-#: tcms/testruns/templates/testruns/get.html:102
-msgid "Stop"
-msgstr "Остановка"
+#: tcms/testruns/forms.py:48
+msgid "Matrix type"
+msgstr "Тип матрицы"
 
-#: tcms/testruns/templates/testruns/get.html:139
+#: tcms/testruns/forms.py:50
+msgid "Full"
+msgstr "Все"
+
+#: tcms/testruns/forms.py:51
+msgid "Pairwise"
+msgstr "Попарно"
+
+#: tcms/testruns/forms.py:57 tcms/testruns/models.py:428
+#: tcms/testruns/models.py:434 tcms/testruns/templates/testruns/get.html:144
 #: tcms/testruns/templates/testruns/mutable.html:160
 msgid "Environment"
 msgstr "Окружение"
 
-#: tcms/testruns/templates/testruns/get.html:171
+#: tcms/testruns/forms.py:102 tcms/testruns/templates/testruns/search.html:83
+msgid "Running"
+msgstr "Запущено"
+
+#: tcms/testruns/models.py:85
+msgid "Cc"
+msgstr "Копия"
+
+#: tcms/testruns/models.py:258
+msgid "Test execution status"
+msgstr "Статус выполнения теста"
+
+#: tcms/testruns/models.py:260
+msgid "Test execution statuses"
+msgstr "Статусы выполнения тестов"
+
+#: tcms/testruns/models.py:297
+msgid "Case text version"
+msgstr "Версия описания тест-кейса"
+
+#: tcms/testruns/models.py:356 tcms/testruns/models.py:362
+#: tcms/testruns/models.py:388 tcms/workflow/models.py:317
+#: tcms/workflow/models.py:343
+msgid "Test execution"
+msgstr "Выполнение теста"
+
+#: tcms/testruns/models.py:378
+msgid "Test run tag"
+msgstr "Метка прогона"
+
+#: tcms/testruns/models.py:379
+msgid "Test run tags"
+msgstr "Метки прогонов"
+
+#: tcms/testruns/models.py:429 tcms/workflow/forms.py:303
+msgid "Environments"
+msgstr "Окружения"
+
+#: tcms/testruns/models.py:438
+msgid "Environment property"
+msgstr "Свойство окружения"
+
+#: tcms/testruns/models.py:439
+msgid "Environment properties"
+msgstr "Свойства окружения"
+
+#: tcms/testruns/templates/testruns/get.html:26
+msgid "Unconfirmed test cases were not added"
+msgstr "Неподтвержденные тесты не были добавлены"
+
+#: tcms/testruns/templates/testruns/get.html:27
+msgid "Type 0 or 1"
+msgstr "Тип 0 или 1"
+
+#: tcms/testruns/templates/testruns/get.html:28 tcms/workflow/forms.py:258
+#: tcms/workflow/models.py:363 tcms/workflow/views.py:535
+msgid "Comment"
+msgstr "Комментарий"
+
+#: tcms/testruns/templates/testruns/get.html:36
+msgid "Step execution, results & planning"
+msgstr "Выполнение шагов, результаты и планирование"
+
+#: tcms/testruns/templates/testruns/get.html:49
+#: tcms/testruns/templates/testruns/get.html:54
+#: tcms/testruns/templates/testruns/get.html:59
+#, python-format
+msgid "Search test runs of %(name)s"
+msgstr "Найти прогоны: %(name)s"
+
+#: tcms/testruns/templates/testruns/get.html:87
+msgid "Start"
+msgstr "Запуск"
+
+#: tcms/testruns/templates/testruns/get.html:105
+msgid "Stop"
+msgstr "Остановка"
+
+#: tcms/testruns/templates/testruns/get.html:176
 msgid "View all in Execution Dashboard"
 msgstr "Просмотреть все в панели выполнения"
 
-#: tcms/testruns/templates/testruns/get.html:190
+#: tcms/testruns/templates/testruns/get.html:195
 msgid "Update text version"
 msgstr "Обновление версии текста"
 
-#: tcms/testruns/templates/testruns/get.html:225
+#: tcms/testruns/templates/testruns/get.html:230
 msgid "Add comment"
 msgstr "Добавить комментарий"
 
-#: tcms/testruns/templates/testruns/get.html:236
-#: tcms/testruns/templates/testruns/get.html:339
-#: tcms/testruns/templates/testruns/get.html:576
+#: tcms/testruns/templates/testruns/get.html:241
+#: tcms/testruns/templates/testruns/get.html:372
+#: tcms/testruns/templates/testruns/get.html:611
 msgid "Add hyperlink"
 msgstr "Добавить гиперссылку"
 
-#: tcms/testruns/templates/testruns/get.html:287
+#: tcms/testruns/templates/testruns/get.html:292
 msgid "Mine"
 msgstr "Мои"
 
-#: tcms/testruns/templates/testruns/get.html:288
+#: tcms/testruns/templates/testruns/get.html:293
+#: tcms/workflow/templates/workflow/run.html:8
 msgid "All"
 msgstr "Все"
 
-#: tcms/testruns/templates/testruns/get.html:340
-#: tcms/testruns/templates/testruns/get.html:615
-#: tcms/testruns/templates/testruns/get.html:632
+#: tcms/testruns/templates/testruns/get.html:335
+msgid "Status progress"
+msgstr "Прогресс по статусам"
+
+#: tcms/testruns/templates/testruns/get.html:342
+msgid "Test executions count"
+msgstr "Количество выполняемых тестов"
+
+#: tcms/testruns/templates/testruns/get.html:349
+msgid "No test executions in this section"
+msgstr "В этом разделе нет выполняемых тестов"
+
+#: tcms/testruns/templates/testruns/get.html:373
+#: tcms/testruns/templates/testruns/get.html:650
+#: tcms/testruns/templates/testruns/get.html:667
 msgid "Report bug"
 msgstr "Отчёт об ошибке"
 
-#: tcms/testruns/templates/testruns/get.html:347
+#: tcms/testruns/templates/testruns/get.html:380
 msgid "Test case is not part of parent test plan"
 msgstr "Тестовый случай не является частью родительского плана тестирования"
 
-#: tcms/testruns/templates/testruns/get.html:379
+#: tcms/testruns/templates/testruns/get.html:412
 msgid "Assigned to"
 msgstr "Исполнитель"
 
-#: tcms/testruns/templates/testruns/get.html:387
-#: tcms/testruns/templates/testruns/get.html:389
+#: tcms/testruns/templates/testruns/get.html:420
+#: tcms/testruns/templates/testruns/get.html:422
 msgid "Last bug"
 msgstr "Последняя ошибка"
 
-#: tcms/testruns/templates/testruns/get.html:431
+#: tcms/testruns/templates/testruns/get.html:464
 msgid "Text version"
 msgstr "Версия текста"
 
-#: tcms/testruns/templates/testruns/get.html:439
+#: tcms/testruns/templates/testruns/get.html:472
 msgid "Bugs and hyperlinks"
 msgstr "Ошибки и гиперссылки"
 
-#: tcms/testruns/templates/testruns/get.html:593
+#: tcms/testruns/templates/testruns/get.html:628
 msgid "Is a defect"
 msgstr "Это неисправность"
 
-#: tcms/testruns/templates/testruns/get.html:620
+#: tcms/testruns/templates/testruns/get.html:655
 msgid "Issue Tracker"
 msgstr "Система ведения задач"
 
@@ -1988,9 +2702,12 @@ msgstr "Выбранные тестовые случаи:"
 
 #: tcms/testruns/templates/testruns/mutable.html:221
 #, python-format
-msgid "%(count)s of the pre-selected test cases is not CONFIRMED and will not be cloned!\n"
+msgid ""
+"%(count)s of the pre-selected test cases is not CONFIRMED and will not be "
+"cloned!\n"
 "See test plan for more details!"
-msgstr "%(count)s из ранее выбранных тестов не ПОДТВЕРЖДЕНЫ и не будут скопированы!\n"
+msgstr ""
+"%(count)s из ранее выбранных тестов не ПОДТВЕРЖДЕНЫ и не будут скопированы!\n"
 "Смотрите план тестирования для получения более подробной информации!"
 
 #: tcms/testruns/templates/testruns/search.html:25
@@ -2001,438 +2718,1223 @@ msgstr "ID плана"
 msgid "TestPlan ID"
 msgstr "ID плана тестирования"
 
-#: tcms/testruns/templates/testruns/search.html:83
-msgid "Running"
-msgstr "Запущено"
-
-#: tcms/testruns/templates/testruns/search.html:90
-#: tcms/testruns/templates/testruns/search.html:190
-msgid "Start date"
-msgstr "Дата запуска"
-
-#: tcms/testruns/templates/testruns/search.html:110
-#: tcms/testruns/templates/testruns/search.html:191
-msgid "Stop date"
-msgstr "Дата остановки"
-
-#: tcms/testruns/views.py:273
+#: tcms/testruns/views.py:275
 msgid "Clone of "
 msgstr "Копия "
 
-#: testcases.TestCaseStatus/name:1
-msgid "PROPOSED"
-msgstr "ПРЕДЛОЖЕНО"
+#: tcms/workflow/apps.py:7
+msgid "Planning and execution"
+msgstr "Планирование и выполнение"
 
-#: testcases.TestCaseStatus/name:3
-msgid "DISABLED"
-msgstr "ОТКЛЮЧЕНО"
+#: tcms/workflow/forms.py:77 tcms/workflow/models.py:246
+msgid "Choices"
+msgstr "Варианты выбора"
 
-#: testcases.TestCaseStatus/name:4
-msgid "NEED_UPDATE"
-msgstr "НЕОБХОДИМО_ОБНОВЛЕНИЕ"
+#: tcms/workflow/forms.py:80
+msgid "For Select: one option per line."
+msgstr "Для списка выбора: каждый вариант на отдельной строке."
 
-#: testruns.TestExecutionStatus/name:1
-msgid "IDLE"
-msgstr "БЕЗДЕЙСТВИЕ"
+#: tcms/workflow/forms.py:113 tcms/workflow/templates/workflow/run.html:9
+#: tcms/workflow/templates/workflow/todo.html:6 tcms/workflow/validators.py:28
+msgid "Action"
+msgstr "Действие"
 
-#: testruns.TestExecutionStatus/name:2
-msgid "RUNNING"
-msgstr "ЗАПУЩЕНО"
+#: tcms/workflow/forms.py:119 tcms/workflow/validators.py:29
+msgid "Expected result"
+msgstr "Ожидаемый результат"
 
-#: testruns.TestExecutionStatus/name:3
-msgid "PAUSED"
-msgstr "ПРИОСТАНОВЛЕНО"
+#: tcms/workflow/forms.py:124 tcms/workflow/validators.py:30
+msgid "Reference"
+msgstr "Ссылка"
 
-#: testruns.TestExecutionStatus/name:4
-msgid "PASSED"
-msgstr "ПРОЙДЕНО"
+#: tcms/workflow/forms.py:126 tcms/workflow/models.py:203
+msgid "Shared step set"
+msgstr "Общий набор шагов"
 
-#: testruns.TestExecutionStatus/name:5
-msgid "FAILED"
-msgstr "НЕ ПРОЙДЕНО"
-
-#: testruns.TestExecutionStatus/name:6
-msgid "BLOCKED"
-msgstr "ЗАБЛОКИРОВАН"
-
-#: testruns.TestExecutionStatus/name:7
-msgid "ERROR"
-msgstr "ОШИБКА"
-
-#: testruns.TestExecutionStatus/name:8
-msgid "WAIVED"
-msgstr "ОТЛОЖЕНО"
-
-#: tcms_github_app/admin.py:122
-#, python-format
-msgid "For additional configuration see\n"
-"<a href=\"%s\">GitHub</a>"
-msgstr "Дополнительную конфигурацию см. в <a href=\"%s\">GitHub</a>"
-
-#: tcms_github_app/menu.py:11
-msgid "GitHub integration"
-msgstr "Интеграция GitHub"
-
-#: tcms_github_app/menu.py:12
-msgid "Resync"
-msgstr "Синхронизировать заново"
-
-#: tcms_github_app/menu.py:13
-msgid "Settings"
-msgstr "Настройки"
-
-#: tcms_github_app/middleware.py:41
-#, python-format
-msgid "Unconfigured GitHub App %d"
-msgstr "Не настроенное приложение GitHub %d"
-
-#: tcms_github_app/utils.py:274
-#, python-format
-msgid "%s was imported from GitHub"
-msgstr "%s импортирован из GitHub"
-
-#: tcms_github_app/utils.py:278
-#, python-format
-msgid "%s already exists"
-msgstr "%s уже существует"
-
-#: tcms_github_app/views.py:48
-#, python-format
-msgid "You have not logged-in via GitHub account! <a href=\"%s\">Click here</a>!"
-msgstr "Вы не вошли через GitHub аккаунт! <a href=\"%s\">Нажмите здесь</a>!"
-
-#: tcms_github_app/views.py:62
-#, python-format
-msgid "You have not installed Kiwi TCMS into your GitHub account! <a href=\"%s\">Click here</a>!"
-msgstr "Вы не установили Kiwi TCMS в ваш GitHub аккаунт! <a href=\"%s\">Нажмите здесь</a>!"
-
-#: tcms_github_app/views.py:76
-msgid "Multiple GitHub App installations detected! See below:"
-msgstr "Обнаружено несколько установок приложения GitHub! Смотрите ниже:"
-
-#: tcms_github_app/views.py:85
-#, python-format
-msgid "Edit GitHub App <a href=\"%s\">%s</a>"
-msgstr "Редактировать приложение GitHub <a href=\"%s\">%s</a>"
-
-#: tcms_github_app/views.py:102
-#, python-format
-msgid "Cannot find GitHub App installation for tenant \"%s\""
-msgstr "Не удается найти установку GitHub App для экземпляра \"%s\""
-
-#: tcms_github_app/views.py:111
-msgid "Multiple GitHub App installations detected!"
-msgstr "Обнаружено несколько установок GitHub!"
-
-#: tcms_github_marketplace/menu.py:12
-msgid "Subscriptions"
-msgstr "Подписки"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/email/exit_poll.txt:1
-msgid "Thank you for using Kiwi TCMS via a paid subscription.\n"
-"We're sorry to see you go but we'd like to know why so we can improve in the future!\n\n"
-"You can share your feedback at https://forms.gle/RJhFengbjN9C6wtUA\n\n"
-"Thank you!"
-msgstr "Благодарим вас за использование Kiwi TCMS по платной подписке.\n"
-"Нам жаль, что вы уходите, но мы хотели бы знать, почему, чтобы мы могли улучшить работу в будущем!\n\n"
-"Вы можете поделиться своими отзывами по адресу https://forms.gle/RJhFengbjN9C6wtUA\n\n"
-"Спасибо!"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:14
-msgid "Tenant subscriptions"
-msgstr "Подписки экземпляра"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:23
-msgid "You can access the following tenants"
-msgstr "Вы можете получить доступ к следующим экземплярам"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:28
-msgid "Tenant"
-msgstr "Экземпляр"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:39
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:112
-#: tcms_github_marketplace/templates/tcms_tenants/override_new.html:38
-msgid "Organization"
-msgstr "Организация"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:52
-msgid "Private credentials"
+#: tcms/workflow/forms.py:155
+msgid "Use either an inline step or a shared set, not both."
 msgstr ""
+"Укажите действие и ожидаемый результат либо выберите общий набор шагов."
 
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:68
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:81
-msgid "Click field to reveal!"
+#: tcms/workflow/forms.py:158
+msgid "Enter an action or choose a shared step set."
+msgstr "Укажите действие или выберите общий набор шагов."
+
+#: tcms/workflow/forms.py:264 tcms/workflow/models.py:365
+msgid "Elapsed time (seconds)"
+msgstr "Затраченное время (секунды)"
+
+#: tcms/workflow/forms.py:267
+msgid "Defect references (IDs or URLs)"
+msgstr "Ссылки на дефекты (идентификаторы или URL)"
+
+#: tcms/workflow/forms.py:281
+msgid "Actual result"
+msgstr "Фактический результат"
+
+#: tcms/workflow/forms.py:307
+msgid ""
+"Each selected environment creates a separate run. Leave empty for one "
+"default run."
 msgstr ""
+"Для каждого выбранного окружения будет создан отдельный прогон. Оставьте "
+"пустым для одного прогона без окружения."
 
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:70
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:83
-msgid "Instructions"
+#: tcms/workflow/forms.py:340 tcms/workflow/models.py:45
+#: tcms/workflow/models.py:90 tcms/workflow/models.py:168
+msgid "Milestone"
+msgstr "Этап"
+
+#: tcms/workflow/forms.py:343 tcms/workflow/models.py:107
+#: tcms/workflow/models.py:136
+msgid "Test cycle"
+msgstr "Цикл тестирования"
+
+#: tcms/workflow/models.py:15
+msgid "Upcoming"
+msgstr "Запланирован"
+
+#: tcms/workflow/models.py:17 tcms/workflow/models.py:97
+#: tcms/workflow/templates/workflow/cycle.html:5
+#: tcms/workflow/templates/workflow/hub.html:23
+msgid "Completed"
+msgstr "Завершён"
+
+#: tcms/workflow/models.py:24
+msgid "Parent milestone"
+msgstr "Родительский этап"
+
+#: tcms/workflow/models.py:32
+msgid "References"
+msgstr "Ссылки"
+
+#: tcms/workflow/models.py:35
+msgid "Due date"
+msgstr "Срок завершения"
+
+#: tcms/workflow/models.py:46 tcms/workflow/templates/workflow/hub.html:16
+msgid "Milestones"
+msgstr "Этапы"
+
+#: tcms/workflow/models.py:64 tcms/workflow/models.py:219
+msgid "Product cannot be changed."
+msgstr "Изменить продукт нельзя."
+
+#: tcms/workflow/models.py:67
+msgid "End date must not precede start date."
+msgstr "Дата завершения не может быть раньше даты начала."
+
+#: tcms/workflow/models.py:74
+msgid "Milestone hierarchy cannot contain a cycle."
+msgstr "Иерархия этапов не может содержать циклы."
+
+#: tcms/workflow/models.py:78
+msgid "Parent must belong to the same product."
+msgstr "Родительский этап должен относиться к тому же продукту."
+
+#: tcms/workflow/models.py:108 tcms/workflow/templates/workflow/hub.html:21
+msgid "Test cycles"
+msgstr "Циклы тестирования"
+
+#: tcms/workflow/models.py:121
+msgid "Milestone must belong to the same product."
+msgstr "Этап должен относиться к тому же продукту."
+
+#: tcms/workflow/models.py:130
+msgid "Product and milestone cannot be changed after adding runs."
+msgstr "После добавления прогонов изменить продукт и этап нельзя."
+
+#: tcms/workflow/models.py:152
+msgid "Run and cycle must belong to the same product."
+msgstr "Прогон и цикл должны относиться к одному продукту."
+
+#: tcms/workflow/models.py:155
+msgid "Cycle run"
+msgstr "Прогон цикла"
+
+#: tcms/workflow/models.py:156
+msgid "Cycle runs"
+msgstr "Прогоны циклов"
+
+#: tcms/workflow/models.py:181
+msgid "Run and milestone must belong to the same product."
+msgstr "Прогон и этап должны относиться к одному продукту."
+
+#: tcms/workflow/models.py:185
+msgid "Run milestone"
+msgstr "Этап прогона"
+
+#: tcms/workflow/models.py:186
+msgid "Run milestones"
+msgstr "Этапы прогонов"
+
+#: tcms/workflow/models.py:195 tcms/workflow/models.py:292
+#: tcms/workflow/models.py:325
+msgid "Steps"
+msgstr "Шаги"
+
+#: tcms/workflow/models.py:204
+msgid "Shared step sets"
+msgstr "Общие наборы шагов"
+
+#: tcms/workflow/models.py:225
+msgid "Test result"
+msgstr "Результат теста"
+
+#: tcms/workflow/models.py:229
+msgid "Integer"
+msgstr "Целое число"
+
+#: tcms/workflow/models.py:230
+msgid "Checkbox"
+msgstr "Флажок"
+
+#: tcms/workflow/models.py:231
+msgctxt "custom field type"
+msgid "Select"
+msgstr "Список выбора"
+
+#: tcms/workflow/models.py:239
+msgid "Entity"
+msgstr "Объект"
+
+#: tcms/workflow/models.py:241
+msgid "Key"
+msgstr "Ключ"
+
+#: tcms/workflow/models.py:242
+msgid "Label"
+msgstr "Подпись"
+
+#: tcms/workflow/models.py:244 tcms/workflow/templates/workflow/hub.html:35
+msgid "Required"
+msgstr "Обязательное"
+
+#: tcms/workflow/models.py:255
+msgid "Custom field"
+msgstr "Пользовательское поле"
+
+#: tcms/workflow/models.py:256 tcms/workflow/templates/workflow/hub.html:31
+msgid "Custom fields"
+msgstr "Пользовательские поля"
+
+#: tcms/workflow/models.py:271
+msgid "Select fields need at least one choice."
+msgstr "Для поля со списком укажите хотя бы один вариант выбора."
+
+#: tcms/workflow/models.py:279
+msgid "Product, entity, key and type cannot be changed; create another field."
+msgstr "Изменить продукт, объект, ключ и тип нельзя. Создайте другое поле."
+
+#: tcms/workflow/models.py:295 tcms/workflow/models.py:369
+msgid "Custom values"
+msgstr "Значения пользовательских полей"
+
+#: tcms/workflow/models.py:310
+msgid "Case workflow"
+msgstr "Шаги и поля тест-кейса"
+
+#: tcms/workflow/models.py:311
+msgid "Case workflows"
+msgstr "Шаги и поля тест-кейсов"
+
+#: tcms/workflow/models.py:321
+msgid "Case summary"
+msgstr "Название тест-кейса"
+
+#: tcms/workflow/models.py:326
+msgid "Case fields"
+msgstr "Поля тест-кейса"
+
+#: tcms/workflow/models.py:327
+msgid "Captured at"
+msgstr "Дата сохранения снимка"
+
+#: tcms/workflow/models.py:328
+msgid "Legacy snapshot"
+msgstr "Снимок существующего выполнения"
+
+#: tcms/workflow/models.py:332
+msgid "Execution snapshots cannot be changed."
+msgstr "Изменить снимок выполнения нельзя."
+
+#: tcms/workflow/models.py:336
+msgid "Execution snapshot"
+msgstr "Снимок выполнения"
+
+#: tcms/workflow/models.py:337
+msgid "Execution snapshots"
+msgstr "Снимки выполнения"
+
+#: tcms/workflow/models.py:359
+msgid "Status label"
+msgstr "Название статуса"
+
+#: tcms/workflow/models.py:361
+msgid "Status weight"
+msgstr "Вес статуса"
+
+#: tcms/workflow/models.py:367 tcms/workflow/views.py:536
+msgid "Defects"
+msgstr "Дефекты"
+
+#: tcms/workflow/models.py:368
+#: tcms/workflow/templates/workflow/execution.html:11
+msgid "Step results"
+msgstr "Результаты шагов"
+
+#: tcms/workflow/models.py:372
+msgid "Execution result"
+msgstr "Результат выполнения"
+
+#: tcms/workflow/models.py:373
+msgid "Execution results"
+msgstr "Результаты выполнения"
+
+#: tcms/workflow/models.py:380
+msgid "Results are append-only; add another result instead."
+msgstr "Результаты нельзя изменять. Добавьте новый результат."
+
+#: tcms/workflow/services.py:70
+msgid "A shared step set is missing or belongs to another product."
+msgstr "Общий набор шагов отсутствует или относится к другому продукту."
+
+#: tcms/workflow/services.py:82
+msgid "Expanded scenario cannot contain more than 500 steps."
 msgstr ""
+"Сценарий после раскрытия общих наборов не может содержать больше 500 шагов."
 
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:75
-msgid "Token"
-msgstr ""
+#: tcms/workflow/services.py:89
+msgid "Custom values must be an object."
+msgstr "Значения пользовательских полей должны быть объектом."
 
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:97
-msgid "You own the following tenants"
-msgstr "Вы можете получить доступ к следующим экземплярам"
+#: tcms/workflow/services.py:95
+msgid "Unknown custom field or field from another product."
+msgstr "Неизвестное пользовательское поле или поле другого продукта."
 
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:119
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:120
-msgid "Price"
-msgstr "Цена"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:124
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:125
-msgid "Subscription type"
-msgstr "Тип подписки"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:129
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:130
-#: tcms_github_marketplace/templates/tcms_tenants/override_new.html:16
-msgid "Paid until"
-msgstr "Оплачено до"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:136
-msgid "Cancel subscription"
-msgstr "Отменить подписку"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:149
-msgid "You don't own any tenants"
-msgstr "Вы не владеете ни одним экземпляром"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:153
-msgid "Subscribe via FastSpring"
-msgstr "Подписаться через FastSpring"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:169
-msgid "Transaction history"
-msgstr "История транзакций"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:191
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:192
-msgid "Sender"
-msgstr "Отправитель"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:196
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:197
-msgid "Vendor"
-msgstr "Поставщик"
-
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:201
-#: tcms_github_marketplace/templates/tcms_github_marketplace/subscription.html:202
-msgid "Received on"
-msgstr "Получено"
-
-#: tcms_github_marketplace/templates/tcms_tenants/include/tenant_extra_emails.html:11
-msgid "Extra emails"
-msgstr "Дополнительные адреса электронной почты"
-
-#: tcms_github_marketplace/templates/tcms_tenants/include/tenant_extra_emails.html:21
-msgid "Kiwi TCMS will try to match recurring billing events against tenant.owner.email + tenant.extra_emails"
-msgstr "Kiwi TCMS будет пытаться сопоставить повторяющиеся платежные события с tenant.owner.email + tenant.extra_emails"
-
-#: tcms_github_marketplace/templates/tcms_tenants/include/tenant_extra_emails.html:24
-msgid "Separate by comma (,), semi-colon (;) or white space ( )"
-msgstr "Разделяйте запятой (,), точкой с запятой (;) или пробелом ( )"
-
-#: tcms_github_marketplace/templates/tcms_tenants/override_new.html:52
-msgid "Private Tenant Warning"
-msgstr "Предупреждение частного экземпляра"
-
-#: tcms_github_marketplace/templates/tcms_tenants/override_new.html:57
-msgid "You are about to create a Private Tenant for Kiwi TCMS.\n"
-"It will take a few minutes until your DB schema is ready!\n"
-"After clicking the 'Save' button <strong>do not</strong> close or refresh this page!<br>\n"
-"You will be redirected to your new tenant when the creation process is complete!\n"
-"If you see a 500 Internal Server Error page please contact\n"
-"<a href=\"mailto:kiwitcms@mrsenko.com\">kiwitcms@mrsenko.com</a> immediately!"
-msgstr "Вы собираетесь создать частный экземпляр для Kiwi TCMS.\n"
-"Это займет несколько минут, пока ваша схема БД будет готова!\n"
-"После нажатия на кнопку 'Сохранить' <strong>не</strong> закрывайте и не обновляйте эту страницу!<br>\n"
-"Вы будете перенаправлены на новый экземпляр после завершения процесса создания!\n"
-"Если вы видите страницу 500 Внутренняя Ошибка сервера свяжитесь с\n"
-"<a href=\"mailto:kiwitcms@mrsenko.com\">kiwitcms@mrsenko. om</a> немедленно!"
-
-#: tcms_github_marketplace/utils.py:64
-msgid "Kiwi TCMS Subscription Exit Poll"
-msgstr "Опрос отказа от платной подписки Kiwi TCMS"
-
-#: tcms_github_marketplace/views.py:628
-msgid "Kiwi TCMS subscription notification"
-msgstr "Уведомление о подписке Kiwi TCMS"
-
-#: tcms_github_marketplace/views.py:846
-msgid "mo"
-msgstr "мес"
-
-#: tcms_github_marketplace/views.py:848
-msgid "yr"
-msgstr "г"
-
-#: build/lib/tcms_enterprise/admin.py:22 tcms_enterprise/admin.py:22
-msgid "Export as CSV"
-msgstr "Экспортировать в CSV"
-
-#: build/lib/tcms_enterprise/pipeline.py:22 tcms_enterprise/pipeline.py:21
-msgid "Email address is required"
-msgstr "Требуется адрес электронной почты"
-
-#: build/lib/tcms_enterprise/templates/registration/custom_login.html:18
-msgid "or Continue With"
-msgstr "или нажмите ниже, чтобы войти в аккаунт через"
-
-#: build/lib/tcms_settings_dir/enterprise.py:23
-#: tcms_settings_dir/enterprise.py:23
-msgid "Legal information"
-msgstr "Правовая информация"
-
-#: tcms_enterprise/templates/registration/custom_login.html:27
-msgid "Continue with"
-msgstr "Продолжить с"
-
-#: tcms_tenants/admin.py:55 tcms_tenants/admin.py:62
-#: tcms_tenants/middleware.py:35
-msgid "Unauthorized"
-msgstr "Неавторизован"
-
-#: tcms_tenants/admin.py:86
-msgid "Existing username, email or user ID"
-msgstr "Существующие имя пользователя, email или ID пользователя"
-
-#: tcms_tenants/admin.py:159
-msgid "Full name"
-msgstr "Полное имя"
-
-#: tcms_tenants/forms.py:30
-msgid "Invalid string"
-msgstr "Некорректная строка"
-
-#: tcms_tenants/menu.py:15
-msgid "Create"
-msgstr "Создать"
-
-#: tcms_tenants/menu.py:20
-#: tcms_tenants/templates/tcms_tenants/invite_users.html:17
-msgid "Invite users"
-msgstr "Пригласить пользователей"
-
-#: tcms_tenants/menu.py:21
-msgid "Authorized users"
-msgstr "Авторизованные пользователи"
-
-#: tcms_tenants/middleware.py:59
-msgid "Unpaid"
-msgstr "Неоплаченный"
-
-#: tcms_tenants/middleware.py:70
-msgid "Tenant expires soon"
-msgstr "Срок аренды экземпляра скоро истекает"
-
-#: tcms_tenants/templates/tcms_tenants/email/invite_user.txt:1
+#: tcms/workflow/services.py:103
 #, python-format
-msgid "Dear tester,\n"
-"%(invited_by)s has invited you to join their Kiwi TCMS tenant at\n"
-"%(tenant_url)s\n\n"
-"In case you have never logged in before an account was created for you\n"
-"automatically. You can login with a social account which has the same email\n"
-"address or go to %(password_reset_url)s to reset your password.\n"
-"The password reset email message also contains your username!"
-msgstr "Уважаемый тестировщик,\n"
-"%(invited_by)s пригласили вас присоединиться к их экземпляру Kiwi TCMS по адресу\n"
-"%(tenant_url)s\n\n"
-"Если вы никогда не входили в систему до того, как для вас автоматически была создана учетная\n"
-"запись. Вы можете войти в систему с помощью учетной записи из социальной сети, у которой тот же адрес электронной\n"
-"почты, или перейти на страницу %(password_reset_url)s, чтобы сбросить пароль.\n"
-"В сообщении электронной почты для сброса пароля также указано ваше имя пользователя!"
+msgid "%(field)s: value is required."
+msgstr "%(field)s: укажите значение."
 
-#: tcms_tenants/templates/tcms_tenants/email/new.txt:1
+#: tcms/workflow/services.py:132
 #, python-format
-msgid "Your Kiwi TCMS tenant was created at:\n"
-"%(tenant_url)s\n\n"
-"If you have troubles please contact support!"
-msgstr "Ваш экземпляр TCMS Kiwi был создан в:\n"
-"%(tenant_url)s\n\n"
-"Если у вас возникли проблемы, пожалуйста, свяжитесь с поддержкой!"
+msgid "%(field)s: invalid %(kind)s value."
+msgstr "%(field)s: недопустимое значение типа «%(kind)s»."
 
-#: tcms_tenants/templates/tcms_tenants/invite_users.html:28
-msgid "Email"
-msgstr "Email"
+#: tcms/workflow/services.py:229
+msgid "This run is closed. Reopen it before adding results."
+msgstr "Прогон закрыт. Откройте его повторно перед добавлением результатов."
 
-#: tcms_tenants/templates/tcms_tenants/new.html:18
-msgid "New tenant"
-msgstr "Новый экземпляр"
+#: tcms/workflow/services.py:234
+msgid "Invalid execution status."
+msgstr "Недопустимый статус выполнения."
 
-#: tcms_tenants/templates/tcms_tenants/new.html:35
-msgid "Company, team or project name"
-msgstr "Название компании, команды или проекта"
+#: tcms/workflow/services.py:238
+msgid "Elapsed time must be between 0 and 604800 seconds."
+msgstr "Затраченное время должно быть от 0 до 604800 секунд."
 
-#: tcms_tenants/templates/tcms_tenants/new.html:43
-msgid "Schema"
-msgstr "Схема"
+#: tcms/workflow/services.py:245
+msgid "Comment or defect references are too long."
+msgstr "Комментарий или ссылки на дефекты слишком длинные."
 
-#: tcms_tenants/templates/tcms_tenants/new.html:56
-msgid "Validation pattern"
-msgstr "Шаблон проверки"
+#: tcms/workflow/services.py:252
+msgid "Submit a result for every step in the execution snapshot."
+msgstr "Укажите результат каждого шага в снимке выполнения."
 
-#: tcms_tenants/templates/tcms_tenants/new.html:61
-msgid "Publicly readable"
-msgstr "Общедоступный для чтения"
+#: tcms/workflow/services.py:265
+msgid "Invalid step result."
+msgstr "Недопустимый результат шага."
 
-#: tcms_tenants/templates/tcms_tenants/new.html:80
-msgid "Tenant logo"
-msgstr "Логотип экземпляра"
+#: tcms/workflow/services.py:277
+msgid "A passed result requires every step to pass."
+msgstr "Чтобы отметить тест пройденным, все его шаги должны быть пройдены."
 
-#: tcms_tenants/utils.py:66
-msgid "Schema name already in use"
-msgstr "Такое название схемы уже используется"
+#: tcms/workflow/services.py:322
+msgid "Cannot add runs to a completed cycle or milestone."
+msgstr "Нельзя добавить прогоны в завершённый цикл или этап."
 
-#: tcms_tenants/utils.py:170
-msgid "New Kiwi TCMS tenant created"
-msgstr "Новый экземпляр TCMS Kiwi создан"
+#: tcms/workflow/services.py:324
+msgid "Run belongs to another product."
+msgstr "Прогон относится к другому продукту."
 
-#: tcms_tenants/utils.py:230
+#: tcms/workflow/services.py:327
+msgid "Run already belongs to another cycle."
+msgstr "Прогон уже относится к другому циклу."
+
+#: tcms/workflow/services.py:330
+msgid "Run is already assigned to another milestone."
+msgstr "Прогон уже связан с другим этапом."
+
+#: tcms/workflow/services.py:350
+msgid "Select an active build for this plan's version and product."
+msgstr "Выберите активную сборку для версии и продукта этого плана."
+
+#: tcms/workflow/services.py:355
+msgid "Cycle or milestone is completed."
+msgstr "Цикл или этап завершён."
+
+#: tcms/workflow/services.py:365
+msgid "The plan has no confirmed cases."
+msgstr "В плане нет подтверждённых тест-кейсов."
+
+#: tcms/workflow/services.py:369
+msgid "A selected case belongs to another product."
+msgstr "Выбранный тест-кейс относится к другому продукту."
+
+#: tcms/workflow/services.py:372
+msgid "Select at most 30 configurations at once."
+msgstr "Выберите не более 30 конфигураций за один раз."
+
+#: tcms/workflow/services.py:410
+msgid "Choose an unfinished milestone of the run's product."
+msgstr "Выберите незавершённый этап продукта этого прогона."
+
+#: tcms/workflow/services.py:418
+msgid "Choose an unfinished cycle of the run's product."
+msgstr "Выберите незавершённый цикл продукта этого прогона."
+
+#: tcms/workflow/services.py:420
+msgid "Run milestone must match its cycle milestone."
+msgstr "Этап прогона должен совпадать с этапом его цикла."
+
+#: tcms/workflow/templates/workflow/base.html:4
+#: tcms/workflow/templates/workflow/base.html:18
+msgid "Planning & execution"
+msgstr "Планирование и выполнение"
+
+#: tcms/workflow/templates/workflow/base.html:13
+msgid "Planning navigation"
+msgstr "Навигация по планированию"
+
+#: tcms/workflow/templates/workflow/base.html:16
+#: tcms/workflow/templates/workflow/report.html:3
+msgid "Progress & reports"
+msgstr "Прогресс и отчёты"
+
+#: tcms/workflow/templates/workflow/cycle.html:6
+msgid "Edit cycle"
+msgstr "Изменить цикл"
+
+#: tcms/workflow/templates/workflow/cycle.html:7
+#: tcms/workflow/templates/workflow/milestone.html:7
+msgid "Report / CSV"
+msgstr "Отчёт / CSV"
+
+#: tcms/workflow/templates/workflow/cycle.html:8
+msgid "Milestone:"
+msgstr "Этап:"
+
+#: tcms/workflow/templates/workflow/cycle.html:10
+#: tcms/workflow/templates/workflow/milestone.html:12
+msgid "Runs"
+msgstr "Прогоны"
+
+#: tcms/workflow/templates/workflow/cycle.html:12
+msgid "Create configuration runs"
+msgstr "Создать прогоны по конфигурациям"
+
+#: tcms/workflow/templates/workflow/cycle.html:13
+msgid ""
+"Select a plan and an active build of the same version. Confirmed cases are "
+"included."
+msgstr ""
+"Выберите план и активную сборку той же версии. В прогоны войдут "
+"подтверждённые тест-кейсы."
+
+#: tcms/workflow/templates/workflow/cycle.html:14
+msgid "Create runs"
+msgstr "Создать прогоны"
+
+#: tcms/workflow/templates/workflow/cycle.html:15
+msgid "Add an existing run"
+msgstr "Добавить существующий прогон"
+
+#: tcms/workflow/templates/workflow/cycle.html:15
+msgid "Add run"
+msgstr "Добавить прогон"
+
+#: tcms/workflow/templates/workflow/editor.html:6
+msgid "Edit shared steps"
+msgstr "Изменить общие шаги"
+
+#: tcms/workflow/templates/workflow/editor.html:10
+msgid "Custom case fields"
+msgstr "Пользовательские поля тест-кейса"
+
+#: tcms/workflow/templates/workflow/editor.html:11
+msgid "Structured steps"
+msgstr "Структурированные шаги"
+
+#: tcms/workflow/templates/workflow/editor.html:12
+msgid ""
+"Use an inline action and expected result, or select a shared step set. "
+"Existing execution snapshots keep their original steps."
+msgstr ""
+"Укажите действие и ожидаемый результат или выберите общий набор шагов. В "
+"существующих снимках выполнения сохранятся исходные шаги."
+
+#: tcms/workflow/templates/workflow/editor.html:15
+#: tcms/workflow/templates/workflow/editor.html:17
+msgid "Remove"
+msgstr "Удалить"
+
+#: tcms/workflow/templates/workflow/editor.html:18
+msgid "Add step / shared set"
+msgstr "Добавить шаг / общий набор"
+
+#: tcms/workflow/templates/workflow/editor.html:19
+msgid "Save steps and fields"
+msgstr "Сохранить шаги и поля"
+
+#: tcms/workflow/templates/workflow/editor.html:21
+msgid "Resolved scenario"
+msgstr "Итоговый сценарий"
+
+#: tcms/workflow/templates/workflow/editor.html:22
+#: tcms/workflow/templates/workflow/execution.html:12
+msgid "Reference:"
+msgstr "Ссылка:"
+
+#: tcms/workflow/templates/workflow/editor.html:22
+msgid "Shared:"
+msgstr "Общий набор:"
+
+#: tcms/workflow/templates/workflow/editor.html:23
+msgid ""
+"No structured steps. The original Markdown description is available in the "
+"standard case view."
+msgstr ""
+"Структурированных шагов нет. Исходное описание Markdown доступно на обычной "
+"странице тест-кейса."
+
+#: tcms/workflow/templates/workflow/execution.html:5
+msgid "Execution #"
+msgstr "Выполнение №"
+
+#: tcms/workflow/templates/workflow/execution.html:5
+msgid "Current status:"
+msgstr "Текущий статус:"
+
+#: tcms/workflow/templates/workflow/execution.html:6
+msgid "Requirement:"
+msgstr "Требование:"
+
+#: tcms/workflow/templates/workflow/execution.html:8
+msgid "Scenario snapshot:"
+msgstr "Снимок сценария:"
+
+#: tcms/workflow/templates/workflow/execution.html:8
+msgid ". Captured on first use of this mode for an existing execution."
+msgstr ""
+". Создан при первом открытии этого режима для существующего выполнения."
+
+#: tcms/workflow/templates/workflow/execution.html:9
+msgid ""
+"This run is closed. Reopen it in the standard run editor to add a result."
+msgstr ""
+"Прогон закрыт. Откройте его повторно в обычном редакторе прогонов, чтобы "
+"добавить результат."
+
+#: tcms/workflow/templates/workflow/execution.html:12
+#: tcms/workflow/templates/workflow/execution.html:23
+msgid "Expected:"
+msgstr "Ожидалось:"
+
+#: tcms/workflow/templates/workflow/execution.html:12
+msgid ""
+"No structured steps in this execution snapshot. Record the overall result "
+"below."
+msgstr ""
+"В этом снимке выполнения нет структурированных шагов. Укажите общий "
+"результат ниже."
+
+#: tcms/workflow/templates/workflow/execution.html:14
+msgid "Add result"
+msgstr "Добавить результат"
+
+#: tcms/workflow/templates/workflow/execution.html:14
+msgid "Save result"
+msgstr "Сохранить результат"
+
+#: tcms/workflow/templates/workflow/execution.html:15
+msgid "Scenario"
+msgstr "Сценарий"
+
+#: tcms/workflow/templates/workflow/execution.html:15
+msgid "No structured steps."
+msgstr "Структурированных шагов нет."
+
+#: tcms/workflow/templates/workflow/execution.html:16
+msgid "Result history"
+msgstr "История результатов"
+
+#: tcms/workflow/templates/workflow/execution.html:18
+msgid "Deleted user"
+msgstr "Удалённый пользователь"
+
+#: tcms/workflow/templates/workflow/execution.html:20
+#, python-format
+msgid "Elapsed: %(count)s second"
+msgid_plural "Elapsed: %(count)s seconds"
+msgstr[0] "Затрачено: %(count)s секунда"
+msgstr[1] "Затрачено: %(count)s секунды"
+msgstr[2] "Затрачено: %(count)s секунд"
+msgstr[3] "Затрачено: %(count)s секунды"
+
+#: tcms/workflow/templates/workflow/execution.html:21
+msgid "Defects:"
+msgstr "Дефекты:"
+
+#: tcms/workflow/templates/workflow/execution.html:23
+msgid "Step details"
+msgstr "Подробности шагов"
+
+#: tcms/workflow/templates/workflow/execution.html:23
+msgid "Actual:"
+msgstr "Фактически:"
+
+#: tcms/workflow/templates/workflow/execution.html:24
+msgid ""
+"No results in the new execution mode yet. Previous status changes and "
+"comments remain available in the standard run view."
+msgstr ""
+"Результатов в новом режиме выполнения пока нет. Предыдущие изменения "
+"статусов и комментарии доступны на обычной странице прогона."
+
+#: tcms/workflow/templates/workflow/hub.html:8
+#: tcms/workflow/templates/workflow/report.html:6
+msgid "All visible products"
+msgstr "Все доступные продукты"
+
+#: tcms/workflow/templates/workflow/hub.html:12
+msgid "New milestone"
+msgstr "Новый этап"
+
+#: tcms/workflow/templates/workflow/hub.html:13
+msgid "New cycle"
+msgstr "Новый цикл"
+
+#: tcms/workflow/templates/workflow/hub.html:19
+msgid ""
+"Create a release or sprint milestone to track scope, dates and progress."
+msgstr ""
+"Создайте этап релиза или спринта, чтобы отслеживать объём, сроки и прогресс "
+"тестирования."
+
+#: tcms/workflow/templates/workflow/hub.html:24
+msgid "Group runs from several Kiwi plans and configurations in one cycle."
+msgstr "Объединяйте прогоны разных планов и конфигураций Kiwi в один цикл."
+
+#: tcms/workflow/templates/workflow/hub.html:26
+msgid "Shared step library"
+msgstr "Библиотека общих шагов"
+
+#: tcms/workflow/templates/workflow/hub.html:27
+msgid "New shared step set"
+msgstr "Новый общий набор шагов"
+
+#: tcms/workflow/templates/workflow/hub.html:28
+#, python-format
+msgid "%(count)s step"
+msgid_plural "%(count)s steps"
+msgstr[0] "%(count)s шаг"
+msgstr[1] "%(count)s шага"
+msgstr[2] "%(count)s шагов"
+msgstr[3] "%(count)s шага"
+
+#: tcms/workflow/templates/workflow/hub.html:29
+msgid "Reuse common procedures across test cases."
+msgstr "Используйте общие процедуры в разных тест-кейсах."
+
+#: tcms/workflow/templates/workflow/hub.html:32
+msgid "New custom field"
+msgstr "Новое пользовательское поле"
+
+#: tcms/workflow/templates/workflow/hub.html:36
+msgid "An administrator can define typed fields for cases and results."
+msgstr ""
+"Администратор может создать поля разных типов для тест-кейсов и результатов."
+
+#: tcms/workflow/templates/workflow/hub.html:39
+msgid ""
+"The first 100 items in each section are displayed. Filter by product to "
+"narrow the list."
+msgstr ""
+"В каждом разделе показаны первые 100 записей. Выберите продукт, чтобы "
+"сократить список."
+
+#: tcms/workflow/templates/workflow/milestone.html:6
+msgid "Edit milestone"
+msgstr "Изменить этап"
+
+#: tcms/workflow/templates/workflow/milestone.html:10
+msgid "References:"
+msgstr "Ссылки:"
+
+#: tcms/workflow/templates/workflow/milestone.html:14
+msgid "Cycles"
+msgstr "Циклы"
+
+#: tcms/workflow/templates/workflow/milestone.html:14
+msgid "No cycles."
+msgstr "Циклов нет."
+
+#: tcms/workflow/templates/workflow/milestone.html:15
+msgid "Child milestones"
+msgstr "Дочерние этапы"
+
+#: tcms/workflow/templates/workflow/milestone.html:15
+msgid "No child milestones."
+msgstr "Дочерних этапов нет."
+
+#: tcms/workflow/templates/workflow/milestone.html:16
+msgid ""
+"Progress includes visible runs directly assigned to this milestone. Child "
+"milestones have separate progress."
+msgstr ""
+"Прогресс учитывает доступные вам прогоны, связанные непосредственно с этим "
+"этапом. Прогресс дочерних этапов рассчитывается отдельно."
+
+#: tcms/workflow/templates/workflow/report.html:7
+msgid "Export CSV"
+msgstr "Экспорт CSV"
+
+#: tcms/workflow/templates/workflow/report.html:9
+msgid "Run breakdown"
+msgstr "Сводка по прогонам"
+
+#: tcms/workflow/templates/workflow/report.html:9
+#: tcms/workflow/templates/workflow/runs.html:3
+#: tcms/workflow/templates/workflow/todo.html:6 tcms/workflow/views.py:526
+msgid "Run"
+msgstr "Прогон"
+
+#: tcms/workflow/templates/workflow/report.html:9
+#: tcms/workflow/templates/workflow/run.html:8
+#: tcms/workflow/templates/workflow/stats.html:4
+msgid "Passed"
+msgstr "Пройдено"
+
+#: tcms/workflow/templates/workflow/report.html:9
+#: tcms/workflow/templates/workflow/run.html:8
+#: tcms/workflow/templates/workflow/stats.html:6
+msgid "Not completed"
+msgstr "Не завершено"
+
+#: tcms/workflow/templates/workflow/report.html:10
+msgid "No visible tests match these filters."
+msgstr "Нет доступных тестов, соответствующих фильтрам."
+
+#: tcms/workflow/templates/workflow/report.html:12
+msgid ""
+"The table displays up to 1000 runs. Totals and CSV include all tests visible "
+"to you for the selected filters. CSV contains current status and the latest "
+"result entered in the new mode."
+msgstr ""
+"В таблице показано до 1000 прогонов. Итоги и CSV включают все доступные вам "
+"тесты по выбранным фильтрам. CSV содержит текущий статус и последний "
+"результат, добавленный в новом режиме."
+
+#: tcms/workflow/templates/workflow/run.html:5
+msgid "Standard run view"
+msgstr "Обычная страница прогона"
+
+#: tcms/workflow/templates/workflow/run.html:5
+msgid "Product report"
+msgstr "Отчёт по продукту"
+
+#: tcms/workflow/templates/workflow/run.html:7
+msgid "Execution filters"
+msgstr "Фильтры выполнения"
+
+#: tcms/workflow/templates/workflow/run.html:8
+msgid "Assigned to me"
+msgstr "Назначено мне"
+
+#: tcms/workflow/templates/workflow/run.html:9
+#: tcms/workflow/templates/workflow/todo.html:6 tcms/workflow/views.py:529
+msgid "Case"
+msgstr "Тест-кейс"
+
+#: tcms/workflow/templates/workflow/run.html:10
+msgid "Execute / history"
+msgstr "Выполнить / история"
+
+#: tcms/workflow/templates/workflow/run.html:10
+msgid "No visible tests for this filter."
+msgstr "Нет доступных тестов по выбранному фильтру."
+
+#: tcms/workflow/templates/workflow/run.html:11
+msgid "If a cycle is selected, choose the same milestone as the cycle."
+msgstr "Если выбран цикл, укажите тот же этап, что и у цикла."
+
+#: tcms/workflow/templates/workflow/run.html:11
+msgid "Save planning"
+msgstr "Сохранить планирование"
+
+#: tcms/workflow/templates/workflow/run.html:12
+msgid "Up to 1000 tests are displayed. Use filters to narrow the list."
+msgstr "Показано до 1000 тестов. Используйте фильтры, чтобы сократить список."
+
+#: tcms/workflow/templates/workflow/runs.html:3
+msgid "State"
+msgstr "Состояние"
+
+#: tcms/workflow/templates/workflow/runs.html:7
+msgid "No visible runs yet."
+msgstr "Доступных прогонов пока нет."
+
+#: tcms/workflow/templates/workflow/stats.html:3
+msgid "Tests"
+msgstr "Тесты"
+
+#: tcms/workflow/templates/workflow/stats.html:5
+msgid "Negative results"
+msgstr "Отрицательные результаты"
+
+#: tcms/workflow/templates/workflow/stats.html:7
+msgid "Complete"
+msgstr "Завершено"
+
+#: tcms/workflow/templates/workflow/stats.html:9
+msgid ""
+"Custom statuses follow Kiwi weights: positive, negative, or zero (not "
+"completed)."
+msgstr ""
+"Пользовательские статусы учитываются по весу Kiwi: положительному, "
+"отрицательному или нулевому (не завершено)."
+
+#: tcms/workflow/templates/workflow/todo.html:5
+msgid "Tests assigned to you in open runs that need execution or attention."
+msgstr ""
+"Назначенные вам тесты в открытых прогонах, требующие выполнения или внимания."
+
+#: tcms/workflow/templates/workflow/todo.html:7
+msgid "Execute"
+msgstr "Выполнить"
+
+#: tcms/workflow/templates/workflow/todo.html:7
+msgid "No pending tests assigned to you."
+msgstr "Нет назначенных вам тестов, ожидающих выполнения."
+
+#: tcms/workflow/templates/workflow/todo.html:8
+msgid "Up to 1000 tasks are displayed."
+msgstr "Показано до 1000 задач."
+
+#: tcms/workflow/validators.py:7
+msgid "Provide a list of at most 200 steps."
+msgstr "Укажите список из не более чем 200 шагов."
+
+#: tcms/workflow/validators.py:10
+msgid "Each step must be an object."
+msgstr "Каждый шаг должен быть объектом."
+
+#: tcms/workflow/validators.py:18
+msgid "Invalid shared step reference."
+msgstr "Недопустимая ссылка на общий набор шагов."
+
+#: tcms/workflow/validators.py:21
+msgid "Unknown step field."
+msgstr "Неизвестное поле шага."
+
+#: tcms/workflow/validators.py:23
+msgid "Each step needs an action."
+msgstr "В каждом шаге должно быть действие."
+
+#: tcms/workflow/validators.py:33
+#, python-format
+msgid "Invalid %(field)s; maximum length is %(limit)d."
+msgstr ""
+"Недопустимое значение поля «%(field)s»; максимальная длина — %(limit)d."
+
+#: tcms/workflow/validators.py:53
+msgid "Choices must be distinct nonempty strings (at most 100)."
+msgstr ""
+"Варианты выбора должны быть уникальными непустыми строками (не более 100)."
+
+#: tcms/workflow/views.py:55
+msgid "Invalid product"
+msgstr "Недопустимый продукт"
+
+#: tcms/workflow/views.py:102
+msgid "Saved"
+msgstr "Сохранено"
+
+#: tcms/workflow/views.py:111
+#, python-format
+msgid "Edit: %(entity)s"
+msgstr "Изменить: %(entity)s"
+
+#: tcms/workflow/views.py:111
+#, python-format
+msgid "New: %(entity)s"
+msgstr "Создать: %(entity)s"
+
+#: tcms/workflow/views.py:181
+#, python-format
+msgid "Created %(count)d run"
+msgid_plural "Created %(count)d runs"
+msgstr[0] "Создан %(count)d прогон"
+msgstr[1] "Создано %(count)d прогона"
+msgstr[2] "Создано %(count)d прогонов"
+msgstr[3] "Создано %(count)d прогона"
+
+#: tcms/workflow/views.py:190
+msgid "Invalid action"
+msgstr "Недопустимое действие"
+
+#: tcms/workflow/views.py:247
+msgid "Add at least one shared step."
+msgstr "Добавьте хотя бы один общий шаг."
+
+#: tcms/workflow/views.py:256
+msgid "Shared steps"
+msgstr "Общие шаги"
+
+#: tcms/workflow/views.py:325
+msgid ""
+"Steps and custom fields saved; existing execution snapshots are preserved"
+msgstr ""
+"Шаги и пользовательские поля сохранены; существующие снимки выполнения "
+"сохранены без изменений"
+
+#: tcms/workflow/views.py:393
+msgid "Result added"
+msgstr "Результат добавлен"
+
+#: tcms/workflow/views.py:508
+msgid "Invalid filter"
+msgstr "Недопустимый фильтр"
+
+#: tcms/workflow/views.py:525
+msgid "Run ID"
+msgstr "ID прогона"
+
+#: tcms/workflow/views.py:527
+msgid "Execution ID"
+msgstr "ID выполнения"
+
+#: tcms/workflow/views.py:528
+msgid "Case ID"
+msgstr "ID тест-кейса"
+
+#: tcms/workflow/views.py:534
+msgid "Elapsed seconds"
+msgstr "Затраченное время, с"
+
+#~ msgid "Selection list"
+#~ msgstr "Список выбора"
+
+#, python-format
+#~ msgid ""
+#~ "For additional configuration see\n"
+#~ "<a href=\"%s\">GitHub</a>"
+#~ msgstr "Дополнительную конфигурацию см. в <a href=\"%s\">GitHub</a>"
+
+#~ msgid "GitHub integration"
+#~ msgstr "Интеграция GitHub"
+
+#~ msgid "Resync"
+#~ msgstr "Синхронизировать заново"
+
+#~ msgid "Settings"
+#~ msgstr "Настройки"
+
+#, python-format
+#~ msgid "Unconfigured GitHub App %d"
+#~ msgstr "Не настроенное приложение GitHub %d"
+
+#, python-format
+#~ msgid "%s was imported from GitHub"
+#~ msgstr "%s импортирован из GitHub"
+
+#, python-format
+#~ msgid "%s already exists"
+#~ msgstr "%s уже существует"
+
+#, python-format
+#~ msgid ""
+#~ "You have not logged-in via GitHub account! <a href=\"%s\">Click here</a>!"
+#~ msgstr "Вы не вошли через GitHub аккаунт! <a href=\"%s\">Нажмите здесь</a>!"
+
+#, python-format
+#~ msgid ""
+#~ "You have not installed Kiwi TCMS into your GitHub account! <a "
+#~ "href=\"%s\">Click here</a>!"
+#~ msgstr ""
+#~ "Вы не установили Kiwi TCMS в ваш GitHub аккаунт! <a href=\"%s\">Нажмите "
+#~ "здесь</a>!"
+
+#~ msgid "Multiple GitHub App installations detected! See below:"
+#~ msgstr "Обнаружено несколько установок приложения GitHub! Смотрите ниже:"
+
+#, python-format
+#~ msgid "Edit GitHub App <a href=\"%s\">%s</a>"
+#~ msgstr "Редактировать приложение GitHub <a href=\"%s\">%s</a>"
+
+#, python-format
+#~ msgid "Cannot find GitHub App installation for tenant \"%s\""
+#~ msgstr "Не удается найти установку GitHub App для экземпляра \"%s\""
+
+#~ msgid "Multiple GitHub App installations detected!"
+#~ msgstr "Обнаружено несколько установок GitHub!"
+
+#~ msgid "Subscriptions"
+#~ msgstr "Подписки"
+
+#~ msgid ""
+#~ "Thank you for using Kiwi TCMS via a paid subscription.\n"
+#~ "We're sorry to see you go but we'd like to know why so we can improve in "
+#~ "the future!\n"
+#~ "\n"
+#~ "You can share your feedback at https://forms.gle/RJhFengbjN9C6wtUA\n"
+#~ "\n"
+#~ "Thank you!"
+#~ msgstr ""
+#~ "Благодарим вас за использование Kiwi TCMS по платной подписке.\n"
+#~ "Нам жаль, что вы уходите, но мы хотели бы знать, почему, чтобы мы могли "
+#~ "улучшить работу в будущем!\n"
+#~ "\n"
+#~ "Вы можете поделиться своими отзывами по адресу https://forms.gle/"
+#~ "RJhFengbjN9C6wtUA\n"
+#~ "\n"
+#~ "Спасибо!"
+
+#~ msgid "Tenant subscriptions"
+#~ msgstr "Подписки экземпляра"
+
+#~ msgid "You can access the following tenants"
+#~ msgstr "Вы можете получить доступ к следующим экземплярам"
+
+#~ msgid "Tenant"
+#~ msgstr "Экземпляр"
+
+#~ msgid "Organization"
+#~ msgstr "Организация"
+
+#~ msgid "You own the following tenants"
+#~ msgstr "Вы можете получить доступ к следующим экземплярам"
+
+#~ msgid "Price"
+#~ msgstr "Цена"
+
+#~ msgid "Subscription type"
+#~ msgstr "Тип подписки"
+
+#~ msgid "Paid until"
+#~ msgstr "Оплачено до"
+
+#~ msgid "Cancel subscription"
+#~ msgstr "Отменить подписку"
+
+#~ msgid "You don't own any tenants"
+#~ msgstr "Вы не владеете ни одним экземпляром"
+
+#~ msgid "Subscribe via FastSpring"
+#~ msgstr "Подписаться через FastSpring"
+
+#~ msgid "Transaction history"
+#~ msgstr "История транзакций"
+
+#~ msgid "Sender"
+#~ msgstr "Отправитель"
+
+#~ msgid "Vendor"
+#~ msgstr "Поставщик"
+
+#~ msgid "Received on"
+#~ msgstr "Получено"
+
+#~ msgid "Extra emails"
+#~ msgstr "Дополнительные адреса электронной почты"
+
+#~ msgid ""
+#~ "Kiwi TCMS will try to match recurring billing events against tenant.owner."
+#~ "email + tenant.extra_emails"
+#~ msgstr ""
+#~ "Kiwi TCMS будет пытаться сопоставить повторяющиеся платежные события с "
+#~ "tenant.owner.email + tenant.extra_emails"
+
+#~ msgid "Separate by comma (,), semi-colon (;) or white space ( )"
+#~ msgstr "Разделяйте запятой (,), точкой с запятой (;) или пробелом ( )"
+
+#~ msgid "Private Tenant Warning"
+#~ msgstr "Предупреждение частного экземпляра"
+
+#~ msgid ""
+#~ "You are about to create a Private Tenant for Kiwi TCMS.\n"
+#~ "It will take a few minutes until your DB schema is ready!\n"
+#~ "After clicking the 'Save' button <strong>do not</strong> close or refresh "
+#~ "this page!<br>\n"
+#~ "You will be redirected to your new tenant when the creation process is "
+#~ "complete!\n"
+#~ "If you see a 500 Internal Server Error page please contact\n"
+#~ "<a href=\"mailto:kiwitcms@mrsenko.com\">kiwitcms@mrsenko.com</a> "
+#~ "immediately!"
+#~ msgstr ""
+#~ "Вы собираетесь создать частный экземпляр для Kiwi TCMS.\n"
+#~ "Это займет несколько минут, пока ваша схема БД будет готова!\n"
+#~ "После нажатия на кнопку 'Сохранить' <strong>не</strong> закрывайте и не "
+#~ "обновляйте эту страницу!<br>\n"
+#~ "Вы будете перенаправлены на новый экземпляр после завершения процесса "
+#~ "создания!\n"
+#~ "Если вы видите страницу 500 Внутренняя Ошибка сервера свяжитесь с\n"
+#~ "<a href=\"mailto:kiwitcms@mrsenko.com\">kiwitcms@mrsenko. om</a> "
+#~ "немедленно!"
+
+#~ msgid "Kiwi TCMS Subscription Exit Poll"
+#~ msgstr "Опрос отказа от платной подписки Kiwi TCMS"
+
+#~ msgid "Kiwi TCMS subscription notification"
+#~ msgstr "Уведомление о подписке Kiwi TCMS"
+
+#~ msgid "mo"
+#~ msgstr "мес"
+
+#~ msgid "yr"
+#~ msgstr "г"
+
+#~ msgid "Export as CSV"
+#~ msgstr "Экспортировать в CSV"
+
+#~ msgid "Email address is required"
+#~ msgstr "Требуется адрес электронной почты"
+
+#~ msgid "or Continue With"
+#~ msgstr "или нажмите ниже, чтобы войти в аккаунт через"
+
+#~ msgid "Legal information"
+#~ msgstr "Правовая информация"
+
+#~ msgid "Continue with"
+#~ msgstr "Продолжить с"
+
+#~ msgid "Unauthorized"
+#~ msgstr "Неавторизован"
+
+#~ msgid "Existing username, email or user ID"
+#~ msgstr "Существующие имя пользователя, email или ID пользователя"
+
+#~ msgid "Full name"
+#~ msgstr "Полное имя"
+
+#~ msgid "Invalid string"
+#~ msgstr "Некорректная строка"
+
+#~ msgid "Create"
+#~ msgstr "Создать"
+
+#~ msgid "Invite users"
+#~ msgstr "Пригласить пользователей"
+
+#~ msgid "Authorized users"
+#~ msgstr "Авторизованные пользователи"
+
+#~ msgid "Unpaid"
+#~ msgstr "Неоплаченный"
+
+#~ msgid "Tenant expires soon"
+#~ msgstr "Срок аренды экземпляра скоро истекает"
+
+#, python-format
+#~ msgid ""
+#~ "Dear tester,\n"
+#~ "%(invited_by)s has invited you to join their Kiwi TCMS tenant at\n"
+#~ "%(tenant_url)s\n"
+#~ "\n"
+#~ "In case you have never logged in before an account was created for you\n"
+#~ "automatically. You can login with a social account which has the same "
+#~ "email\n"
+#~ "address or go to %(password_reset_url)s to reset your password.\n"
+#~ "The password reset email message also contains your username!"
+#~ msgstr ""
+#~ "Уважаемый тестировщик,\n"
+#~ "%(invited_by)s пригласили вас присоединиться к их экземпляру Kiwi TCMS по "
+#~ "адресу\n"
+#~ "%(tenant_url)s\n"
+#~ "\n"
+#~ "Если вы никогда не входили в систему до того, как для вас автоматически "
+#~ "была создана учетная\n"
+#~ "запись. Вы можете войти в систему с помощью учетной записи из социальной "
+#~ "сети, у которой тот же адрес электронной\n"
+#~ "почты, или перейти на страницу %(password_reset_url)s, чтобы сбросить "
+#~ "пароль.\n"
+#~ "В сообщении электронной почты для сброса пароля также указано ваше имя "
+#~ "пользователя!"
+
+#, python-format
+#~ msgid ""
+#~ "Your Kiwi TCMS tenant was created at:\n"
+#~ "%(tenant_url)s\n"
+#~ "\n"
+#~ "If you have troubles please contact support!"
+#~ msgstr ""
+#~ "Ваш экземпляр TCMS Kiwi был создан в:\n"
+#~ "%(tenant_url)s\n"
+#~ "\n"
+#~ "Если у вас возникли проблемы, пожалуйста, свяжитесь с поддержкой!"
+
+#~ msgid "New tenant"
+#~ msgstr "Новый экземпляр"
+
+#~ msgid "Company, team or project name"
+#~ msgstr "Название компании, команды или проекта"
+
+#~ msgid "Schema"
+#~ msgstr "Схема"
+
+#~ msgid "Validation pattern"
+#~ msgstr "Шаблон проверки"
+
+#~ msgid "Publicly readable"
+#~ msgstr "Общедоступный для чтения"
+
+#~ msgid "Tenant logo"
+#~ msgstr "Логотип экземпляра"
+
+#~ msgid "Schema name already in use"
+#~ msgstr "Такое название схемы уже используется"
+
+#~ msgid "New Kiwi TCMS tenant created"
+#~ msgstr "Новый экземпляр TCMS Kiwi создан"
+
 #, python-brace-format
-msgid "User {user.username} added to tenant group {group.name}"
-msgstr "Пользователь {user.username} добавлен в группу экземпляра {group.name}"
+#~ msgid "User {user.username} added to tenant group {group.name}"
+#~ msgstr ""
+#~ "Пользователь {user.username} добавлен в группу экземпляра {group.name}"
 
-#: tcms_tenants/utils.py:262
-msgid "Invitation to join Kiwi TCMS"
-msgstr "Приглашение присоединиться к Kiwi TCMS"
+#~ msgid "Invitation to join Kiwi TCMS"
+#~ msgstr "Приглашение присоединиться к Kiwi TCMS"
 
-#: tcms_tenants/views.py:84
-msgid "Only super-user and tenant owner are allowed to edit tenant properties"
-msgstr "Только суперпользователи и владельцы экземпляра могут редактировать свойства экземпляра"
+#~ msgid ""
+#~ "Only super-user and tenant owner are allowed to edit tenant properties"
+#~ msgstr ""
+#~ "Только суперпользователи и владельцы экземпляра могут редактировать "
+#~ "свойства экземпляра"
 
-#: tcms_tenants/views.py:102
-msgid "Edit tenant"
-msgstr "Изменить экземпляр"
+#~ msgid "Edit tenant"
+#~ msgstr "Изменить экземпляр"
 
-#: tcms_tenants/views.py:153
-msgid "Only users who are authorized for this tenant can invite others"
-msgstr "Только авторизованные пользователи могут приглашать других в этот экземпляр"
+#~ msgid "Only users who are authorized for this tenant can invite others"
+#~ msgstr ""
+#~ "Только авторизованные пользователи могут приглашать других в этот "
+#~ "экземпляр"
 
-#: tenant_groups/admin.py:30
-msgid "users"
-msgstr "пользователи"
+#~ msgid "users"
+#~ msgstr "пользователи"
 
-#: tenant_groups/models.py:34
-msgid "name"
-msgstr "название"
+#~ msgid "name"
+#~ msgstr "название"
 
-#: tenant_groups/models.py:37
-msgid "permissions"
-msgstr "права доступа"
+#~ msgid "permissions"
+#~ msgstr "права доступа"
 
-#: tenant_groups/models.py:47
-msgid "group"
-msgstr "группа"
+#~ msgid "group"
+#~ msgstr "группа"
 
-#: tenant_groups/models.py:48
-msgid "groups"
-msgstr "группы"
+#~ msgid "groups"
+#~ msgstr "группы"
 
-#: trackers_integration/menu.py:4
-msgid "Personal API tokens"
-msgstr "Персональные API токены"
+#~ msgid "Personal API tokens"
+#~ msgstr "Персональные API токены"

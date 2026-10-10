@@ -67,7 +67,16 @@ docker compose --env-file .env.local -f compose.local.yaml exec web python manag
 
 ## Новое планирование и выполнение
 
-Раздел WORKFLOW: http://127.0.0.1:8000/workflow/.
+Раздел «ПЛАНИРОВАНИЕ»: http://127.0.0.1:8000/workflow/.
 Рабочий маршрут и ограничения: [WORKFLOW-GUIDE.md](WORKFLOW-GUIDE.md).
 Анализ TestRail и план следующих этапов: [TESTRAIL-GAP-ANALYSIS.md](TESTRAIL-GAP-ANALYSIS.md).
 Проверки новой реализации: [IMPLEMENTATION-REPORT.md](IMPLEMENTATION-REPORT.md).
+
+## Русский интерфейс
+
+Язык по умолчанию — русский. Если в браузере ранее выбран другой язык,
+нажмите значок глобуса → «Язык интерфейса» → «Русский» → «Применить».
+Выбор сохраняется в cookie этого браузера и действует также в администрировании.
+Содержимое пользовательских кейсов и комментариев остаётся в исходном виде.
+После получения изменений пересоберите приложение через `start-local.cmd`.
+Описание перевода и проверок: [RUSSIAN-INTERFACE.md](RUSSIAN-INTERFACE.md).

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
-{% block title %}Planning & execution · Kiwi{% endblock %}
+{% block title %}{% trans 'Planning & execution' %} · Kiwi{% endblock %}
 {% block page_id %}page-workflow{% endblock %}
 {% block head %}
 {{ block.super }}
@@ -9,12 +10,12 @@
 {% endblock %}
 {% block contents %}
 <main class="workflow">
-  <nav class="workflow-nav" aria-label="Planning navigation">
-    <a href="{% url 'workflow:hub' %}">Planning</a>
-    <a href="{% url 'workflow:todo' %}">My tasks</a>
-    <a href="{% url 'workflow:report' %}">Progress & reports</a>
+  <nav class="workflow-nav" aria-label="{% trans 'Planning navigation' %}">
+    <a href="{% url 'workflow:hub' %}">{% trans 'Planning' %}</a>
+    <a href="{% url 'workflow:todo' %}">{% trans 'My tasks' %}</a>
+    <a href="{% url 'workflow:report' %}">{% trans 'Progress & reports' %}</a>
   </nav>
-  <h1>{% block heading %}Planning & execution{% endblock %}</h1>
+  <h1>{% block heading %}{% trans 'Planning & execution' %}{% endblock %}</h1>
   {% block workflow_content %}{% endblock %}
 </main>
 {% endblock %}

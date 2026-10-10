@@ -163,3 +163,20 @@ input[type="submit"].grp-warning {
 .inline-display {
     display: inline;
 }
+
+.navbar-language-form {
+    min-width: 230px;
+    padding: 8px 20px;
+}
+
+.navbar-language-form .btn {
+    margin-top: 8px;
+}
+
+html[lang^="ru"] .editor-statusbar .lines:before {
+    content: "строки: ";
+}
+
+html[lang^="ru"] .editor-statusbar .words:before {
+    content: "слова: ";
+}

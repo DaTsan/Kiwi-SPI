@@ -33,7 +33,7 @@
         >TR-{{ object.pk }}:</span> {{ object.summary }}
     </h1>
 
-    <div class="col-md-12"><a class="btn btn-primary" href="{% url 'workflow:run' object.pk %}">Step execution, results &amp; planning</a></div>
+    <div class="col-md-12"><a class="btn btn-primary" href="{% url 'workflow:run' object.pk %}">{% trans 'Step execution, results & planning' %}</a></div>
 
     <div class="row row-cards-pf">
         <div class="col-xs-12 col-sm-12 col-md-3">
@@ -46,17 +46,17 @@
 
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-shopping-cart"></span>{% trans 'Product' %}:
-                    <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}" title="Search test runs of {{ object.build.version.product }}">{{ object.build.version.product }}</a>
+                    <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}" title="{% blocktrans with name=object.build.version.product %}Search test runs of {{ name }}{% endblocktrans %}">{{ object.build.version.product }}</a>
                 </h2>
 
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-random"></span>{% trans 'Version' %}:
-                    <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}&version={{ object.build.version_id }}" title="Search test runs of {{ object.build.version.value }}">{{ object.build.version.value }}</a>
+                    <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}&version={{ object.build.version_id }}" title="{% blocktrans with name=object.build.version.value %}Search test runs of {{ name }}{% endblocktrans %}">{{ object.build.version.value }}</a>
                 </h2>
 
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-wrench"></span>{% trans 'Build' %}:
-                    <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}&version={{ object.build.version_id }}&build={{ object.build_id }}" title="Search test runs of {{ object.build }}">{{ object.build }}</a>
+                    <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}&version={{ object.build.version_id }}&build={{ object.build_id }}" title="{% blocktrans with name=object.build %}Search test runs of {{ name }}{% endblocktrans %}">{{ object.build }}</a>
                 </h2>
 
                 <h2 class="card-pf-title kiwi-text-align-left">
@@ -605,7 +605,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="{% trans 'Close' %}">
           <span class="pficon pficon-close"></span>
         </button>
         <h4 class="modal-title" id="add-hyperlink-modal-title">{% trans "Add hyperlink" %}</h4>
@@ -644,7 +644,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="{% trans 'Close' %}">
           <span class="pficon pficon-close"></span>
         </button>
         <h4 class="modal-title" id="one-click-bug-report-title">{% trans "Report bug" %}</h4>

@@ -1,9 +1,10 @@
 from django.apps import AppConfig
+from django.utils.translation import gettext_lazy as _
 
 
 class WorkflowConfig(AppConfig):
     name = "tcms.workflow"
-    verbose_name = "Planning and execution"
+    verbose_name = _("Planning and execution")
 
     def ready(self):
         from django.db.models.signals import post_save

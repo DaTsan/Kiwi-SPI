@@ -1,12 +1,13 @@
 {% extends 'workflow/base.html' %}
+{% load i18n %}
 {% block heading %}TR-{{ run.pk }}: {{ run.summary }}{% endblock %}
 {% block workflow_content %}
-<div class="workflow-toolbar"><a href="{{ run.get_absolute_url }}">Standard run view</a><a class="btn btn-default" href="{% url 'workflow:report' %}?product={{ run.plan.product_id }}">Product report</a></div>
+<div class="workflow-toolbar"><a href="{{ run.get_absolute_url }}">{% trans 'Standard run view' %}</a><a class="btn btn-default" href="{% url 'workflow:report' %}?product={{ run.plan.product_id }}">{% trans 'Product report' %}</a></div>
 {% include 'workflow/stats.html' %}
-<nav class="workflow-toolbar" aria-label="Execution filters">
-<a href="?status=all">All</a><a href="?status=passed">Passed</a><a href="?status=failed">Negative</a><a href="?status=untested">Not completed</a><a href="?assigned=me">Assigned to me</a></nav>
-<section class="workflow-panel"><div class="workflow-table-scroll"><table class="table table-striped"><thead><tr><th>Case</th><th>Status</th><th>Assignee</th><th>Action</th></tr></thead>
-<tbody>{% for item in executions %}<tr><td><a href="{{ item.case.get_absolute_url }}">TC-{{ item.case_id }}: {{ item.case.summary }}</a></td><td>{{ item.status }}</td><td>{{ item.assignee|default:'—' }}</td><td><a class="btn btn-default" href="{% url 'workflow:execution' item.pk %}">Execute / history</a></td></tr>{% empty %}<tr><td colspan="4">No visible tests for this filter.</td></tr>{% endfor %}</tbody></table></div></section>
-{% if can_edit %}<section class="workflow-panel workflow-form"><h2>Planning</h2><p>If a cycle is selected, choose the same milestone as the cycle.</p><form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-default">Save planning</button></form></section>{% endif %}
-<p class="workflow-muted">Up to 1000 tests are displayed. Use filters to narrow the list.</p>
+<nav class="workflow-toolbar" aria-label="{% trans 'Execution filters' %}">
+<a href="?status=all">{% trans 'All' %}</a><a href="?status=passed">{% trans 'Passed' %}</a><a href="?status=failed">{% trans 'Negative' %}</a><a href="?status=untested">{% trans 'Not completed' %}</a><a href="?assigned=me">{% trans 'Assigned to me' %}</a></nav>
+<section class="workflow-panel"><div class="workflow-table-scroll"><table class="table table-striped"><thead><tr><th>{% trans 'Case' %}</th><th>{% trans 'Status' %}</th><th>{% trans 'Assignee' %}</th><th>{% trans 'Action' %}</th></tr></thead>
+<tbody>{% for item in executions %}<tr><td><a href="{{ item.case.get_absolute_url }}">TC-{{ item.case_id }}: {{ item.case.summary }}</a></td><td>{{ item.status }}</td><td>{{ item.assignee|default:'—' }}</td><td><a class="btn btn-default" href="{% url 'workflow:execution' item.pk %}">{% trans 'Execute / history' %}</a></td></tr>{% empty %}<tr><td colspan="4">{% trans 'No visible tests for this filter.' %}</td></tr>{% endfor %}</tbody></table></div></section>
+{% if can_edit %}<section class="workflow-panel workflow-form"><h2>{% trans 'Planning' %}</h2><p>{% trans 'If a cycle is selected, choose the same milestone as the cycle.' %}</p><form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-default">{% trans 'Save planning' %}</button></form></section>{% endif %}
+<p class="workflow-muted">{% trans 'Up to 1000 tests are displayed. Use filters to narrow the list.' %}</p>
 {% endblock %}

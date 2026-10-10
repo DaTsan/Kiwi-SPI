@@ -1,8 +1,9 @@
 {% extends 'workflow/base.html' %}
-{% block heading %}My tasks{% endblock %}
+{% load i18n %}
+{% block heading %}{% trans 'My tasks' %}{% endblock %}
 {% block workflow_content %}
-<p>Tests assigned to you in open runs that need execution or attention.</p>
-<section class="workflow-panel"><table class="table table-striped"><thead><tr><th>Case</th><th>Run</th><th>Status</th><th>Action</th></tr></thead><tbody>
-{% for item in executions %}<tr><td>TC-{{ item.case_id }}: {{ item.case.summary }}</td><td><a href="{% url 'workflow:run' item.run_id %}">{{ item.run.summary }}</a></td><td>{{ item.status }}</td><td><a class="btn btn-default" href="{% url 'workflow:execution' item.pk %}">Execute</a></td></tr>{% empty %}<tr><td colspan="4">No pending tests assigned to you.</td></tr>{% endfor %}
-</tbody></table></section><p class="workflow-muted">Up to 1000 tasks are displayed.</p>
+<p>{% trans 'Tests assigned to you in open runs that need execution or attention.' %}</p>
+<section class="workflow-panel"><table class="table table-striped"><thead><tr><th>{% trans 'Case' %}</th><th>{% trans 'Run' %}</th><th>{% trans 'Status' %}</th><th>{% trans 'Action' %}</th></tr></thead><tbody>
+{% for item in executions %}<tr><td>TC-{{ item.case_id }}: {{ item.case.summary }}</td><td><a href="{% url 'workflow:run' item.run_id %}">{{ item.run.summary }}</a></td><td>{{ item.status }}</td><td><a class="btn btn-default" href="{% url 'workflow:execution' item.pk %}">{% trans 'Execute' %}</a></td></tr>{% empty %}<tr><td colspan="4">{% trans 'No pending tests assigned to you.' %}</td></tr>{% endfor %}
+</tbody></table></section><p class="workflow-muted">{% trans 'Up to 1000 tasks are displayed.' %}</p>
 {% endblock %}

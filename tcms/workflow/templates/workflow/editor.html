@@ -1,25 +1,26 @@
 {% extends 'workflow/base.html' %}
+{% load i18n workflow %}
 {% block heading %}{{ title }}{% endblock %}
 {% block workflow_content %}
-{% if case %}<p><a href="{{ case.get_absolute_url }}">← Test case</a></p>{% endif %}
-{% if library and can_change %}<p><a class="btn btn-default" href="{% url 'workflow:shared-edit' library.pk %}">Edit shared steps</a></p>{% endif %}
+{% if case %}<p><a href="{{ case.get_absolute_url }}">← {% trans 'Test case' %}</a></p>{% endif %}
+{% if library and can_change %}<p><a class="btn btn-default" href="{% url 'workflow:shared-edit' library.pk %}">{% trans 'Edit shared steps' %}</a></p>{% endif %}
 {% if error_text %}<div class="alert alert-danger">{{ error_text }}</div>{% endif %}
 {% if can_edit %}<form method="post">{% csrf_token %}
   {% if form %}<section class="workflow-panel workflow-form">{{ form.as_p }}</section>{% endif %}
-  {% if custom.fields %}<section class="workflow-panel"><h2>Custom case fields</h2>{{ custom.as_p }}</section>{% endif %}
-  <section class="workflow-panel"><h2>Structured steps</h2>
-  <p>Use an inline action and expected result, or select a shared step set. Existing execution snapshots keep their original steps.</p>
+  {% if custom.fields %}<section class="workflow-panel"><h2>{% trans 'Custom case fields' %}</h2>{{ custom.as_p }}</section>{% endif %}
+  <section class="workflow-panel"><h2>{% trans 'Structured steps' %}</h2>
+  <p>{% trans 'Use an inline action and expected result, or select a shared step set. Existing execution snapshots keep their original steps.' %}</p>
   {{ steps.management_form }}{{ steps.non_form_errors }}
   <div id="workflow-step-rows" class="workflow-steps">
-  {% for row in steps %}<div class="workflow-step" data-step-row><div class="workflow-step-controls"><button type="button" data-move="up" class="btn btn-default">↑</button><button type="button" data-move="down" class="btn btn-default">↓</button><button type="button" data-remove class="btn btn-default">Remove</button></div>{{ row.as_p }}</div>{% endfor %}
+  {% for row in steps %}<div class="workflow-step" data-step-row><div class="workflow-step-controls"><button type="button" data-move="up" class="btn btn-default">↑</button><button type="button" data-move="down" class="btn btn-default">↓</button><button type="button" data-remove class="btn btn-default">{% trans 'Remove' %}</button></div>{{ row.as_p }}</div>{% endfor %}
   </div>
-  <template id="workflow-step-template"><div class="workflow-step" data-step-row><div class="workflow-step-controls"><button type="button" data-move="up" class="btn btn-default">↑</button><button type="button" data-move="down" class="btn btn-default">↓</button><button type="button" data-remove class="btn btn-default">Remove</button></div>{{ steps.empty_form.as_p }}</div></template>
-  <button type="button" id="workflow-add-step" class="btn btn-default">Add step / shared set</button>
-  </section><button class="btn btn-primary">Save steps and fields</button>
+  <template id="workflow-step-template"><div class="workflow-step" data-step-row><div class="workflow-step-controls"><button type="button" data-move="up" class="btn btn-default">↑</button><button type="button" data-move="down" class="btn btn-default">↓</button><button type="button" data-remove class="btn btn-default">{% trans 'Remove' %}</button></div>{{ steps.empty_form.as_p }}</div></template>
+  <button type="button" id="workflow-add-step" class="btn btn-default">{% trans 'Add step / shared set' %}</button>
+  </section><button class="btn btn-primary">{% trans 'Save steps and fields' %}</button>
 </form>{% endif %}
-<section class="workflow-panel"><h2>Resolved scenario</h2>
-{% for step in resolved %}<article class="workflow-step"><strong>{{ forloop.counter }}. {{ step.action|linebreaksbr }}</strong><p>{{ step.expected|linebreaksbr }}</p>{% if step.reference %}<p>Reference: {{ step.reference }}</p>{% endif %}{% if step.shared_name %}<span class="workflow-muted">Shared: {{ step.shared_name }}</span>{% endif %}</article>
-{% empty %}<p>No structured steps. The original Markdown description is available in the standard case view.</p>{% endfor %}
-{% if not can_edit %}{% for key, value in custom_values.items %}<p><strong>{{ key }}:</strong> {{ value }}</p>{% endfor %}{% endif %}
+<section class="workflow-panel"><h2>{% trans 'Resolved scenario' %}</h2>
+{% for step in resolved %}<article class="workflow-step"><strong>{{ forloop.counter }}. {{ step.action|linebreaksbr }}</strong><p>{{ step.expected|linebreaksbr }}</p>{% if step.reference %}<p>{% trans 'Reference:' %} {{ step.reference }}</p>{% endif %}{% if step.shared_name %}<span class="workflow-muted">{% trans 'Shared:' %} {{ step.shared_name }}</span>{% endif %}</article>
+{% empty %}<p>{% trans 'No structured steps. The original Markdown description is available in the standard case view.' %}</p>{% endfor %}
+{% if not can_edit %}{% for key, value in custom_values.items %}<p><strong>{{ key }}:</strong> {{ value|display_value }}</p>{% endfor %}{% endif %}
 </section>
 {% endblock %}

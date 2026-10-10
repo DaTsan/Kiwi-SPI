@@ -8,7 +8,8 @@ from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
-
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 from tcms.management.models import Product
 from tcms.testcases.models import TestCase
 from tcms.testruns.models import TestExecutionStatus
@@ -51,7 +52,7 @@ def hub(request):
             else None
         )
         if product is None:
-            return HttpResponse("Invalid product", status=400)
+            return HttpResponse(_("Invalid product"), status=400)
         products_filter = products.filter(pk=product.pk)
     else:
         product = None
@@ -98,7 +99,7 @@ def edit_entity(request, model, form_class, pk=None):
     )
     if request.method == "POST" and form.is_valid():
         obj = form.save()
-        messages.success(request, "Saved")
+        messages.success(request, _("Saved"))
         if hasattr(obj, "get_absolute_url"):
             return redirect(obj.get_absolute_url())
         return redirect(f"/workflow/?product={obj.product_id}")
@@ -107,7 +108,8 @@ def edit_entity(request, model, form_class, pk=None):
         "workflow/form.html",
         {
             "form": form,
-            "title": f"{'Edit' if pk else 'New'} {model._meta.verbose_name}",
+            "title": (_("Edit: %(entity)s") if pk else _("New: %(entity)s"))
+            % {"entity": model._meta.verbose_name},
         },
     )
 
@@ -173,13 +175,19 @@ def cycle_detail(request, pk):
                 created = create_configuration_runs(
                     request.user, obj, **create_form.cleaned_data
                 )
-                messages.success(request, f"Created {len(created)} run(s)")
+                messages.success(
+                    request,
+                    ngettext(
+                        "Created %(count)d run", "Created %(count)d runs", len(created)
+                    )
+                    % {"count": len(created)},
+                )
                 return redirect(obj)
             if linking and link_form.is_valid():
                 link_run(request.user, obj, link_form.cleaned_data["run"])
                 return redirect(obj)
             if not (creating or linking):
-                return HttpResponse("Invalid action", status=400)
+                return HttpResponse(_("Invalid action"), status=400)
         except ValidationError as error:
             show_error(create_form if creating else link_form, error)
     runs = visible_runs(request.user).filter(test_cycles=obj)
@@ -236,7 +244,7 @@ def shared_edit(request, pk=None):
             obj.steps = steps.as_steps()
             try:
                 if not obj.steps:
-                    raise ValidationError("Add at least one shared step.")
+                    raise ValidationError(_("Add at least one shared step."))
                 obj.full_clean()
                 obj.save()
                 return redirect(f"/workflow/?product={obj.product_id}")
@@ -245,7 +253,7 @@ def shared_edit(request, pk=None):
     return render(
         request,
         "workflow/editor.html",
-        {"form": form, "steps": steps, "title": "Shared steps", "can_edit": True},
+        {"form": form, "steps": steps, "title": _("Shared steps"), "can_edit": True},
     )
 
 
@@ -305,7 +313,7 @@ def case_detail(request, pk):
             try:
                 with transaction.atomic():
                     TestCase.objects.select_for_update().get(pk=case.pk)
-                    workflow, _ = CaseWorkflow.objects.get_or_create(case=case)
+                    workflow, _created = CaseWorkflow.objects.get_or_create(case=case)
                     workflow.steps = steps.as_steps()
                     workflow.custom_values = custom.values(workflow.custom_values)
                     workflow.full_clean()
@@ -313,7 +321,9 @@ def case_detail(request, pk):
                     workflow.save()
                 messages.success(
                     request,
-                    "Steps and custom fields saved; existing execution snapshots are preserved",
+                    _(
+                        "Steps and custom fields saved; existing execution snapshots are preserved"
+                    ),
                 )
                 return redirect("workflow:case", pk=case.pk)
             except ValidationError as error:
@@ -380,7 +390,7 @@ def execution_detail(request, pk):
                     ],
                     custom_values=custom.values(),
                 )
-                messages.success(request, "Result added")
+                messages.success(request, _("Result added"))
                 return redirect("workflow:execution", pk=execution.pk)
             except ValidationError as error:
                 show_error(form, error)
@@ -495,7 +505,7 @@ def report(request):
         value = request.GET.get(param)
         if value:
             if not value.isdecimal():
-                return HttpResponse("Invalid filter", status=400)
+                return HttpResponse(_("Invalid filter"), status=400)
             obj = get_object_or_404(visible(request.user, model, permission), pk=value)
             if param == "product":
                 selected_product = obj
@@ -512,18 +522,18 @@ def report(request):
         writer = csv.writer(response)
         writer.writerow(
             [
-                "Run ID",
-                "Run",
-                "Execution ID",
-                "Case ID",
-                "Case",
-                "Requirement",
-                "Status",
-                "Assignee",
-                "Tested by",
-                "Elapsed seconds",
-                "Comment",
-                "Defects",
+                _("Run ID"),
+                _("Run"),
+                _("Execution ID"),
+                _("Case ID"),
+                _("Case"),
+                _("Requirement"),
+                _("Status"),
+                _("Assignee"),
+                _("Tested by"),
+                _("Elapsed seconds"),
+                _("Comment"),
+                _("Defects"),
             ]
         )
         for execution in (

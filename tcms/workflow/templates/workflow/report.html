@@ -1,12 +1,13 @@
 {% extends 'workflow/base.html' %}
-{% block heading %}Progress & reports{% endblock %}
+{% load i18n %}
+{% block heading %}{% trans 'Progress & reports' %}{% endblock %}
 {% block workflow_content %}
 {% if planning_filters %}<p>{% for filter in planning_filters %}{{ filter.param|title }}: <a href="{{ filter.object.get_absolute_url }}">{{ filter.object }}</a>{% if not forloop.last %} · {% endif %}{% endfor %}</p>{% endif %}
-<div class="workflow-toolbar"><form method="get">{% for filter in planning_filters %}<input type="hidden" name="{{ filter.param }}" value="{{ filter.object.pk }}">{% endfor %}<label for="report-product">Product</label><select class="form-control" id="report-product" name="product"><option value="">All visible products</option>{% for item in products %}<option value="{{ item.pk }}" {% if item.pk == product.pk %}selected{% endif %}>{{ item }}</option>{% endfor %}</select><button class="btn btn-default">Apply</button></form>
-<a class="btn btn-primary" href="?{{ csv_query }}&amp;format=csv">Export CSV</a></div>
+<div class="workflow-toolbar"><form method="get">{% for filter in planning_filters %}<input type="hidden" name="{{ filter.param }}" value="{{ filter.object.pk }}">{% endfor %}<label for="report-product">{% trans 'Product' %}</label><select class="form-control" id="report-product" name="product"><option value="">{% trans 'All visible products' %}</option>{% for item in products %}<option value="{{ item.pk }}" {% if item.pk == product.pk %}selected{% endif %}>{{ item }}</option>{% endfor %}</select><button class="btn btn-default">{% trans 'Apply' %}</button></form>
+<a class="btn btn-primary" href="?{{ csv_query }}&amp;format=csv">{% trans 'Export CSV' %}</a></div>
 {% include 'workflow/stats.html' %}
-<section class="workflow-panel"><h2>Run breakdown</h2><table class="table table-striped"><thead><tr><th>Run</th><th>Total</th><th>Passed</th><th>Negative</th><th>Not completed</th></tr></thead><tbody>
-{% for row in breakdown %}<tr><td><a href="{% url 'workflow:run' row.run_id %}">{{ row.run__summary }}</a></td><td>{{ row.total }}</td><td>{{ row.passed }}</td><td>{{ row.failed }}</td><td>{{ row.untested }}</td></tr>{% empty %}<tr><td colspan="5">No visible tests match these filters.</td></tr>{% endfor %}
+<section class="workflow-panel"><h2>{% trans 'Run breakdown' %}</h2><table class="table table-striped"><thead><tr><th>{% trans 'Run' %}</th><th>{% trans 'Total' %}</th><th>{% trans 'Passed' %}</th><th>{% trans 'Negative' %}</th><th>{% trans 'Not completed' %}</th></tr></thead><tbody>
+{% for row in breakdown %}<tr><td><a href="{% url 'workflow:run' row.run_id %}">{{ row.run__summary }}</a></td><td>{{ row.total }}</td><td>{{ row.passed }}</td><td>{{ row.failed }}</td><td>{{ row.untested }}</td></tr>{% empty %}<tr><td colspan="5">{% trans 'No visible tests match these filters.' %}</td></tr>{% endfor %}
 </tbody></table></section>
-<p class="workflow-muted">The table displays up to 1000 runs. Totals and CSV include all tests visible to you for the selected filters. CSV contains current status and the latest result entered in the new mode.</p>
+<p class="workflow-muted">{% trans 'The table displays up to 1000 runs. Totals and CSV include all tests visible to you for the selected filters. CSV contains current status and the latest result entered in the new mode.' %}</p>
 {% endblock %}

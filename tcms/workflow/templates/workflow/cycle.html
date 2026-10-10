@@ -1,16 +1,17 @@
 {% extends 'workflow/base.html' %}
+{% load i18n %}
 {% block heading %}{{ object.name }}{% endblock %}
 {% block workflow_content %}
-<div class="workflow-toolbar"><span>{{ object.product }} · {% if object.is_completed %}Completed{% else %}Open{% endif %}</span>
-{% if can_edit %}<a class="btn btn-default" href="{% url 'workflow:cycle-edit' object.pk %}">Edit cycle</a>{% endif %}
-<a class="btn btn-default" href="{% url 'workflow:report' %}?cycle={{ object.pk }}">Report / CSV</a></div>
-{% if object.milestone %}<p>Milestone: <a href="{{ object.milestone.get_absolute_url }}">{{ object.milestone }}</a></p>{% endif %}
+<div class="workflow-toolbar"><span>{{ object.product }} · {% if object.is_completed %}{% trans 'Completed' %}{% else %}{% trans 'Open' %}{% endif %}</span>
+{% if can_edit %}<a class="btn btn-default" href="{% url 'workflow:cycle-edit' object.pk %}">{% trans 'Edit cycle' %}</a>{% endif %}
+<a class="btn btn-default" href="{% url 'workflow:report' %}?cycle={{ object.pk }}">{% trans 'Report / CSV' %}</a></div>
+{% if object.milestone %}<p>{% trans 'Milestone:' %} <a href="{{ object.milestone.get_absolute_url }}">{{ object.milestone }}</a></p>{% endif %}
 <p>{{ object.description|linebreaksbr }}</p>{% include 'workflow/stats.html' %}
-<section class="workflow-panel"><h2>Runs</h2>{% include 'workflow/runs.html' %}</section>
+<section class="workflow-panel"><h2>{% trans 'Runs' %}</h2>{% include 'workflow/runs.html' %}</section>
 {% if can_edit and not object.is_completed %}<div class="workflow-grid">
-{% if can_create %}<section class="workflow-panel"><h2>Create configuration runs</h2>
-<p>Select a plan and an active build of the same version. Confirmed cases are included.</p>
-<form method="post">{% csrf_token %}<input type="hidden" name="action" value="create">{{ create_form.as_p }}<button class="btn btn-primary">Create runs</button></form></section>{% endif %}
-<section class="workflow-panel"><h2>Add an existing run</h2><form method="post">{% csrf_token %}<input type="hidden" name="action" value="link">{{ link_form.as_p }}<button class="btn btn-default">Add run</button></form></section>
+{% if can_create %}<section class="workflow-panel"><h2>{% trans 'Create configuration runs' %}</h2>
+<p>{% trans 'Select a plan and an active build of the same version. Confirmed cases are included.' %}</p>
+<form method="post">{% csrf_token %}<input type="hidden" name="action" value="create">{{ create_form.as_p }}<button class="btn btn-primary">{% trans 'Create runs' %}</button></form></section>{% endif %}
+<section class="workflow-panel"><h2>{% trans 'Add an existing run' %}</h2><form method="post">{% csrf_token %}<input type="hidden" name="action" value="link">{{ link_form.as_p }}<button class="btn btn-default">{% trans 'Add run' %}</button></form></section>
 </div>{% endif %}
 {% endblock %}

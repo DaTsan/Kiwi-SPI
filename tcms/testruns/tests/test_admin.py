@@ -147,5 +147,8 @@ class TestEnvironmentAdmin(LoggedInTestCase):
     def test_admin_page_loads(self):
         response = self.client.get("/admin/testruns/environment/")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Select environment to change")
+        self.assertContains(
+            response,
+            _("Select %(name)s to change") % {"name": Environment._meta.verbose_name},
+        )
         self.assertContains(response, "Edit parameters")

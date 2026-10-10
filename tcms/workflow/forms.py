@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import BaseFormSet, formset_factory
-
+from django.utils.translation import gettext_lazy as _
 from tcms.management.models import Build, Product
 from tcms.testplans.models import TestPlan
 from tcms.testruns.models import Environment, TestExecutionStatus, TestRun
@@ -74,9 +74,10 @@ class SharedStepForm(ScopedForm):
 
 class CustomFieldForm(ScopedForm):
     choices = forms.CharField(
+        label=_("Choices"),
         required=False,
         widget=forms.Textarea(attrs={"rows": 5}),
-        help_text="For Select: one option per line.",
+        help_text=_("For Select: one option per line."),
     )
 
     class Meta:
@@ -109,14 +110,22 @@ class CustomFieldForm(ScopedForm):
 
 class StepForm(forms.Form):
     action = forms.CharField(
-        required=False, max_length=10000, widget=forms.Textarea(attrs={"rows": 2})
+        label=_("Action"),
+        required=False,
+        max_length=10000,
+        widget=forms.Textarea(attrs={"rows": 2}),
     )
     expected = forms.CharField(
-        required=False, max_length=10000, widget=forms.Textarea(attrs={"rows": 2})
+        label=_("Expected result"),
+        required=False,
+        max_length=10000,
+        widget=forms.Textarea(attrs={"rows": 2}),
     )
-    reference = forms.CharField(required=False, max_length=255)
+    reference = forms.CharField(label=_("Reference"), required=False, max_length=255)
     shared = forms.ModelChoiceField(
-        queryset=SharedStepSet.objects.none(), required=False
+        label=_("Shared step set"),
+        queryset=SharedStepSet.objects.none(),
+        required=False,
     )
 
     def __init__(self, *args, product_id, user=None, shared_allowed=True, **kwargs):
@@ -143,10 +152,10 @@ class StepForm(forms.Form):
                 or values.get("reference")
             ):
                 raise ValidationError(
-                    "Use either an inline step or a shared set, not both."
+                    _("Use either an inline step or a shared set, not both.")
                 )
         elif not values.get("action"):
-            raise ValidationError("Enter an action or choose a shared step set.")
+            raise ValidationError(_("Enter an action or choose a shared step set."))
         return values
 
 
@@ -242,16 +251,20 @@ class CustomValuesForm(forms.Form):
 
 class ResultForm(forms.Form):
     status = forms.ModelChoiceField(
-        queryset=TestExecutionStatus.objects.order_by("-weight", "name")
+        label=_("Status"),
+        queryset=TestExecutionStatus.objects.order_by("-weight", "name"),
     )
     comment = forms.CharField(
-        required=False, max_length=50000, widget=forms.Textarea(attrs={"rows": 3})
+        label=_("Comment"),
+        required=False,
+        max_length=50000,
+        widget=forms.Textarea(attrs={"rows": 3}),
     )
     elapsed_seconds = forms.IntegerField(
-        required=False, min_value=0, max_value=604800, label="Elapsed time (seconds)"
+        required=False, min_value=0, max_value=604800, label=_("Elapsed time (seconds)")
     )
     defects = forms.CharField(
-        required=False, max_length=2000, label="Defect references (IDs or URLs)"
+        required=False, max_length=2000, label=_("Defect references (IDs or URLs)")
     )
 
     def __init__(self, *args, **kwargs):
@@ -261,10 +274,14 @@ class ResultForm(forms.Form):
 
 class StepResultForm(forms.Form):
     status = forms.ModelChoiceField(
-        queryset=TestExecutionStatus.objects.order_by("-weight", "name")
+        label=_("Status"),
+        queryset=TestExecutionStatus.objects.order_by("-weight", "name"),
     )
     actual = forms.CharField(
-        required=False, max_length=10000, widget=forms.Textarea(attrs={"rows": 2})
+        label=_("Actual result"),
+        required=False,
+        max_length=10000,
+        widget=forms.Textarea(attrs={"rows": 2}),
     )
 
     def __init__(self, *args, **kwargs):
@@ -278,12 +295,17 @@ StepResultFormSet = formset_factory(
 
 
 class ConfigurationRunForm(forms.Form):
-    plan = forms.ModelChoiceField(queryset=TestPlan.objects.none())
-    build = forms.ModelChoiceField(queryset=Build.objects.none())
+    plan = forms.ModelChoiceField(
+        label=_("Test plan"), queryset=TestPlan.objects.none()
+    )
+    build = forms.ModelChoiceField(label=_("Build"), queryset=Build.objects.none())
     environments = forms.ModelMultipleChoiceField(
+        label=_("Environments"),
         queryset=Environment.objects.none(),
         required=False,
-        help_text="Each selected environment creates a separate run. Leave empty for one default run.",
+        help_text=_(
+            "Each selected environment creates a separate run. Leave empty for one default run."
+        ),
     )
 
     def __init__(self, *args, user, cycle, **kwargs):
@@ -301,7 +323,7 @@ class ConfigurationRunForm(forms.Form):
 
 
 class LinkRunForm(forms.Form):
-    run = forms.ModelChoiceField(queryset=TestRun.objects.none())
+    run = forms.ModelChoiceField(label=_("Test run"), queryset=TestRun.objects.none())
 
     def __init__(self, *args, user, cycle, **kwargs):
         super().__init__(*args, **kwargs)
@@ -315,9 +337,11 @@ class LinkRunForm(forms.Form):
 
 class RunPlanningForm(forms.Form):
     milestone = forms.ModelChoiceField(
-        queryset=Milestone.objects.none(), required=False
+        label=_("Milestone"), queryset=Milestone.objects.none(), required=False
     )
-    cycle = forms.ModelChoiceField(queryset=TestCycle.objects.none(), required=False)
+    cycle = forms.ModelChoiceField(
+        label=_("Test cycle"), queryset=TestCycle.objects.none(), required=False
+    )
 
     def __init__(self, *args, user, run, **kwargs):
         super().__init__(*args, **kwargs)

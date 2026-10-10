@@ -21,7 +21,7 @@
         >TC-{{ object.pk }}:</span> {{ object.summary }}
     </h1>
 
-    <div class="col-md-12"><a class="btn btn-default" href="{% url 'workflow:case' object.pk %}">Structured steps &amp; custom fields</a></div>
+    <div class="col-md-12"><a class="btn btn-default" href="{% url 'workflow:case' object.pk %}">{% trans 'Structured steps & custom fields' %}</a></div>
 
     <div class="row row-cards-pf">
         <div class="col-xs-12 col-sm-12 col-md-3">

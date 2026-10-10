@@ -42,7 +42,7 @@ export function initSimpleMDE (textArea, fileUploadElement, autoSaveId = window.
                     fileUploadElement.click()
                 },
                 className: 'fa fa-picture-o',
-                title: 'Insert Image'
+                title: gettext('Insert Image')
             },
             {
                 name: 'file',
@@ -50,7 +50,7 @@ export function initSimpleMDE (textArea, fileUploadElement, autoSaveId = window.
                     fileUploadElement.click()
                 },
                 className: 'fa fa-paperclip',
-                title: 'Attach File'
+                title: gettext('Attach File')
             },
             '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide'
         ],
@@ -70,6 +70,27 @@ export function initSimpleMDE (textArea, fileUploadElement, autoSaveId = window.
 
             return renderedText
         }
+    })
+
+    const toolbarTitles = {
+        heading: gettext('Heading'),
+        bold: gettext('Bold'),
+        italic: gettext('Italic'),
+        strikethrough: gettext('Strikethrough'),
+        'ordered-list': gettext('Numbered list'),
+        'unordered-list': gettext('Bulleted list'),
+        table: gettext('Insert table'),
+        'horizontal-rule': gettext('Horizontal rule'),
+        code: gettext('Code'),
+        quote: gettext('Quote'),
+        link: gettext('Insert link'),
+        preview: gettext('Preview'),
+        'side-by-side': gettext('Side by side'),
+        fullscreen: gettext('Fullscreen'),
+        guide: gettext('Markdown guide')
+    }
+    Object.entries(toolbarTitles).forEach(([name, title]) => {
+        if (simpleMDE.toolbarElements[name]) simpleMDE.toolbarElements[name].title = title
     })
 
     fileUploadElement.change(function () {

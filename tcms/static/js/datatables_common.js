@@ -29,13 +29,13 @@ export const exportButtons = [
             columns: ':visible'
         },
         text: '<i class="fa fa-print" aria-hidden="true"></i>',
-        titleAttr: 'Print'
+        titleAttr: gettext('Print')
     },
     {
         extend: 'colvis',
         collectionLayout: 'fixed columns',
         columns: ':not(.noVis)',
         text: '<i class="fa fa-eye" aria-hidden="true"></i>',
-        titleAttr: 'Column visibility'
+        titleAttr: gettext('Column visibility')
     }
 ]

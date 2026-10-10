@@ -6,6 +6,7 @@ from django.core.validators import URLValidator
 from django.db import transaction
 from django.db.models import Count, Q
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from guardian.shortcuts import get_objects_for_user
 
 from tcms.testcases.models import TestCasePlan
@@ -66,7 +67,7 @@ def resolve_steps(steps, product_id):
     }
     if ids - shared.keys():
         raise ValidationError(
-            "A shared step set is missing or belongs to another product."
+            _("A shared step set is missing or belongs to another product.")
         )
     resolved = []
     for step in steps:
@@ -77,26 +78,30 @@ def resolve_steps(steps, product_id):
         else:
             resolved.append(deepcopy(step))
     if len(resolved) > 500:
-        raise ValidationError("Expanded scenario cannot contain more than 500 steps.")
+        raise ValidationError(
+            _("Expanded scenario cannot contain more than 500 steps.")
+        )
     return resolved
 
 
 def validate_custom_values(product_id, entity, values):
     if not isinstance(values, dict):
-        raise ValidationError("Custom values must be an object.")
+        raise ValidationError(_("Custom values must be an object."))
     definitions = {
         field.key: field
         for field in CustomField.objects.filter(product_id=product_id, entity=entity)
     }
     if values.keys() - definitions.keys():
-        raise ValidationError("Unknown custom field or field from another product.")
+        raise ValidationError(_("Unknown custom field or field from another product."))
     errors = []
     for key, field in definitions.items():
         value = values.get(key)
         missing = value is None or value == ""
         if missing:
             if field.is_active and field.required:
-                errors.append(f"{field.label}: value is required.")
+                errors.append(
+                    _("%(field)s: value is required.") % {"field": field.label}
+                )
             continue
         valid = True
         if field.kind == "integer":
@@ -123,7 +128,10 @@ def validate_custom_values(product_id, entity, values):
         else:
             valid = isinstance(value, str) and len(value) <= 10000
         if not valid:
-            errors.append(f"{field.label}: invalid {field.kind} value.")
+            errors.append(
+                _("%(field)s: invalid %(kind)s value.")
+                % {"field": field.label, "kind": field.get_kind_display()}
+            )
     if errors:
         raise ValidationError(errors)
     return values
@@ -140,7 +148,7 @@ def snapshot_execution(execution, legacy=False):
         field.key: field.label
         for field in CustomField.objects.filter(product_id=product_id, entity="case")
     }
-    snapshot, _ = ExecutionSnapshot.objects.get_or_create(
+    snapshot, _created = ExecutionSnapshot.objects.get_or_create(
         execution=execution,
         defaults={
             "case_summary": execution.case.summary,
@@ -218,30 +226,30 @@ def record_result(
     require(user, "testruns.change_testexecution", execution)
     require(user, "workflow.add_executionresult")
     if execution.run.stop_date:
-        raise ValidationError("This run is closed. Reopen it before adding results.")
+        raise ValidationError(_("This run is closed. Reopen it before adding results."))
     if (
         not isinstance(status, TestExecutionStatus)
         or not TestExecutionStatus.objects.filter(pk=status.pk).exists()
     ):
-        raise ValidationError("Invalid execution status.")
+        raise ValidationError(_("Invalid execution status."))
     if elapsed_seconds is not None and (
         type(elapsed_seconds) is not int or not 0 <= elapsed_seconds <= 604800
     ):
-        raise ValidationError("Elapsed time must be between 0 and 604800 seconds.")
+        raise ValidationError(_("Elapsed time must be between 0 and 604800 seconds."))
     if (
         not isinstance(comment, str)
         or len(comment) > 50000
         or not isinstance(defects, str)
         or len(defects) > 2000
     ):
-        raise ValidationError("Comment or defect references are too long.")
+        raise ValidationError(_("Comment or defect references are too long."))
     custom_values = {} if custom_values is None else custom_values
     validate_custom_values(execution.case.category.product_id, "result", custom_values)
     snapshot = snapshot_execution(execution, legacy=True)
     step_values = [] if step_values is None else step_values
     if not isinstance(step_values, list) or len(step_values) != len(snapshot.steps):
         raise ValidationError(
-            "Submit a result for every step in the execution snapshot."
+            _("Submit a result for every step in the execution snapshot.")
         )
     statuses = {item.pk: item for item in TestExecutionStatus.objects.all()}
     step_results = []
@@ -254,7 +262,7 @@ def record_result(
             or not isinstance(value.get("actual", ""), str)
             or len(value.get("actual", "")) > 10000
         ):
-            raise ValidationError("Invalid step result.")
+            raise ValidationError(_("Invalid step result."))
         step_status = statuses[value["status"]]
         step_results.append(
             {
@@ -266,7 +274,7 @@ def record_result(
             }
         )
     if status.weight > 0 and any(item["status_weight"] <= 0 for item in step_results):
-        raise ValidationError("A passed result requires every step to pass.")
+        raise ValidationError(_("A passed result requires every step to pass."))
     labels = {
         field.key: field.label
         for field in CustomField.objects.filter(
@@ -311,15 +319,15 @@ def link_run(user, cycle, run):
     if cycle.is_completed or (
         cycle.milestone_id and cycle.milestone.status == "completed"
     ):
-        raise ValidationError("Cannot add runs to a completed cycle or milestone.")
+        raise ValidationError(_("Cannot add runs to a completed cycle or milestone."))
     if cycle.product_id != run.plan.product_id:
-        raise ValidationError("Run belongs to another product.")
+        raise ValidationError(_("Run belongs to another product."))
     existing = CycleRun.objects.filter(run=run).first()
     if existing and existing.cycle_id != cycle.pk:
-        raise ValidationError("Run already belongs to another cycle.")
+        raise ValidationError(_("Run already belongs to another cycle."))
     milestone_link = RunMilestone.objects.filter(run=run).first()
     if milestone_link and milestone_link.milestone_id != cycle.milestone_id:
-        raise ValidationError("Run is already assigned to another milestone.")
+        raise ValidationError(_("Run is already assigned to another milestone."))
     CycleRun.objects.get_or_create(cycle=cycle, run=run)
     if cycle.milestone_id:
         RunMilestone.objects.get_or_create(run=run, milestone=cycle.milestone)
@@ -339,12 +347,12 @@ def create_configuration_runs(user, cycle, plan, build, environments):
         or not build.is_active
     ):
         raise ValidationError(
-            "Select an active build for this plan's version and product."
+            _("Select an active build for this plan's version and product.")
         )
     if cycle.is_completed or (
         cycle.milestone_id and cycle.milestone.status == "completed"
     ):
-        raise ValidationError("Cycle or milestone is completed.")
+        raise ValidationError(_("Cycle or milestone is completed."))
     cases = [
         link.case
         for link in TestCasePlan.objects.filter(
@@ -354,14 +362,14 @@ def create_configuration_runs(user, cycle, plan, build, environments):
         .order_by("sortkey", "case_id")
     ]
     if not cases:
-        raise ValidationError("The plan has no confirmed cases.")
+        raise ValidationError(_("The plan has no confirmed cases."))
     for case in cases:
         require(user, "testcases.view_testcase", case)
         if case.category.product_id != cycle.product_id:
-            raise ValidationError("A selected case belongs to another product.")
+            raise ValidationError(_("A selected case belongs to another product."))
     selected_environments = list(environments)
     if len(selected_environments) > 30:
-        raise ValidationError("Select at most 30 configurations at once.")
+        raise ValidationError(_("Select at most 30 configurations at once."))
     for environment in selected_environments:
         require(user, "testruns.view_environment", environment)
     runs = []
@@ -399,7 +407,7 @@ def assign_run(user, run, milestone=None, cycle=None):
         require(user, "workflow.view_milestone", milestone)
         if milestone.product_id != product_id or milestone.status == "completed":
             raise ValidationError(
-                "Choose an unfinished milestone of the run's product."
+                _("Choose an unfinished milestone of the run's product.")
             )
     old_cycle = CycleRun.objects.filter(run=run).select_related("cycle").first()
     if old_cycle and (not cycle or old_cycle.cycle_id != cycle.pk):
@@ -407,9 +415,9 @@ def assign_run(user, run, milestone=None, cycle=None):
     if cycle:
         require(user, "workflow.change_testcycle", cycle)
         if cycle.product_id != product_id or cycle.is_completed:
-            raise ValidationError("Choose an unfinished cycle of the run's product.")
+            raise ValidationError(_("Choose an unfinished cycle of the run's product."))
         if cycle.milestone_id != (milestone.pk if milestone else None):
-            raise ValidationError("Run milestone must match its cycle milestone.")
+            raise ValidationError(_("Run milestone must match its cycle milestone."))
     CycleRun.objects.filter(run=run).delete()
     RunMilestone.objects.filter(run=run).delete()
     if cycle:

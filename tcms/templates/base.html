@@ -38,7 +38,7 @@
 
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }} alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="{% trans 'Close' %}">
                 <span class="pficon pficon-close"></span>
             </button>
             <span class="pficon {{ message|message_icon }}"></span>
@@ -47,6 +47,7 @@
     {% endfor %}
 
     <script src="{% static 'bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    {% if LANGUAGE_CODE|slice:':2' == 'ru' %}<script src="{% static 'bootstrap-select/dist/js/i18n/defaults-ru_RU.min.js' %}"></script>{% endif %}
     <script src="{% static 'bootstrap-switch/dist/js/bootstrap-switch.min.js' %}"></script>
 
     <script src="{% static 'html5sortable/dist/html5sortable.min.js' %}"></script>

@@ -12,3 +12,4 @@ SESSION_COOKIE_SECURE = False
 ANONYMOUS_ANALYTICS = False
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 LANGUAGE_CODE = "ru"
+KIWI_SHOW_ADS = False

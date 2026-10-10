@@ -5,12 +5,23 @@ import secrets
 
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class UserActivationKey(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    activation_key = models.CharField(max_length=64, null=True, blank=True)
-    key_expires = models.DateTimeField(null=True, blank=True)
+    class Meta:
+        verbose_name = _("User activation key")
+        verbose_name_plural = _("User activation keys")
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE
+    )
+    activation_key = models.CharField(
+        verbose_name=_("Activation key"), max_length=64, null=True, blank=True
+    )
+    key_expires = models.DateTimeField(
+        verbose_name=_("Key expires"), null=True, blank=True
+    )
 
     @classmethod
     def set_random_key_for_user(cls, user, force=False):

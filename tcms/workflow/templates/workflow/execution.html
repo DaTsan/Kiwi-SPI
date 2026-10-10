@@ -1,25 +1,26 @@
 {% extends 'workflow/base.html' %}
+{% load i18n workflow %}
 {% block heading %}TC-{{ execution.case_id }}: {{ snapshot.case_summary }}{% endblock %}
 {% block workflow_content %}
-<p><a href="{% url 'workflow:run' execution.run_id %}">← {{ execution.run.summary }}</a> · Execution #{{ execution.pk }} · Current status: <strong>{{ execution.status }}</strong></p>
-{% if snapshot.requirement %}<p>Requirement: {{ snapshot.requirement }}</p>{% endif %}
-{% for key, field in snapshot.case_fields.items %}<p><strong>{{ field.label }}:</strong> {{ field.value }}</p>{% endfor %}
-<p class="workflow-muted">Scenario snapshot: {{ snapshot.captured_at }}{% if snapshot.legacy %}. Captured on first use of this mode for an existing execution.{% endif %}</p>
-{% if execution.run.stop_date %}<p class="alert alert-info">This run is closed. Reopen it in the standard run editor to add a result.</p>{% endif %}
+<p><a href="{% url 'workflow:run' execution.run_id %}">← {{ execution.run.summary }}</a> · {% trans 'Execution #' %}{{ execution.pk }} · {% trans 'Current status:' %} <strong>{{ execution.status }}</strong></p>
+{% if snapshot.requirement %}<p>{% trans 'Requirement:' %} {{ snapshot.requirement }}</p>{% endif %}
+{% for key, field in snapshot.case_fields.items %}<p><strong>{{ field.label }}:</strong> {{ field.value|display_value }}</p>{% endfor %}
+<p class="workflow-muted">{% trans 'Scenario snapshot:' %} {{ snapshot.captured_at }}{% if snapshot.legacy %}{% trans '. Captured on first use of this mode for an existing execution.' %}{% endif %}</p>
+{% if execution.run.stop_date %}<p class="alert alert-info">{% trans 'This run is closed. Reopen it in the standard run editor to add a result.' %}</p>{% endif %}
 {% if can_edit and not execution.run.stop_date %}<form method="post">{% csrf_token %}
-<section class="workflow-panel"><h2>Step results</h2>{{ step_results.management_form }}{{ step_results.non_form_errors }}
-{% for step, row in step_rows %}<article class="workflow-step"><h3>{{ forloop.counter }}. {{ step.action|linebreaksbr }}</h3><p><strong>Expected:</strong> {{ step.expected|linebreaksbr }}</p>{% if step.reference %}<p>Reference: {{ step.reference }}</p>{% endif %}{{ row.as_p }}</article>{% empty %}<p>No structured steps in this execution snapshot. Record the overall result below.</p>{% endfor %}
+<section class="workflow-panel"><h2>{% trans 'Step results' %}</h2>{{ step_results.management_form }}{{ step_results.non_form_errors }}
+{% for step, row in step_rows %}<article class="workflow-step"><h3>{{ forloop.counter }}. {{ step.action|linebreaksbr }}</h3><p><strong>{% trans 'Expected:' %}</strong> {{ step.expected|linebreaksbr }}</p>{% if step.reference %}<p>{% trans 'Reference:' %} {{ step.reference }}</p>{% endif %}{{ row.as_p }}</article>{% empty %}<p>{% trans 'No structured steps in this execution snapshot. Record the overall result below.' %}</p>{% endfor %}
 </section>
-<section class="workflow-panel"><h2>Add result</h2>{{ form.as_p }}{{ custom.as_p }}<button class="btn btn-primary">Save result</button></section>
-</form>{% else %}<section class="workflow-panel"><h2>Scenario</h2>{% for step in snapshot.steps %}<p><strong>{{ forloop.counter }}. {{ step.action }}</strong><br>{{ step.expected }}</p>{% empty %}<p>No structured steps.</p>{% endfor %}</section>{% endif %}
-<section class="workflow-panel"><h2>Result history</h2>
+<section class="workflow-panel"><h2>{% trans 'Add result' %}</h2>{{ form.as_p }}{{ custom.as_p }}<button class="btn btn-primary">{% trans 'Save result' %}</button></section>
+</form>{% else %}<section class="workflow-panel"><h2>{% trans 'Scenario' %}</h2>{% for step in snapshot.steps %}<p><strong>{{ forloop.counter }}. {{ step.action }}</strong><br>{{ step.expected }}</p>{% empty %}<p>{% trans 'No structured steps.' %}</p>{% endfor %}</section>{% endif %}
+<section class="workflow-panel"><h2>{% trans 'Result history' %}</h2>
 {% for result in attempts %}<article class="workflow-attempt">
-  <h3>{{ result.status_label }} <small>· {{ result.author|default:'Deleted user' }} · {{ result.created_at }}</small></h3>
+  <h3>{% trans result.status_label %} <small>· {% trans 'Deleted user' as deleted_user %}{{ result.author|default:deleted_user }} · {{ result.created_at }}</small></h3>
   <p>{{ result.comment|linebreaksbr }}</p>
-  {% if result.elapsed_seconds != None %}<p>Elapsed: {{ result.elapsed_seconds }} seconds</p>{% endif %}
-  {% if result.defects %}<p>Defects: {{ result.defects }}</p>{% endif %}
-  {% for key, field in result.custom_values.items %}<p><strong>{{ field.label }}:</strong> {{ field.value }}</p>{% endfor %}
-  {% if result.step_results %}<details><summary>Step details</summary>{% for step in result.step_results %}<div class="workflow-step"><strong>{{ forloop.counter }}. {{ step.action }} — {{ step.status_label }}</strong><p>Expected: {{ step.expected|linebreaksbr }}</p><p>Actual: {{ step.actual|linebreaksbr }}</p></div>{% endfor %}</details>{% endif %}
-</article>{% empty %}<p>No results in the new execution mode yet. Previous status changes and comments remain available in the standard run view.</p>{% endfor %}
+  {% if result.elapsed_seconds != None %}<p>{% blocktrans count count=result.elapsed_seconds %}Elapsed: {{ count }} second{% plural %}Elapsed: {{ count }} seconds{% endblocktrans %}</p>{% endif %}
+  {% if result.defects %}<p>{% trans 'Defects:' %} {{ result.defects }}</p>{% endif %}
+  {% for key, field in result.custom_values.items %}<p><strong>{{ field.label }}:</strong> {{ field.value|display_value }}</p>{% endfor %}
+  {% if result.step_results %}<details><summary>{% trans 'Step details' %}</summary>{% for step in result.step_results %}<div class="workflow-step"><strong>{{ forloop.counter }}. {{ step.action }} — {% trans step.status_label %}</strong><p>{% trans 'Expected:' %} {{ step.expected|linebreaksbr }}</p><p>{% trans 'Actual:' %} {{ step.actual|linebreaksbr }}</p></div>{% endfor %}</details>{% endif %}
+</article>{% empty %}<p>{% trans 'No results in the new execution mode yet. Previous status changes and comments remain available in the standard run view.' %}</p>{% endfor %}
 </section>
 {% endblock %}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.forms import inlineformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from tcms.core.forms.fields import UserField
 from tcms.core.widgets import SimpleMDE
@@ -13,7 +14,7 @@ class NewPlanForm(forms.ModelForm):
         model = TestPlan
         exclude = ("tag",)  # pylint: disable=modelform-uses-exclude
 
-    text = forms.CharField(widget=SimpleMDE(), required=False)
+    text = forms.CharField(label=_("Text"), widget=SimpleMDE(), required=False)
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop("request", None)
@@ -56,10 +57,10 @@ class SearchPlanForm(forms.ModelForm):
         fields = "__all__"
 
     # overriden widget
-    author = UserField()
+    author = UserField(label=_("Author"))
 
     # extra fields
-    default_tester = UserField()
+    default_tester = UserField(label=_("Default tester"))
 
     def populate(self, product_id=None):
         if product_id:
@@ -71,19 +72,21 @@ class SearchPlanForm(forms.ModelForm):
 
 
 class ClonePlanForm(forms.Form):  # pylint: disable=must-inherit-from-model-form
-    name = forms.CharField(required=True)
+    name = forms.CharField(label=_("Name"), required=True)
 
     product = forms.ModelChoiceField(
+        label=_("Product"),
         queryset=Product.objects.all(),
         empty_label=None,
     )
     version = forms.ModelChoiceField(
+        label=_("Version"),
         queryset=Version.objects.none(),
         empty_label=None,
     )
 
-    copy_testcases = forms.BooleanField(required=False)
-    set_parent = forms.BooleanField(required=False)
+    copy_testcases = forms.BooleanField(label=_("Copy testcases"), required=False)
+    set_parent = forms.BooleanField(label=_("Set parent"), required=False)
 
     def populate(self, product_pk):
         if product_pk:
