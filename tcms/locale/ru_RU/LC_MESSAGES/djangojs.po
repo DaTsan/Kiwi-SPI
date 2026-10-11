@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiwitcms\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-10 19:35+0000\n"
+"POT-Creation-Date: 2026-10-10 20:24+0000\n"
 "PO-Revision-Date: 2026-10-11 02:30+0700\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
@@ -263,3 +263,48 @@ msgstr "Копировать"
 #: tcms/static/js/translations.js:45
 msgid "Copy to clipboard"
 msgstr "Копирование в буфер обмена"
+
+#: tcms/testplans/static/testplans/js/get.js:419
+msgid "PROPOSED"
+msgstr "ПРЕДЛОЖЕН"
+
+#: tcms/testplans/static/testplans/js/get.js:420
+msgid "CONFIRMED"
+msgstr "ПОДТВЕРЖДЁН"
+
+#: tcms/testplans/static/testplans/js/get.js:421
+msgid "DISABLED"
+msgstr "ОТКЛЮЧЁН"
+
+#: tcms/testplans/static/testplans/js/get.js:422
+msgid "NEED_UPDATE"
+msgstr "ТРЕБУЕТ ОБНОВЛЕНИЯ"
+
+#: tcms/testplans/static/testplans/js/organization.js:31
+msgid "Saving..."
+msgstr "Сохранение…"
+
+#: tcms/testplans/static/testplans/js/organization.js:40
+msgid "Could not save changes. Please try again."
+msgstr "Не удалось сохранить изменения. Повторите попытку."
+
+#: tcms/testplans/static/testplans/js/organization.js:100
+msgid "Case order saved."
+msgstr "Порядок кейсов сохранён."
+
+#: tcms/testplans/static/testplans/js/organization.js:149
+msgid "Add subsection"
+msgstr "Добавить подсекцию"
+
+#: tcms/testplans/static/testplans/js/organization.js:149
+msgid "Rename section"
+msgstr "Переименовать секцию"
+
+#: tcms/testplans/static/testplans/js/organization.js:183
+msgid "Select test cases and a destination section."
+msgstr "Выберите тест-кейсы и целевую секцию."
+
+#: tcms/testplans/static/testplans/js/organization.js:194
+#, javascript-format
+msgid "Selected cases: %s"
+msgstr "Выбрано кейсов: %s"

@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from guardian.shortcuts import get_objects_for_user
 
-from tcms.testcases.models import TestCasePlan
+from tcms.testplans.organization import confirmed_tree_cases
 from tcms.testruns.models import (
     EnvironmentProperty,
     TestExecution,
@@ -353,14 +353,7 @@ def create_configuration_runs(user, cycle, plan, build, environments):
         cycle.milestone_id and cycle.milestone.status == "completed"
     ):
         raise ValidationError(_("Cycle or milestone is completed."))
-    cases = [
-        link.case
-        for link in TestCasePlan.objects.filter(
-            plan=plan, case__case_status__is_confirmed=True
-        )
-        .select_related("case__category")
-        .order_by("sortkey", "case_id")
-    ]
+    cases = confirmed_tree_cases(user, plan)
     if not cases:
         raise ValidationError(_("The plan has no confirmed cases."))
     for case in cases:

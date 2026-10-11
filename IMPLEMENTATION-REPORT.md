@@ -1,7 +1,8 @@
 # Отчет о сближении Kiwi-SPI с TestRail
 
 Дата: 11 октября 2026 года. Исходная версия: `624f819c8`, Kiwi 16.4.
-Изменения находятся в `C:\Users\prode\Desktop\kiwi`, без отправки в GitHub.
+Изменения находятся в `C:\Users\prode\Desktop\kiwi`, ветка `feature/testrail-workflow`.
+Повторная сверка работы с кейсами и новые секции описаны в `CASE-WORKFLOW-REVIEW.md`.
 
 ## Анализ и объем
 

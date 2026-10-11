@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import permission_required
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -16,6 +16,7 @@ from tcms.core.contrib.linkreference.forms import LinkReferenceForm
 from tcms.core.forms import SimpleCommentForm
 from tcms.testcases.models import BugSystem, TestCase, TestCasePlan, TestCaseStatus
 from tcms.testplans.models import TestPlan
+from tcms.testplans.organization import confirmed_tree_cases
 from tcms.testruns.forms import NewRunForm, SearchRunForm
 from tcms.testruns.models import (
     Environment,
@@ -140,11 +141,13 @@ class NewFromPlan(NewTestRunView):
         # if cases aren't selected, e.g. user entered the URL directly in the browser
         # then preselect all confirmed test cases
         if not request.GET.getlist("c"):
+            try:
+                cases = confirmed_tree_cases(request.user, test_plan)
+            except ValidationError as error:
+                return HttpResponseBadRequest(" ".join(error.messages))
             request.GET.setlist(
                 "c",
-                test_plan.cases.filter(case_status__is_confirmed=True).values_list(
-                    "pk", flat=True
-                ),
+                [case.pk for case in cases],
             )
 
         return super().get(request)

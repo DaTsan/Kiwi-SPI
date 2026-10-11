@@ -20,6 +20,7 @@ from tcms.testplans.forms import (
     SearchPlanForm,
 )
 from tcms.testplans.models import TestPlan
+from tcms.testplans.organization import allowed, section_permissions
 from tcms.testruns.models import TestRun
 
 
@@ -139,6 +140,11 @@ class TestPlanGetView(DetailView):
         context["statuses"] = TestCaseStatus.objects.all()
         context["priorities"] = Priority.objects.filter(is_active=True)
         context["comment_form"] = SimpleCommentForm()
+        context["organization_permissions"] = {
+            str(section.pk): section_permissions(self.request.user, section)
+            for section in self.object.descendants(include_self=True)
+            if allowed(self.request.user, "testplans.view_testplan", section)
+        }
         context["test_runs"] = TestRun.objects.filter(
             plan_id=self.object.pk, stop_date__isnull=True
         ).order_by("-id")[:5]
