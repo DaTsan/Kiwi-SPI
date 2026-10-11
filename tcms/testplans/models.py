@@ -6,7 +6,7 @@ from django.core.validators import URLValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from tree_queries.models import TreeNode
+from tree_queries.models import OrderableTreeNode
 
 from tcms.core.history import KiwiHistoricalRecords
 from tcms.core.models.base import UrlMixin
@@ -28,10 +28,14 @@ class PlanType(models.Model, UrlMixin):
         verbose_name_plural = _("Plan types")
 
 
-class TestPlan(TreeNode, UrlMixin):
+class TestPlan(OrderableTreeNode, UrlMixin):
     """A plan within the TCMS"""
 
     history = KiwiHistoricalRecords()
+
+    position = models.PositiveIntegerField(
+        verbose_name=_("Section order"), default=0, db_index=True, editable=False
+    )
 
     name = models.CharField(verbose_name=_("Name"), max_length=255, db_index=True)
     text = models.TextField(verbose_name=_("Text"), blank=True)
@@ -294,6 +298,7 @@ class TestPlan(TreeNode, UrlMixin):
         """
 
     class Meta:
+        ordering = ["position", "pk"]
         verbose_name = _("Test plan")
         verbose_name_plural = _("Test plans")
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kiwitcms\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-10 20:24+0000\n"
+"POT-Creation-Date: 2026-10-11 06:32+0000\n"
 "PO-Revision-Date: 2026-10-11 02:30+0700\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
@@ -280,31 +280,35 @@ msgstr "ОТКЛЮЧЁН"
 msgid "NEED_UPDATE"
 msgstr "ТРЕБУЕТ ОБНОВЛЕНИЯ"
 
-#: tcms/testplans/static/testplans/js/organization.js:31
+#: tcms/testplans/static/testplans/js/organization.js:38
 msgid "Saving..."
 msgstr "Сохранение…"
 
-#: tcms/testplans/static/testplans/js/organization.js:40
+#: tcms/testplans/static/testplans/js/organization.js:47
 msgid "Could not save changes. Please try again."
 msgstr "Не удалось сохранить изменения. Повторите попытку."
 
-#: tcms/testplans/static/testplans/js/organization.js:100
+#: tcms/testplans/static/testplans/js/organization.js:107
 msgid "Case order saved."
 msgstr "Порядок кейсов сохранён."
 
-#: tcms/testplans/static/testplans/js/organization.js:149
+#: tcms/testplans/static/testplans/js/organization.js:157
 msgid "Add subsection"
 msgstr "Добавить подсекцию"
 
-#: tcms/testplans/static/testplans/js/organization.js:149
+#: tcms/testplans/static/testplans/js/organization.js:157
 msgid "Rename section"
 msgstr "Переименовать секцию"
 
-#: tcms/testplans/static/testplans/js/organization.js:183
+#: tcms/testplans/static/testplans/js/organization.js:229
+msgid "Section order saved."
+msgstr "Порядок секций сохранён."
+
+#: tcms/testplans/static/testplans/js/organization.js:298
 msgid "Select test cases and a destination section."
 msgstr "Выберите тест-кейсы и целевую секцию."
 
-#: tcms/testplans/static/testplans/js/organization.js:194
+#: tcms/testplans/static/testplans/js/organization.js:309
 #, javascript-format
 msgid "Selected cases: %s"
 msgstr "Выбрано кейсов: %s"

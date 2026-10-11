@@ -517,6 +517,7 @@
     <div class="testplan-section panel panel-default" id="" data-plan-id="">
         <div class="panel-heading testplan-section-heading">
             <div class="testplan-section-header-content">
+                <button type="button" class="btn btn-link js-section-sort-handler hidden" draggable="false" aria-disabled="true" title="{% trans 'Drag to reorder subsections, or use the up and down arrow keys' %}" aria-label="{% trans 'Reorder subsection' %}"><span class="fa fa-bars" aria-hidden="true"></span></button>
                 <span class="fa fa-angle-down js-section-toggle testplan-section-toggle" title="{% trans 'Collapse/Expand section' %}"></span>
                 <input type="checkbox" class="js-section-checkbox" title="{% trans 'Select all in this section' %}">
                 <span class="testplan-section-title">
@@ -743,6 +744,12 @@
 .handle[aria-disabled="true"] { cursor: default; opacity: .35; }
 .handle:focus { outline: 2px solid #0088ce; }
 .case-sort-placeholder { border: 2px dashed #0088ce; background: #eef8fc; min-height: 50px; }
+.js-section-sort-handler { cursor: grab; padding: 2px 5px; color: #72767b; }
+.js-section-sort-handler[aria-disabled="true"] { cursor: default; opacity: .35; }
+.js-section-sort-handler:focus { outline: 2px solid #0088ce; }
+.section-dragging { opacity: .45; }
+.section-drop-before > .testplan-section-heading { box-shadow: 0 -3px #0088ce; }
+.section-drop-after > .testplan-section-heading { box-shadow: 0 3px #0088ce; }
 .js-test-case-expand-notes { white-space: pre-wrap; }
 </style>
 {% endblock %}

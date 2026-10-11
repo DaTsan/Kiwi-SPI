@@ -1,6 +1,7 @@
 """Atomic case organization within a plan's section tree."""
 
 from collections import Counter
+from operator import attrgetter
 
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import transaction
@@ -148,9 +149,55 @@ def organize(user, root_id, data):
         return {"section": section.pk}
     if action == "order":
         return _order(user, root, data.get("orders"))
+    if action == "section_order":
+        return _section_order(user, root, data)
     if action == "transfer":
         return _transfer(user, root, data)
     raise ValidationError(_("Invalid organization request."))
+
+
+def _section_order(user, root, data):
+    parent_id = integer(data.get("parent"))
+    require(
+        user, "testplans.change_testplan", _sections(user, root, [parent_id])[parent_id]
+    )
+    submitted = []
+    for key in ("previous", "sections"):
+        values = data.get(key)
+        if not isinstance(values, list) or len(values) > 10000:
+            raise ValidationError(_("Invalid section order."))
+        values = list(map(integer, values))
+        if len(values) != len(set(values)):
+            raise ValidationError(_("Invalid section order."))
+        submitted.append(values)
+    previous, new = submitted  # pylint: disable=unbalanced-tuple-unpacking
+    # Lock the parent first, as subsection creation does, then its children in
+    # primary-key order. Never reparent nodes or update case memberships here.
+    children = list(
+        TestPlan.objects.select_for_update().filter(parent_id=parent_id).order_by("pk")
+    )
+    for section in children:
+        require(user, "testplans.view_testplan", section)
+        require(user, "testplans.change_testplan", section)
+        if section.product_id != root.product_id:
+            raise ValidationError(_("Sections must belong to the same product."))
+    current = list(
+        map(attrgetter("pk"), sorted(children, key=attrgetter("position", "pk")))
+    )
+    if current != previous:
+        raise OrganizationConflict(
+            _("The section list has changed. Refresh the page and try again.")
+        )
+    if set(current) != set(new):
+        raise ValidationError(_("The new order must preserve all sibling sections."))
+    by_id = {section.pk: section for section in children}
+    for index, section_id in enumerate(new, start=1):
+        section = by_id[section_id]
+        if section.position != index * 10:
+            section.position = index * 10
+            section._history_user = user  # pylint: disable=protected-access
+            section.save(update_fields=["position"])
+    return {"parent": parent_id, "sections": new}
 
 
 def _links(section_ids):
