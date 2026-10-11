@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% load extra_filters %}
+{% load versioned_static %}
 
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
@@ -63,7 +64,7 @@
     <script src="{% static 'grappelli/js/grappelli.min.js' %}"></script>
     <script src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
 
-    <script src="{% static 'js/bundle.js' %}"></script>
+    <script src="{% versioned_static 'js/bundle.js' %}"></script>
 
     {% block contents %}{% endblock %}
     {% include 'include/ads.html' %}
