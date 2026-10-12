@@ -3,8 +3,10 @@
 from django.urls import re_path
 
 from tcms.testplans import views
+from tcms.testplans.organization_views import case_organization
 
 urlpatterns = [
+    re_path(r"^(?P<pk>\d+)/organize/$", case_organization, name="plan-case-organization"),
     re_path(
         r"^(?P<pk>\d+)/(?:[-\w\d]*)$",
         views.TestPlanGetView.as_view(),

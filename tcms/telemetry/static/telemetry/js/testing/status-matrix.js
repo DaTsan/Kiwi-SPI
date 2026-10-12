@@ -121,7 +121,7 @@ export function drawTable () {
             language: {
                 loadingRecords: '<div class="spinner spinner-lg"></div>',
                 processing: '<div class="spinner spinner-lg"></div>',
-                zeroRecords: 'No records found'
+                zeroRecords: gettext('No records found')
             }
         })
 

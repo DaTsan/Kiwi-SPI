@@ -21,7 +21,10 @@ import { pageTelemetryReadyHandler } from '../../telemetry/static/telemetry/js/i
 
 import { jsonRPC } from './jsonrpc'
 import { initSimpleMDE } from './simplemde_security_override'
+import { initializeTranslations } from './translations'
 import { initLayoutEditor } from './layout_editor'
+
+initializeTranslations()
 
 function pageInitDBReadyHandler () {
     $('.js-initialize-btn').click(function () {

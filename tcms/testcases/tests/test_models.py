@@ -376,4 +376,3 @@ class TestTestCaseFieldSettings(TestCase):
     def test_str_representation(self):
         settings_obj = TestCaseFieldSettings.get_settings()
         self.assertEqual(str(settings_obj), "Test case fields settings")
-

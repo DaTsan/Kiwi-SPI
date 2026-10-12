@@ -44,6 +44,8 @@ urlpatterns = [
     # Testruns zone
     re_path(r"^runs/", include(testruns_urls)),
     re_path(r"^telemetry/", include(telemetry_urls)),
+    re_path(r"^workflow/", include("tcms.workflow.urls")),
+    re_path(r"^i18n/", include("django.conf.urls.i18n")),
     # JavaScript translations, see
     # https://docs.djangoproject.com/en/2.1/topics/i18n/translation/#django.views.i18n.JavaScriptCatalog
     re_path(r"^jsi18n/$", JavaScriptCatalog.as_view(), name="javascript-catalog"),

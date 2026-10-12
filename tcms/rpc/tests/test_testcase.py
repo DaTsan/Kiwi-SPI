@@ -1184,4 +1184,3 @@ class TestSetLayoutBlockVisibilityPermissions(APIPermissionsTestCase):
             self.rpc_client.TestCase.set_layout_block_visibility(
                 "case", "case-info-card", False
             )
-

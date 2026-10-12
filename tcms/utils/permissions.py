@@ -54,6 +54,7 @@ def assign_default_group_permissions(
             "testcases",
             "testplans",
             "testruns",
+            "workflow",
         ]:
             app_perms = Permission.objects.filter(
                 content_type__app_label=app_name
@@ -62,6 +63,26 @@ def assign_default_group_permissions(
                 content_type__app_label="attachments",
                 codename="delete_foreign_attachments",
             )
+            if app_name == "workflow":
+                app_perms = app_perms.exclude(
+                    codename__in=[
+                        "add_customfield",
+                        "change_customfield",
+                        "delete_customfield",
+                        "add_executionsnapshot",
+                        "change_executionsnapshot",
+                        "delete_executionsnapshot",
+                        "add_caseworkflow",
+                        "change_caseworkflow",
+                        "delete_caseworkflow",
+                        "add_cyclerun",
+                        "change_cyclerun",
+                        "delete_cyclerun",
+                        "add_runmilestone",
+                        "change_runmilestone",
+                        "delete_runmilestone",
+                    ]
+                )
             tester.permissions.add(*app_perms)
             generate_output(output, app_perms, tester)
 

@@ -4,7 +4,6 @@
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
 from tcms.bugs.models import Bug, Severity
 from tcms.core.forms.fields import UserField
 from tcms.core.widgets import SimpleMDE
@@ -25,9 +24,10 @@ class NewBugForm(forms.ModelForm):
             "severity",
         ]
 
-    assignee = UserField(required=False)
+    assignee = UserField(label=_("Assignee"), required=False)
 
     text = forms.CharField(
+        label=_("Text"),
         widget=SimpleMDE(),
         required=False,
         initial=_("""Description of problem:
@@ -88,10 +88,12 @@ class NewBugFromRPCForm(NewBugForm):
 
 class BugCommentForm(forms.Form):  # pylint: disable=must-inherit-from-model-form
     bug = forms.ModelChoiceField(
+        label=_("Bug"),
         queryset=Bug.objects.all(),
     )
 
     text = forms.CharField(
+        label=_("Text"),
         widget=SimpleMDE(),
         required=False,
     )

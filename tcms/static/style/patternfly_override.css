@@ -164,6 +164,22 @@ input[type="submit"].grp-warning {
     display: inline;
 }
 
+.navbar-language-form {
+    min-width: 230px;
+    padding: 8px 20px;
+}
+
+.navbar-language-form .btn {
+    margin-top: 8px;
+}
+
+html[lang^="ru"] .editor-statusbar .lines:before {
+    content: "строки: ";
+}
+
+html[lang^="ru"] .editor-statusbar .words:before {
+    content: "слова: ";
+}
 /* Layout customizer and block visibility */
 body:not(.layout-edit-mode) .layout-block.layout-block-disabled-init:not(.is-enabled),
 body:not(.layout-edit-mode) .layout-block.is-disabled {
@@ -224,4 +240,3 @@ body.layout-edit-mode .layout-block-ctrl {
     margin-left: 10px;
     font-weight: 500;
 }
-

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.forms import inlineformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from tcms.core.forms.fields import UserField
 from tcms.core.widgets import DurationWidget, SimpleMDE
@@ -25,24 +26,29 @@ class TestCaseForm(forms.ModelForm):
             "plan",
         ]
 
-    default_tester = UserField(required=False)
+    default_tester = UserField(label=_("Default tester"), required=False)
     priority = forms.ModelChoiceField(
+        label=_("Priority"),
         queryset=Priority.objects.filter(is_active=True),
         empty_label=None,
     )
     product = forms.ModelChoiceField(
+        label=_("Product"),
         queryset=Product.objects.all(),
         empty_label=None,
     )
     setup_duration = forms.DurationField(
+        label=_("Setup duration"),
         widget=DurationWidget(),
         required=False,
     )
     testing_duration = forms.DurationField(
+        label=_("Testing duration"),
         widget=DurationWidget(),
         required=False,
     )
     text = forms.CharField(
+        label=_("Text"),
         widget=SimpleMDE(),
         required=False,
     )
@@ -74,7 +80,7 @@ class CaseNotifyForm(forms.ModelForm):
         model = TestCaseEmailSettings
         fields = "__all__"
 
-    cc_list = MultipleEmailField(required=False)
+    cc_list = MultipleEmailField(label=_("Cc list"), required=False)
 
 
 # note: these fields can't change during runtime !
@@ -100,19 +106,25 @@ class SearchCaseForm(forms.ModelForm):
         fields = "__all__"
 
     # overriden initial values
-    product = forms.ModelChoiceField(queryset=Product.objects.all(), required=False)
-    category = forms.ModelChoiceField(queryset=Category.objects.none(), required=False)
+    product = forms.ModelChoiceField(
+        label=_("Product"), queryset=Product.objects.all(), required=False
+    )
+    category = forms.ModelChoiceField(
+        label=_("Category"), queryset=Category.objects.none(), required=False
+    )
     component = forms.ModelChoiceField(
-        queryset=Component.objects.none(), required=False
+        label=_("Component"), queryset=Component.objects.none(), required=False
     )
 
     # overriden widgets
     priority = forms.ModelMultipleChoiceField(
+        label=_("Priority"),
         queryset=Priority.objects.filter(is_active=True),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
     )
     case_status = forms.ModelMultipleChoiceField(
+        label=_("Case status"),
         queryset=TestCaseStatus.objects.all(),
         widget=forms.CheckboxSelectMultiple(),
         required=False,
@@ -130,9 +142,11 @@ class SearchCaseForm(forms.ModelForm):
 
 class CloneCaseForm(forms.Form):  # pylint: disable=must-inherit-from-model-form
     case = forms.ModelMultipleChoiceField(
+        label=_("Test case"),
         queryset=TestCase.objects.all(),
     )
     plan = forms.ModelMultipleChoiceField(
+        label=_("Test plan"),
         queryset=TestPlan.objects.all(),
         required=False,
     )

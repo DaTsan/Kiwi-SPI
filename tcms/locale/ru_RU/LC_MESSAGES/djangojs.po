@@ -1,0 +1,314 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kiwitcms\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 06:32+0000\n"
+"PO-Revision-Date: 2026-10-11 02:30+0700\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 "
+"&& n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 "
+"&& n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"X-Crowdin-Project: kiwitcms\n"
+"X-Crowdin-Project-ID: 295734\n"
+"X-Crowdin-Language: ru\n"
+"X-Crowdin-File: /master/tcms/locale/en/LC_MESSAGES/django.po\n"
+"X-Crowdin-File-ID: 19\n"
+
+#: tcms/static/js/datatables_common.js:32 tcms/static/js/translations.js:43
+msgid "Print"
+msgstr "Печать"
+
+#: tcms/static/js/datatables_common.js:39 tcms/static/js/translations.js:46
+msgid "Column visibility"
+msgstr "Видимость столбцов"
+
+#: tcms/static/js/datetime_picker.js:8
+msgid "Today"
+msgstr "Сегодня"
+
+#: tcms/static/js/datetime_picker.js:9
+msgid "Clear selection"
+msgstr "Очистить выбор"
+
+#: tcms/static/js/datetime_picker.js:10
+msgid "Close"
+msgstr "Закрыть"
+
+#: tcms/static/js/datetime_picker.js:11
+msgid "Select month"
+msgstr "Выбрать месяц"
+
+#: tcms/static/js/datetime_picker.js:12
+msgid "Previous month"
+msgstr "Предыдущий месяц"
+
+#: tcms/static/js/datetime_picker.js:13
+msgid "Next month"
+msgstr "Следующий месяц"
+
+#: tcms/static/js/datetime_picker.js:14
+msgid "Select year"
+msgstr "Выбрать год"
+
+#: tcms/static/js/datetime_picker.js:15
+msgid "Previous year"
+msgstr "Предыдущий год"
+
+#: tcms/static/js/datetime_picker.js:16
+msgid "Next year"
+msgstr "Следующий год"
+
+#: tcms/static/js/datetime_picker.js:17
+msgid "Select decade"
+msgstr "Выбрать десятилетие"
+
+#: tcms/static/js/datetime_picker.js:18
+msgid "Previous decade"
+msgstr "Предыдущее десятилетие"
+
+#: tcms/static/js/datetime_picker.js:19
+msgid "Next decade"
+msgstr "Следующее десятилетие"
+
+#: tcms/static/js/datetime_picker.js:20
+msgid "Previous century"
+msgstr "Предыдущий век"
+
+#: tcms/static/js/datetime_picker.js:21
+msgid "Next century"
+msgstr "Следующий век"
+
+#: tcms/static/js/layout_editor.js:53
+msgid "Done layout editing"
+msgstr "Завершить настройку интерфейса"
+
+#: tcms/static/js/layout_editor.js:59
+msgid "Layout editing mode:"
+msgstr "Режим настройки интерфейса:"
+
+#: tcms/static/js/layout_editor.js:60
+msgid ""
+"Click on block buttons to toggle visibility. Changes apply to all pages of "
+"this type."
+msgstr ""
+"Нажимайте кнопки блоков, чтобы изменить их видимость. Изменения применяются "
+"ко всем страницам этого типа."
+
+#: tcms/static/js/layout_editor.js:62
+msgid "Done"
+msgstr "Готово"
+
+#: tcms/static/js/layout_editor.js:70
+msgid "Customize layout"
+msgstr "Настроить интерфейс"
+
+#: tcms/static/js/simplemde_security_override.js:45
+msgid "Insert Image"
+msgstr "Вставить изображение"
+
+#: tcms/static/js/simplemde_security_override.js:53
+msgid "Attach File"
+msgstr "Прикрепить файл"
+
+#: tcms/static/js/simplemde_security_override.js:76
+msgid "Heading"
+msgstr "Заголовок"
+
+#: tcms/static/js/simplemde_security_override.js:77
+msgid "Bold"
+msgstr "Полужирный"
+
+#: tcms/static/js/simplemde_security_override.js:78
+msgid "Italic"
+msgstr "Курсив"
+
+#: tcms/static/js/simplemde_security_override.js:79
+msgid "Strikethrough"
+msgstr "Зачёркнутый"
+
+#: tcms/static/js/simplemde_security_override.js:80
+msgid "Numbered list"
+msgstr "Нумерованный список"
+
+#: tcms/static/js/simplemde_security_override.js:81
+msgid "Bulleted list"
+msgstr "Маркированный список"
+
+#: tcms/static/js/simplemde_security_override.js:82
+msgid "Insert table"
+msgstr "Вставить таблицу"
+
+#: tcms/static/js/simplemde_security_override.js:83
+msgid "Horizontal rule"
+msgstr "Горизонтальная линия"
+
+#: tcms/static/js/simplemde_security_override.js:84
+msgid "Code"
+msgstr "Код"
+
+#: tcms/static/js/simplemde_security_override.js:85
+msgid "Quote"
+msgstr "Цитата"
+
+#: tcms/static/js/simplemde_security_override.js:86
+msgid "Insert link"
+msgstr "Вставить ссылку"
+
+#: tcms/static/js/simplemde_security_override.js:87
+msgid "Preview"
+msgstr "Предпросмотр"
+
+#: tcms/static/js/simplemde_security_override.js:88
+msgid "Side by side"
+msgstr "Редактор и предпросмотр рядом"
+
+#: tcms/static/js/simplemde_security_override.js:89
+msgid "Fullscreen"
+msgstr "Полноэкранный режим"
+
+#: tcms/static/js/simplemde_security_override.js:90
+msgid "Markdown guide"
+msgstr "Справка по Markdown"
+
+#: tcms/static/js/tags.js:65 tcms/static/js/translations.js:16
+#: tcms/telemetry/static/telemetry/js/testing/status-matrix.js:124
+#: tcms/telemetry/static/telemetry/js/testing/test-case-health.js:71
+#: tcms/testcases/static/testcases/js/get.js:91
+#: tcms/testcases/static/testcases/js/get.js:170
+msgid "No records found"
+msgstr "Записей не найдено"
+
+#: tcms/static/js/translations.js:9
+msgid "of"
+msgstr "из"
+
+#: tcms/static/js/translations.js:11
+msgid "Page"
+msgstr "Страница"
+
+#: tcms/static/js/translations.js:17
+msgid "No matching records found"
+msgstr "Подходящих записей не найдено"
+
+#: tcms/static/js/translations.js:18
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr "Записи с _START_ по _END_ из _TOTAL_"
+
+#: tcms/static/js/translations.js:19
+msgid "Showing 0 to 0 of 0 entries"
+msgstr "Записи с 0 по 0 из 0"
+
+#: tcms/static/js/translations.js:20
+msgid "(filtered from _MAX_ total entries)"
+msgstr "(отобрано из _MAX_ записей)"
+
+#: tcms/static/js/translations.js:21
+msgid "Show _MENU_ entries"
+msgstr "Показать _MENU_ записей"
+
+#: tcms/static/js/translations.js:22
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#: tcms/static/js/translations.js:23
+msgid "Processing..."
+msgstr "Обработка..."
+
+#: tcms/static/js/translations.js:24
+msgid "Search:"
+msgstr "Поиск:"
+
+#: tcms/static/js/translations.js:26
+msgid "First"
+msgstr "Первая"
+
+#: tcms/static/js/translations.js:27
+msgid "Last"
+msgstr "Последняя"
+
+#: tcms/static/js/translations.js:28
+msgid "Next"
+msgstr "Следующая"
+
+#: tcms/static/js/translations.js:29
+msgid "Previous"
+msgstr "Предыдущая"
+
+#: tcms/static/js/translations.js:32
+msgid ": activate to sort column ascending"
+msgstr ": сортировать столбец по возрастанию"
+
+#: tcms/static/js/translations.js:33
+msgid ": activate to sort column descending"
+msgstr ": сортировать столбец по убыванию"
+
+#: tcms/static/js/translations.js:37
+#, javascript-format
+msgid "%d rows selected"
+msgstr "Выбрано строк: %d"
+
+#: tcms/static/js/translations.js:39
+msgid "1 row selected"
+msgstr "Выбрана 1 строка"
+
+#: tcms/static/js/translations.js:44
+msgid "Copy"
+msgstr "Копировать"
+
+#: tcms/static/js/translations.js:45
+msgid "Copy to clipboard"
+msgstr "Копирование в буфер обмена"
+
+#: tcms/testplans/static/testplans/js/get.js:419
+msgid "PROPOSED"
+msgstr "ПРЕДЛОЖЕН"
+
+#: tcms/testplans/static/testplans/js/get.js:420
+msgid "CONFIRMED"
+msgstr "ПОДТВЕРЖДЁН"
+
+#: tcms/testplans/static/testplans/js/get.js:421
+msgid "DISABLED"
+msgstr "ОТКЛЮЧЁН"
+
+#: tcms/testplans/static/testplans/js/get.js:422
+msgid "NEED_UPDATE"
+msgstr "ТРЕБУЕТ ОБНОВЛЕНИЯ"
+
+#: tcms/testplans/static/testplans/js/organization.js:38
+msgid "Saving..."
+msgstr "Сохранение…"
+
+#: tcms/testplans/static/testplans/js/organization.js:47
+msgid "Could not save changes. Please try again."
+msgstr "Не удалось сохранить изменения. Повторите попытку."
+
+#: tcms/testplans/static/testplans/js/organization.js:107
+msgid "Case order saved."
+msgstr "Порядок кейсов сохранён."
+
+#: tcms/testplans/static/testplans/js/organization.js:157
+msgid "Add subsection"
+msgstr "Добавить подсекцию"
+
+#: tcms/testplans/static/testplans/js/organization.js:157
+msgid "Rename section"
+msgstr "Переименовать секцию"
+
+#: tcms/testplans/static/testplans/js/organization.js:229
+msgid "Section order saved."
+msgstr "Порядок секций сохранён."
+
+#: tcms/testplans/static/testplans/js/organization.js:298
+msgid "Select test cases and a destination section."
+msgstr "Выберите тест-кейсы и целевую секцию."
+
+#: tcms/testplans/static/testplans/js/organization.js:309
+#, javascript-format
+msgid "Selected cases: %s"
+msgstr "Выбрано кейсов: %s"

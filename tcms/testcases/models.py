@@ -8,7 +8,6 @@ from django.db import models
 from django.db.models import ObjectDoesNotExist
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
 from tcms.core.history import KiwiHistoricalRecords
 from tcms.core.models import abstract
 from tcms.core.models.base import UrlMixin
@@ -16,9 +15,11 @@ from tcms.testcases.fields import MultipleEmailField
 
 
 class TestCaseStatus(models.Model, UrlMixin):
-    name = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-    is_confirmed = models.BooleanField(db_index=True, default=False)
+    name = models.CharField(verbose_name=_("Name"), max_length=255)
+    description = models.TextField(verbose_name=_("Description"), null=True, blank=True)
+    is_confirmed = models.BooleanField(
+        verbose_name=_("Confirmed"), db_index=True, default=False
+    )
 
     class Meta:
         verbose_name = _("Test case status")
@@ -33,13 +34,17 @@ vinaigrette.register(TestCaseStatus, ["name"])
 
 
 class Category(models.Model, UrlMixin):
-    name = models.CharField(max_length=255)
+    name = models.CharField(verbose_name=_("Name"), max_length=255)
     product = models.ForeignKey(
-        "management.Product", related_name="category", on_delete=models.CASCADE
+        "management.Product",
+        verbose_name=_("Product"),
+        related_name="category",
+        on_delete=models.CASCADE,
     )
-    description = models.TextField(blank=True)
+    description = models.TextField(verbose_name=_("Description"), blank=True)
 
     class Meta:
+        verbose_name = _("Category")
         ordering = ["name"]
         verbose_name_plural = _("Categories")
         unique_together = ("product", "name")
@@ -51,38 +56,57 @@ class Category(models.Model, UrlMixin):
 class TestCase(models.Model, UrlMixin):
     history = KiwiHistoricalRecords()
 
-    create_date = models.DateTimeField(auto_now_add=True)
-    is_automated = models.BooleanField(default=False)
-    script = models.TextField(blank=True, null=True)
-    arguments = models.TextField(blank=True, null=True)
+    create_date = models.DateTimeField(
+        verbose_name=_("Creation date"), auto_now_add=True
+    )
+    is_automated = models.BooleanField(verbose_name=_("Automated"), default=False)
+    script = models.TextField(verbose_name=_("Script"), blank=True, null=True)
+    arguments = models.TextField(verbose_name=_("Arguments"), blank=True, null=True)
     extra_link = models.URLField(
+        verbose_name=_("Extra link"),
         max_length=1024,
         default=None,
         blank=True,
         null=True,
         validators=[URLValidator(schemes=["http", "https", "ftp", "ftps"])],
     )
-    summary = models.CharField(max_length=255, db_index=True)
-    requirement = models.CharField(max_length=255, blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
-    text = models.TextField(blank=True)
-    setup_duration = models.DurationField(db_index=True, null=True, blank=True)
-    testing_duration = models.DurationField(db_index=True, null=True, blank=True)
+    summary = models.CharField(verbose_name=_("Summary"), max_length=255, db_index=True)
+    requirement = models.CharField(
+        verbose_name=_("Requirement"), max_length=255, blank=True, null=True
+    )
+    notes = models.TextField(verbose_name=_("Notes"), blank=True, null=True)
+    text = models.TextField(verbose_name=_("Text"), blank=True)
+    setup_duration = models.DurationField(
+        verbose_name=_("Setup duration"), db_index=True, null=True, blank=True
+    )
+    testing_duration = models.DurationField(
+        verbose_name=_("Testing duration"), db_index=True, null=True, blank=True
+    )
 
-    case_status = models.ForeignKey(TestCaseStatus, on_delete=models.CASCADE)
+    case_status = models.ForeignKey(
+        TestCaseStatus, verbose_name=_("Case status"), on_delete=models.CASCADE
+    )
     category = models.ForeignKey(
-        Category, related_name="category_case", on_delete=models.CASCADE
+        Category,
+        verbose_name=_("Category"),
+        related_name="category_case",
+        on_delete=models.CASCADE,
     )
     priority = models.ForeignKey(
-        "management.Priority", related_name="priority_case", on_delete=models.CASCADE
+        "management.Priority",
+        verbose_name=_("Priority"),
+        related_name="priority_case",
+        on_delete=models.CASCADE,
     )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_("Author"),
         related_name="cases_as_author",
         on_delete=models.CASCADE,
     )
     default_tester = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_("Default tester"),
         related_name="cases_as_default_tester",
         blank=True,
         null=True,
@@ -90,23 +114,31 @@ class TestCase(models.Model, UrlMixin):
     )
     reviewer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_("Reviewer"),
         related_name="cases_as_reviewer",
         null=True,
         on_delete=models.CASCADE,
     )
 
     plan = models.ManyToManyField(
-        "testplans.TestPlan", related_name="cases", through="testcases.TestCasePlan"
+        "testplans.TestPlan",
+        verbose_name=_("Test plan"),
+        related_name="cases",
+        through="testcases.TestCasePlan",
     )
 
     component = models.ManyToManyField(
         "management.Component",
+        verbose_name=_("Component"),
         related_name="cases",
         through="testcases.TestCaseComponent",
     )
 
     tag = models.ManyToManyField(
-        "management.Tag", related_name="case", through="testcases.TestCaseTag"
+        "management.Tag",
+        verbose_name=_("Tag"),
+        related_name="case",
+        through="testcases.TestCaseTag",
     )
 
     @property
@@ -167,13 +199,12 @@ class TestCase(models.Model, UrlMixin):
     emailing = property(_get_email_conf)
 
     def clone(self, new_author, test_plans):
-        values = self.__dict__.copy()
-        del values["_state"]
-        del values["id"]
-        if "sortkey" in values:
-            sortkey = values.pop("sortkey")
-        else:
-            sortkey = None
+        values = {
+            field.attname: getattr(self, field.attname)
+            for field in self._meta.concrete_fields
+            if not field.primary_key
+        }
+        sortkey = getattr(self, "sortkey", None)
 
         values["case_status_id"] = (
             TestCaseStatus.objects.filter(is_confirmed=False).first().pk
@@ -216,30 +247,61 @@ class TestCase(models.Model, UrlMixin):
                     )
                 new_tc.add_component(new_component)
 
+        from tcms.workflow.services import clone_case_workflow
+
+        clone_case_workflow(self, new_tc)
         return new_tc
+
+    class Meta:
+        verbose_name = _("Test case")
+        verbose_name_plural = _("Test cases")
 
 
 class Property(abstract.Property):
-    case = models.ForeignKey(TestCase, on_delete=models.CASCADE)
+    case = models.ForeignKey(
+        TestCase, verbose_name=_("Test case"), on_delete=models.CASCADE
+    )
 
 
 class TestCasePlan(models.Model):
-    plan = models.ForeignKey("testplans.TestPlan", on_delete=models.CASCADE)
-    case = models.ForeignKey(TestCase, on_delete=models.CASCADE)
-    sortkey = models.IntegerField(null=True, blank=True)
+    plan = models.ForeignKey(
+        "testplans.TestPlan", verbose_name=_("Test plan"), on_delete=models.CASCADE
+    )
+    case = models.ForeignKey(
+        TestCase, verbose_name=_("Test case"), on_delete=models.CASCADE
+    )
+    sortkey = models.IntegerField(verbose_name=_("Sort order"), null=True, blank=True)
 
     class Meta:
+        verbose_name = _("Test case plan")
+        verbose_name_plural = _("Test case plans")
         unique_together = ("plan", "case")
 
 
 class TestCaseComponent(models.Model):
-    case = models.ForeignKey(TestCase, on_delete=models.CASCADE)
-    component = models.ForeignKey("management.Component", on_delete=models.CASCADE)
+    case = models.ForeignKey(
+        TestCase, verbose_name=_("Test case"), on_delete=models.CASCADE
+    )
+    component = models.ForeignKey(
+        "management.Component", verbose_name=_("Component"), on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = _("Test case component")
+        verbose_name_plural = _("Test case components")
 
 
 class TestCaseTag(models.Model):
-    tag = models.ForeignKey("management.Tag", on_delete=models.CASCADE)
-    case = models.ForeignKey(TestCase, on_delete=models.CASCADE)
+    tag = models.ForeignKey(
+        "management.Tag", verbose_name=_("Tag"), on_delete=models.CASCADE
+    )
+    case = models.ForeignKey(
+        TestCase, verbose_name=_("Test case"), on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = _("Test case tag")
+        verbose_name_plural = _("Test case tags")
 
 
 class BugSystem(models.Model, UrlMixin):
@@ -277,11 +339,11 @@ class BugSystem(models.Model, UrlMixin):
             to the internal RPC object!
     """
 
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(verbose_name=_("Name"), max_length=255, unique=True)
     tracker_type = models.CharField(  # pylint:disable=form-field-help-text-used
         max_length=128,
-        verbose_name="Type",
-        help_text="This determines how Kiwi TCMS integrates with the IT system",
+        verbose_name=_("Type"),
+        help_text=_("This determines how Kiwi TCMS integrates with the IT system"),
         default="IssueTrackerType",
     )
 
@@ -289,10 +351,10 @@ class BugSystem(models.Model, UrlMixin):
         max_length=1024,
         null=True,
         blank=True,
-        verbose_name="Base URL",
-        help_text="""Base URL, for example <strong>https://bugzilla.example.com</strong>!
-Leave empty to disable!
-""",
+        verbose_name=_("Base URL"),
+        help_text=_(
+            "Base URL, for example <strong>https://bugzilla.example.com</strong>!\nLeave empty to disable!\n"
+        ),
         validators=[URLValidator(schemes=["http", "https"])],
     )
 
@@ -300,22 +362,24 @@ Leave empty to disable!
         max_length=1024,
         null=True,
         blank=True,
-        verbose_name="API URL",
-        help_text="This is the URL to which API requests will be sent. Leave empty to disable!",
+        verbose_name=_("API URL"),
+        help_text=_(
+            "This is the URL to which API requests will be sent. Leave empty to disable!"
+        ),
         validators=[URLValidator(schemes=["http", "https"])],
     )
 
     api_username = models.CharField(
-        max_length=256, null=True, blank=True, verbose_name="API username"
+        max_length=256, null=True, blank=True, verbose_name=_("API username")
     )
 
     api_password = models.CharField(
-        max_length=256, null=True, blank=True, verbose_name="API password or token"
+        max_length=256, null=True, blank=True, verbose_name=_("API password or token")
     )
 
     class Meta:
-        verbose_name = "Bug tracker"
-        verbose_name_plural = "Bug trackers"
+        verbose_name = _("Bug tracker")
+        verbose_name_plural = _("Bug trackers")
 
     def __str__(self):
         return self.name
@@ -323,17 +387,34 @@ Leave empty to disable!
 
 class TestCaseEmailSettings(models.Model):
     case = models.OneToOneField(
-        TestCase, related_name="email_settings", on_delete=models.CASCADE
+        TestCase,
+        verbose_name=_("Test case"),
+        related_name="email_settings",
+        on_delete=models.CASCADE,
     )
-    notify_on_case_update = models.BooleanField(default=True)
-    notify_on_case_delete = models.BooleanField(default=True)
-    auto_to_case_author = models.BooleanField(default=True)
-    auto_to_case_tester = models.BooleanField(default=True)
-    auto_to_run_manager = models.BooleanField(default=True)
-    auto_to_run_tester = models.BooleanField(default=True)
-    auto_to_execution_assignee = models.BooleanField(default=True)
+    notify_on_case_update = models.BooleanField(
+        verbose_name=_("Notify on case update"), default=True
+    )
+    notify_on_case_delete = models.BooleanField(
+        verbose_name=_("Notify on case delete"), default=True
+    )
+    auto_to_case_author = models.BooleanField(
+        verbose_name=_("Auto to case author"), default=True
+    )
+    auto_to_case_tester = models.BooleanField(
+        verbose_name=_("Auto to case tester"), default=True
+    )
+    auto_to_run_manager = models.BooleanField(
+        verbose_name=_("Auto to run manager"), default=True
+    )
+    auto_to_run_tester = models.BooleanField(
+        verbose_name=_("Auto to run tester"), default=True
+    )
+    auto_to_execution_assignee = models.BooleanField(
+        verbose_name=_("Auto to execution assignee"), default=True
+    )
 
-    cc_list = models.TextField(default="")
+    cc_list = models.TextField(verbose_name=_("CC list"), default="")
 
     def add_cc(self, email_addrs):
         """Add email addresses to CC list
@@ -378,12 +459,16 @@ class TestCaseEmailSettings(models.Model):
         self.cc_list = MultipleEmailField.delimiter.join(emailaddr_list)
         self.save()
 
+    class Meta:
+        verbose_name = _("Test case email settings")
+        verbose_name_plural = _("Test case email settings")
+
 
 class Template(models.Model):
     history = KiwiHistoricalRecords()
 
-    name = models.CharField(max_length=255)
-    text = models.TextField(blank=False)
+    name = models.CharField(verbose_name=_("Name"), max_length=255)
+    text = models.TextField(verbose_name=_("Text"), blank=False)
 
     class Meta:
         verbose_name = _("Template")
