@@ -105,9 +105,11 @@
   - Наборы тестов `tcms.testplans` (37 тестов) и `tcms.testcases` (57 тестов) выполнены успешно.
 
 ### [2026-10-12]
-- Исправлена ошибка Forbidden при открытии тест-плана по клику на название категории/секции в интерфейсе тест-плана (`TestPlan`):
+- Устранена ошибка Forbidden при открытии тест-плана по клику на название категории/секции в интерфейсе тест-плана (`TestPlan`):
   - Создана ветка `feature/fix-category-plan-link-forbidden`.
-  - В `tcms/testplans/static/testplans/js/get.js` исправлена ссылка в заголовке секции `.js-section-title-link`: заменен абсолютный путь `section.url` (который ссылался на внешний домен через `get_full_url` без завершающего слэша и вызывал ошибку 403 Forbidden) на относительный путь `/plan/${section.id}/`, в соответствии со стандартом проекта и реализацией в `testruns`.
-  - Бандл Webpack пересобран (`npx webpack`), синхронизирован с рабочим контейнером `kiwi-local-web-1`.
+  - Заголовок категории/секции (`.testplan-section-title`) сделан некликабельным: удален тег ссылки `<a>`, заголовок отображается простым текстом `<span>` со стандартным цветом `#151515` без стилей перехода по ссылке.
+  - В `tcms/testplans/templates/testplans/get.html` шаблон `#test_plan_section` обновлен: `<a>` заменен на `<span class="testplan-section-title js-section-title">`, удалены устаревшие CSS-правила `.testplan-section-link`.
+  - В `tcms/testplans/static/testplans/js/get.js` логика инициализации заголовка переведена на `.js-section-title` без установки `href`.
+  - Бандл Webpack пересобран (`npx webpack`), синхронизирован с рабочим Docker-контейнером `kiwi-local-web-1`.
   - Линтинг ESLint пройден без замечаний (0 ошибок).
 

@@ -544,9 +544,7 @@
             <div class="testplan-section-header-content">
                 <span class="fa fa-angle-down js-section-toggle testplan-section-toggle" title="{% trans 'Collapse/Expand section' %}"></span>
                 <input type="checkbox" class="js-section-checkbox" title="{% trans 'Select all in this section' %}">
-                <span class="testplan-section-title">
-                    <a class="js-section-title-link testplan-section-link"></a>
-                </span>
+                <span class="testplan-section-title js-section-title"></span>
                 <span class="badge js-section-badge" title="{% trans 'Test cases count' %}">0</span>
                 {% if perms.testcases.add_testcase or perms.testcases.add_testcaseplan %}
                 <div class="testplan-section-actions pull-right">
@@ -655,16 +653,7 @@
 .testplan-section-title {
     font-size: 14px;
     font-weight: 600;
-}
-
-.testplan-section-link {
     color: #151515;
-    text-decoration: none;
-}
-
-.testplan-section-link:hover {
-    color: #00659c;
-    text-decoration: underline;
 }
 
 .testplan-section-badge {

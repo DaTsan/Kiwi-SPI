@@ -201,12 +201,11 @@ function renderAllSections (testPlanId, permissions) {
         sectionEl.addClass(depthClass)
 
         // Section title
-        const titleLink = sectionNode.find('.js-section-title-link')
-        titleLink.attr('href', `/plan/${section.id}/`)
+        const titleEl = sectionNode.find('.js-section-title')
         const iconHtml = section.tree_depth > 0
             ? '<span class="fa fa-folder-open-o text-muted"></span> '
             : '<span class="fa fa-folder-o text-primary"></span> '
-        titleLink.html(`${iconHtml}TP-${section.id}: ${section.name}`)
+        titleEl.html(`${iconHtml}TP-${section.id}: ${section.name}`)
 
         // Add case buttons
         sectionNode.find('.js-section-add-new-case').attr('href', `${newCaseBaseUrl}?from_plan=${section.id}`)
