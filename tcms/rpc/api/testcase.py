@@ -28,6 +28,20 @@ except (ImportError, ModuleNotFoundError):
 
         return decorator
 
+try:
+    from modernrpc.core import REQUEST_KEY
+except ImportError:
+    REQUEST_KEY = "request"
+
+
+def _get_request(rpc_context=None, kwargs=None):
+    if rpc_context is not None and hasattr(rpc_context, "request"):
+        return rpc_context.request
+    if kwargs:
+        return kwargs.get(REQUEST_KEY) or kwargs.get("request")
+    return None
+
+
 from tcms.testcases.models import (
     Property,
     TestCase,
@@ -191,7 +205,7 @@ def get_notification_cc(case_id):
     auth=permissions_required("testcases.add_testcasetag"),
     context_target="rpc_context",
 )
-def add_tag(case_id, tag, rpc_context=None):
+def add_tag(case_id, tag, rpc_context=None, **kwargs):
     """
     .. function:: RPC TestCase.add_tag(case_id, tag)
 
@@ -209,7 +223,7 @@ def add_tag(case_id, tag, rpc_context=None):
         :raises Tag.DoesNotExist: if missing *management.add_tag* permission and *tag*
                  doesn't exist in the database!
     """
-    request = rpc_context.request
+    request = _get_request(rpc_context, kwargs)
     tag, _ = Tag.get_or_create(request.user, tag)
     TestCase.objects.get(pk=case_id).add_tag(tag)
 
@@ -239,7 +253,7 @@ def remove_tag(case_id, tag):
     auth=permissions_required("testcases.add_testcase"),
     context_target="rpc_context",
 )
-def create(values, rpc_context=None):
+def create(values, rpc_context=None, **kwargs):
     """
     .. function:: RPC TestCase.create(values)
 
@@ -265,10 +279,10 @@ def create(values, rpc_context=None):
             }
             >>> TestCase.create(values)
     """
-    request = rpc_context.request
+    request = _get_request(rpc_context, kwargs)
 
     if not (values.get("author") or values.get("author_id")):
-        values["author"] = request.user.pk
+        values["author"] = request.user.pk if request else None
 
     form = NewForm(values, request=request)
 
@@ -416,7 +430,7 @@ def sortkeys(query=None):
     auth=permissions_required("testcases.change_testcase"),
     context_target="rpc_context",
 )
-def update(case_id, values, rpc_context=None):
+def update(case_id, values, rpc_context=None, **kwargs):
     """
     .. function:: RPC TestCase.update(case_id, values, **kwargs)
 
@@ -435,7 +449,7 @@ def update(case_id, values, rpc_context=None):
         :raises TestCase.DoesNotExist: if object specified by PK doesn't exist
         :raises PermissionDenied: if missing *testcases.change_testcase* permission
     """
-    request = rpc_context.request
+    request = _get_request(rpc_context, kwargs)
     test_case = TestCase.objects.get(pk=case_id)
     form = UpdateForm(values, instance=test_case, request=request)
 
@@ -497,7 +511,7 @@ def remove(query):
     auth=permissions_required("attachments.view_attachment"),
     context_target="rpc_context",
 )
-def list_attachments(case_id, rpc_context=None):
+def list_attachments(case_id, rpc_context=None, **kwargs):
     """
     .. function:: RPC TestCase.list_attachments(case_id)
 
@@ -513,7 +527,7 @@ def list_attachments(case_id, rpc_context=None):
         :raises TestCase.DoesNotExist: if object specified by PK is missing
     """
     case = TestCase.objects.get(pk=case_id)
-    request = rpc_context.request
+    request = _get_request(rpc_context, kwargs)
     return utils.get_attachments_for(request, case)
 
 
@@ -522,7 +536,7 @@ def list_attachments(case_id, rpc_context=None):
     auth=permissions_required("attachments.add_attachment"),
     context_target="rpc_context",
 )
-def add_attachment(case_id, filename, b64content, rpc_context=None):
+def add_attachment(case_id, filename, b64content, rpc_context=None, **kwargs):
     """
     .. function:: RPC TestCase.add_attachment(case_id, filename, b64content)
 
@@ -538,10 +552,12 @@ def add_attachment(case_id, filename, b64content, rpc_context=None):
                 entry point name and handler instance from the rpc method
         :type rpc_context: modernrpc.core.RpcRequestContext
     """
+    request = _get_request(rpc_context, kwargs)
+    user = request.user if request else None
     utils.add_attachment(
         case_id,
         "testcases.TestCase",
-        rpc_context.request.user,
+        user,
         filename,
         b64content,
     )
@@ -552,7 +568,7 @@ def add_attachment(case_id, filename, b64content, rpc_context=None):
     auth=permissions_required("django_comments.add_comment"),
     context_target="rpc_context",
 )
-def add_comment(case_id, comment, user_id=None, submit_date=None, rpc_context=None):
+def add_comment(case_id, comment, user_id=None, submit_date=None, rpc_context=None, **kwargs):
     """
     .. function:: TestCase.add_comment(case_id, comment)
 
@@ -580,14 +596,15 @@ def add_comment(case_id, comment, user_id=None, submit_date=None, rpc_context=No
     """
     case = TestCase.objects.get(pk=case_id)
 
-    request_user = rpc_context.request.user
+    request = _get_request(rpc_context, kwargs)
+    request_user = request.user if request else None
 
     comment_author = request_user
-    if user_id and request_user.is_superuser:
+    if user_id and request_user and request_user.is_superuser:
         comment_author = get_user_model().objects.get(pk=user_id)
 
     # only super-user can override this
-    if not request_user.is_superuser:
+    if request_user and not request_user.is_superuser:
         submit_date = None
 
     created = helpers.comments.add_comment([case], comment, comment_author, submit_date)
