@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="workflow-stats">
+  <div><strong>{{ stats.total }}</strong><span>{% trans 'Tests' %}</span></div>
+  <div class="workflow-positive"><strong>{{ stats.passed }}</strong><span>{% trans 'Passed' %}</span></div>
+  <div class="workflow-negative"><strong>{{ stats.failed }}</strong><span>{% trans 'Negative results' %}</span></div>
+  <div><strong>{{ stats.untested }}</strong><span>{% trans 'Not completed' %}</span></div>
+  <div><strong>{{ stats.percent }}%</strong><span>{% trans 'Complete' %}</span></div>
+</div>
+<p class="workflow-muted">{% trans 'Custom statuses follow Kiwi weights: positive, negative, or zero (not completed).' %}</p>

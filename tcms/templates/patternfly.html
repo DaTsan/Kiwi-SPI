@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
     <!-- PatternFly Styles -->
     <link rel="stylesheet" href="{% static 'patternfly/dist/css/patternfly.min.css' %}">
     <link rel="stylesheet" href="{% static 'patternfly/dist/css/patternfly-additions.min.css' %}">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'style/codehilite.css' %}">
 
     <!-- JS -->
+    <script src="{% url 'javascript-catalog' %}"></script>
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'datatables.net-select/js/dataTables.select.min.js' %}"></script>

@@ -88,7 +88,7 @@ export function pageTestcasesGetReadyHandler () {
         language: {
             loadingRecords: '<div class="spinner spinner-lg"></div>',
             processing: '<div class="spinner spinner-lg"></div>',
-            zeroRecords: 'No records found'
+            zeroRecords: gettext('No records found')
         },
         order: [[0, 'asc']]
     })
@@ -167,7 +167,7 @@ export function pageTestcasesGetReadyHandler () {
         language: {
             loadingRecords: '<div class="spinner spinner-lg"></div>',
             processing: '<div class="spinner spinner-lg"></div>',
-            zeroRecords: 'No records found'
+            zeroRecords: gettext('No records found')
         },
         order: [[0, 'asc']]
     })

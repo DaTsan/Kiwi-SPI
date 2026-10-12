@@ -1,10 +1,12 @@
 # pylint: disable=import-outside-toplevel
 from django.apps import AppConfig as DjangoAppConfig
 from django.db.models.signals import post_migrate, post_save, pre_delete
+from django.utils.translation import gettext_lazy as _
 
 
 class AppConfig(DjangoAppConfig):
     name = "tcms.bugs"
+    verbose_name = _("Bugs")
 
     def ready(self):
         from tcms import signals

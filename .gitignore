@@ -18,3 +18,8 @@ docs/target/
 .cache/
 tcms/node_modules/
 tcms/static/js/bundle.js
+
+# Local Windows environment credentials
+.env.local
+backups/
+.local-*.log

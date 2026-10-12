@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
 from tcms.core.forms.fields import UserField
 from tcms.management.models import Build, Product, Version
 from tcms.rpc.api.forms import DateTimeField
@@ -14,12 +13,12 @@ class NewRunForm(forms.ModelForm):
         model = TestRun
         exclude = ("tag", "cc")  # pylint: disable=modelform-uses-exclude
 
-    manager = UserField()
-    default_tester = UserField(required=False)
-    start_date = DateTimeField(required=False)
-    stop_date = DateTimeField(required=False)
-    planned_start = DateTimeField(required=False)
-    planned_stop = DateTimeField(required=False)
+    manager = UserField(label=_("Manager"))
+    default_tester = UserField(label=_("Default tester"), required=False)
+    start_date = DateTimeField(label=_("Start date"), required=False)
+    stop_date = DateTimeField(label=_("Stop date"), required=False)
+    planned_start = DateTimeField(label=_("Planned start"), required=False)
+    planned_stop = DateTimeField(label=_("Planned stop"), required=False)
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop("request", None)
@@ -34,16 +33,19 @@ class NewRunForm(forms.ModelForm):
             self.fields["default_tester"].queryset = tenant_users
 
     case = forms.ModelMultipleChoiceField(
+        label=_("Test case"),
         queryset=TestCase.objects.none(),
         required=False,
     )
 
     product = forms.ModelChoiceField(
+        label=_("Product"),
         queryset=Product.objects.all(),
         required=False,
     )
 
     matrix_type = forms.ChoiceField(
+        label=_("Matrix type"),
         choices=(
             ("full", _("Full")),
             ("pairwise", _("Pairwise")),
@@ -52,6 +54,7 @@ class NewRunForm(forms.ModelForm):
     )
 
     environment = forms.ModelMultipleChoiceField(
+        label=_("Environment"),
         queryset=Environment.objects.all(),
         required=False,
     )
@@ -86,13 +89,17 @@ class SearchRunForm(forms.ModelForm):
         fields = "__all__"
 
     # overriden widget
-    manager = UserField()
-    default_tester = UserField()
+    manager = UserField(label=_("Manager"))
+    default_tester = UserField(label=_("Default tester"))
 
     # extra fields
-    product = forms.ModelChoiceField(queryset=Product.objects.all(), required=False)
-    version = forms.ModelChoiceField(queryset=Version.objects.none(), required=False)
-    running = forms.IntegerField(required=False)
+    product = forms.ModelChoiceField(
+        label=_("Product"), queryset=Product.objects.all(), required=False
+    )
+    version = forms.ModelChoiceField(
+        label=_("Version"), queryset=Version.objects.none(), required=False
+    )
+    running = forms.IntegerField(label=_("Running"), required=False)
 
     def populate(self, product_id=None):
         if product_id:

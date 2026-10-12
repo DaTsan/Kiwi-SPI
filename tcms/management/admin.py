@@ -81,6 +81,7 @@ class BuildAdminForm(forms.ModelForm):
 
     product = forms.ModelChoiceField(
         queryset=Product.objects.all(),
+        label=_("Product"),
         empty_label="---------",
     )
 

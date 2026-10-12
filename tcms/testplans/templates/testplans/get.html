@@ -9,6 +9,8 @@
 {% block body_class %}cards-pf{% endblock %}
 
 {% block contents %}
+{{ organization_permissions|json_script:"organization-permissions" }}
+<div id="case-organization-token" hidden>{% csrf_token %}</div>
 <div class="container-cards-pf">
     <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
     <h1 class="col-md-12 kiwi-margin-top-0">
@@ -29,6 +31,7 @@
               data-trans-error-adding-cases="{% trans 'Error adding test cases' %}"
               data-cases-search-url="{% url 'testcases-search' %}"
               data-new-testcase-url="{% url 'testcases-new' %}"
+              data-organization-url="{% url 'plan-case-organization' object.pk %}"
         >TP-{{ object.pk }}:</span> {{ object.name }}
         {% if not object.is_active %}</s>{% endif %}
         {% if perms.testcases.change_page_layout or user.is_superuser %}
@@ -75,7 +78,7 @@
                 <span id="product_pk"
                       class="fa fa-shopping-cart"></span>{% trans 'Product' %}:
                     <a href="{% url "plans-search" %}?product={{ object.product_id }}"
-                       title="Search plans of {{ object.product }} ">{{ object.product }}</a>
+                       title="{% blocktrans with name=object.product %}Search plans of {{ name }}{% endblocktrans %}">{{ object.product }}</a>
                 </h2>
                 {% endif %}
 
@@ -260,7 +263,7 @@
                                             </button>
 
                                             {% if perms.testcases.change_testcaseplan %}
-                                            <button class="btn btn-link js-toolbar-manual-sort" type="button" title="{% trans 'Re-order cases' %}">
+                                            <button class="btn btn-link js-toolbar-manual-sort" type="button" title="{% trans 'Manual case order' %}">
                                                 <span class="fa fa-sort"></span>
                                             </button>
                                             {% endif %}
@@ -285,6 +288,14 @@
                                     </div>
                                 {% endif %}
                                 </form>
+                                <div class="case-organization-toolbar">
+                                    <button class="btn btn-default btn-sm js-sections-expand" type="button">{% trans 'Expand all sections' %}</button>
+                                    <button class="btn btn-default btn-sm js-sections-collapse" type="button">{% trans 'Collapse all sections' %}</button>
+                                    {% if perms.testcases.add_testcaseplan %}
+                                    <button id="case-transfer-open" class="btn btn-default btn-sm" type="button">{% trans 'Move / copy selected cases' %}</button>
+                                    {% endif %}
+                                    <span id="case-organization-status" role="status" aria-live="polite"></span>
+                                </div>
                                 <div class="row toolbar-pf-results">
                                     <div class="col-sm-12">
                                         <h5><span class="test-cases-count"></span> {% trans 'records' %}</h5>
@@ -363,7 +374,7 @@
         <div class="list-group-item-header">
             <div class="list-view-pf-main-info">
                 <div class="list-view-pf-left hidden js-testcase-sort-handler">
-                    <span class="fa fa-sort handle"></span>
+                    <span class="fa fa-bars handle" role="button" tabindex="0" title="{% trans 'Drag to reorder; use arrow keys when focused' %}" aria-label="{% trans 'Move test case' %}"></span>
                 </div>
                 <div class="list-view-pf-left js-testcase-expand-arrow">
                     <span class="fa fa-angle-right"></span>
@@ -378,6 +389,7 @@
                             <span class="fa fa-ellipsis-v"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="js-test-case-steps">{% trans 'Steps & custom fields' %}</a></li>
                         {% if perms.testcases.add_testcase %}
                             <li><a class="js-test-case-menu-clone">{% trans 'Clone' %}</a></li>
                             <li class="divider"></li>
@@ -542,12 +554,15 @@
     <div class="testplan-section panel panel-default" id="" data-plan-id="">
         <div class="panel-heading testplan-section-heading">
             <div class="testplan-section-header-content">
+                <button type="button" class="btn btn-link js-section-sort-handler hidden" draggable="false" aria-disabled="true" title="{% trans 'Drag to reorder subsections, or use the up and down arrow keys' %}" aria-label="{% trans 'Reorder subsection' %}"><span class="fa fa-bars" aria-hidden="true"></span></button>
                 <span class="fa fa-angle-down js-section-toggle testplan-section-toggle" title="{% trans 'Collapse/Expand section' %}"></span>
                 <input type="checkbox" class="js-section-checkbox" title="{% trans 'Select all in this section' %}">
                 <span class="testplan-section-title js-section-title"></span>
                 <span class="badge js-section-badge" title="{% trans 'Test cases count' %}">0</span>
-                {% if perms.testcases.add_testcase or perms.testcases.add_testcaseplan %}
                 <div class="testplan-section-actions pull-right">
+                    <button type="button" class="btn btn-default btn-xs js-section-add-subsection hidden"><span class="fa fa-folder-o"></span> {% trans 'Add subsection' %}</button>
+                    <button type="button" class="btn btn-default btn-xs js-section-rename hidden" title="{% trans 'Rename section' %}" aria-label="{% trans 'Rename section' %}"><span class="fa fa-pencil"></span></button>
+                    {% if perms.testcases.add_testcase or perms.testcases.add_testcaseplan %}
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="fa fa-plus"></span> {% trans 'Add case' %} <span class="caret"></span>
@@ -561,8 +576,8 @@
                             {% endif %}
                         </ul>
                     </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </div>
         <div class="panel-body testplan-section-body js-section-body" style="padding: 0;">
@@ -574,6 +589,50 @@
         </div>
     </div>
 </template>
+
+<div class="modal fade" id="section-editor" tabindex="-1" role="dialog" aria-labelledby="section-editor-title">
+    <div class="modal-dialog"><div class="modal-content">
+        <form id="section-editor-form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}">×</button>
+                <h3 class="modal-title" id="section-editor-title">{% trans 'Add subsection' %}</h3>
+            </div>
+            <div class="modal-body">
+                <p id="section-editor-context"></p>
+                <div class="alert alert-danger js-organization-error hidden" role="alert"></div>
+                <div class="form-group"><label for="section-editor-name">{% trans 'Name' %}</label><input id="section-editor-name" class="form-control" maxlength="255" required></div>
+                <div class="form-group"><label for="section-editor-description">{% trans 'Description' %}</label><textarea id="section-editor-description" class="form-control" rows="3" maxlength="50000"></textarea></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                <button type="submit" class="btn btn-primary js-organization-submit">{% trans 'Save' %}</button>
+            </div>
+        </form>
+    </div></div>
+</div>
+<div class="modal fade" id="case-transfer" tabindex="-1" role="dialog" aria-labelledby="case-transfer-title">
+    <div class="modal-dialog"><div class="modal-content">
+        <form id="case-transfer-form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{% trans 'Close' %}">×</button>
+                <h3 class="modal-title" id="case-transfer-title">{% trans 'Move / copy selected cases' %}</h3>
+            </div>
+            <div class="modal-body">
+                <p id="case-transfer-count"></p>
+                <div class="alert alert-danger js-organization-error hidden" role="alert"></div>
+                <div class="form-group"><label for="case-transfer-destination">{% trans 'Destination section' %}</label><select id="case-transfer-destination" class="form-control" required></select></div>
+                <div class="form-group"><label for="case-transfer-mode">{% trans 'Action' %}</label><select id="case-transfer-mode" class="form-control" required>
+                    <option value="move">{% trans 'Move cases' %}</option><option value="copy">{% trans 'Copy as new cases' %}</option>
+                </select></div>
+                <p class="help-block">{% trans 'Moving keeps case IDs and existing results. Copies are independent drafts with their steps and custom fields.' %}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                <button type="submit" class="btn btn-primary js-organization-submit">{% trans 'Apply' %}</button>
+            </div>
+        </form>
+    </div></div>
+</div>
 
 {% include 'include/comments_for_object_template.html' %}
 
@@ -654,6 +713,8 @@
     font-size: 14px;
     font-weight: 600;
     color: #151515;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .testplan-section-badge {
@@ -664,6 +725,14 @@
 
 .testplan-section-actions {
     margin-left: auto;
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+    .testplan-section-header-content { flex-wrap: wrap; }
+    .testplan-section-actions { flex-wrap: wrap; }
 }
 
 /* Depth indentation & accent borders */
@@ -694,5 +763,19 @@
 .testplan-section-body .list-group-item:last-child {
     border-bottom: none;
 }
+
+.case-organization-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+.js-section-testcases-list { min-height: 36px; }
+.handle { cursor: grab; padding: 8px; }
+.handle[aria-disabled="true"] { cursor: default; opacity: .35; }
+.handle:focus { outline: 2px solid #0088ce; }
+.case-sort-placeholder { border: 2px dashed #0088ce; background: #eef8fc; min-height: 50px; }
+.js-section-sort-handler { cursor: grab; padding: 2px 5px; color: #72767b; }
+.js-section-sort-handler[aria-disabled="true"] { cursor: default; opacity: .35; }
+.js-section-sort-handler:focus { outline: 2px solid #0088ce; }
+.section-dragging { opacity: .45; }
+.section-drop-before > .testplan-section-heading { box-shadow: 0 -3px #0088ce; }
+.section-drop-after > .testplan-section-heading { box-shadow: 0 3px #0088ce; }
+.js-test-case-expand-notes { white-space: pre-wrap; }
 </style>
 {% endblock %}

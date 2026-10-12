@@ -55,6 +55,7 @@ def send_confirmation_email_to(user, request, activation_key):
 
 class RegistrationForm(UserCreationForm):  # pylint: disable=too-many-ancestors
     email = forms.EmailField(
+        label=_("Email"),
         validators=[validate_email_already_in_use, custom_email_validators],
     )
     captcha = (
@@ -131,9 +132,12 @@ class PasswordResetForm(
 
 class ResetUserEmailForm(forms.Form):  # pylint: disable=must-inherit-from-model-form
     email_1 = forms.EmailField(
+        label=_("Email 1"),
         validators=[validate_email_already_in_use, custom_email_validators],
     )
-    email_2 = forms.EmailField()
+    email_2 = forms.EmailField(
+        label=_("Email 2"),
+    )
 
     def clean_email_2(self):
         email_01 = self.cleaned_data.get("email_1")

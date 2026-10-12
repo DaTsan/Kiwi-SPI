@@ -265,9 +265,9 @@ class TestUserAdmin(LoggedInTestCase):  # pylint: disable=too-many-public-method
         # some fields are read-only
         response_str = str(response.content, encoding=settings.DEFAULT_CHARSET)
 
-        # 2 hidden fields for csrf - logout_form + user_form
-        self.assertEqual(response_str.count("<input"), 2)
-        self.assertEqual(response_str.count('type="hidden"'), 2)
+        # CSRF for logout/user/language forms, plus the language redirect.
+        self.assertEqual(response_str.count("<input"), 4)
+        self.assertEqual(response_str.count('type="hidden"'), 4)
         self.assertContains(response, '<input type="hidden" name="csrfmiddlewaretoken"')
 
         # 9 readonly fields

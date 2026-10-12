@@ -772,4 +772,3 @@ def set_layout_block_visibility(page_type, block_id, is_visible):
     settings = TestCaseFieldSettings.get_settings()
     settings.set_block_visibility(page_type, block_id, is_visible)
     return settings.disabled_blocks
-

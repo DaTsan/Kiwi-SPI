@@ -26,6 +26,8 @@
         {% endif %}
     </h1>
 
+    <div class="col-md-12"><a class="btn btn-default" href="{% url 'workflow:case' object.pk %}">{% trans 'Structured steps & custom fields' %}</a></div>
+
     <div class="row row-cards-pf">
         <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'case-info-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-info-card" data-layout-title="{% trans 'Case details' %}">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">

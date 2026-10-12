@@ -75,8 +75,25 @@ class TestAssignDefaultGroupPermissions(TestCase):
         )
 
         kiwi_apps.append("attachments")
+        kiwi_apps.append("workflow")
         self.assertFalse(
             self.tester.permissions.exclude(
                 content_type__app_label__in=kiwi_apps
+            ).exists()
+        )
+
+        self.assertTrue(
+            self.tester.permissions.filter(
+                content_type__app_label="workflow", codename="add_executionresult"
+            ).exists()
+        )
+        self.assertFalse(
+            self.tester.permissions.filter(
+                content_type__app_label="workflow", codename="change_customfield"
+            ).exists()
+        )
+        self.assertFalse(
+            self.tester.permissions.filter(
+                content_type__app_label="workflow", codename="change_executionsnapshot"
             ).exists()
         )

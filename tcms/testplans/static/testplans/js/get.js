@@ -10,8 +10,8 @@ import {
     showOrHideMultipleRows
 } from '../../../../static/js/utils'
 import { initSimpleMDE } from '../../../../static/js/simplemde_security_override'
+import { bindCaseOrganization, refreshCaseDragging } from './organization'
 
-const expandedTestCaseIds = []
 const fadeAnimationTime = 500
 
 const allTestCases = {}
@@ -19,6 +19,7 @@ const autocompleteCache = {}
 
 let sections = []
 let currentSortBy = 'sortkey'
+let filterRevision = 0
 
 const confirmedStatuses = []
 
@@ -205,7 +206,7 @@ function renderAllSections (testPlanId, permissions) {
         const iconHtml = section.tree_depth > 0
             ? '<span class="fa fa-folder-open-o text-muted"></span> '
             : '<span class="fa fa-folder-o text-primary"></span> '
-        titleEl.html(`${iconHtml}TP-${section.id}: ${section.name}`)
+        titleEl.html(iconHtml).append(document.createTextNode(`TP-${section.id}: ${section.name}`))
 
         // Add case buttons
         sectionNode.find('.js-section-add-new-case').attr('href', `${newCaseBaseUrl}?from_plan=${section.id}`)
@@ -251,6 +252,12 @@ function renderAllSections (testPlanId, permissions) {
 
     attachEvents(testPlanId, permissions)
     attachSectionEvents(testPlanId, permissions)
+    bindCaseOrganization(sections)
+    if (window.location.hash.startsWith('#plan-section-')) {
+        const sectionId = Number(window.location.hash.slice('#plan-section-'.length))
+        expandSectionAndAncestors(sectionId)
+        document.getElementById(`plan-section-${sectionId}`)?.scrollIntoView({ block: 'center' })
+    }
 }
 
 function attachSectionEvents (testPlanId, permissions) {
@@ -308,9 +315,17 @@ function toggleSection (sectionEl) {
 
 function updateSubsectionsVisibility () {
     const expandedMap = {}
+    const matchingSections = new Set()
     sections.forEach(sec => {
         const secEl = $(`#plan-section-${sec.id}`)
         expandedMap[sec.id] = !secEl.find('.js-section-body').hasClass('hidden')
+        if (secEl.find('.js-testcase-row').filter(function () { return $(this).css('display') !== 'none' }).length) {
+            let current = sec
+            while (current) {
+                matchingSections.add(current.id)
+                current = sections.find(item => item.id === current.parent_id)
+            }
+        }
     })
 
     const isSearchActive = $('#toolbar-filter').length && $('#toolbar-filter').val().trim().length > 0
@@ -330,13 +345,7 @@ function updateSubsectionsVisibility () {
             currentParentId = parentSec.parent_id
         }
 
-        if (shouldShow) {
-            if (!isSearchActive || secEl.find('.js-testcase-row:visible').length > 0) {
-                secEl.show()
-            }
-        } else {
-            secEl.hide()
-        }
+        secEl.toggle(shouldShow && (!isSearchActive || matchingSections.has(sec.id)))
     })
 }
 
@@ -365,6 +374,7 @@ function syncCheckboxStates () {
         const secCb = sec.find('.js-section-checkbox')[0]
         if (secCb) {
             secCb.checked = (secInputs.length > 0 && secInputs.length === secChecked.length)
+            secCb.indeterminate = secChecked.length > 0 && secInputs.length !== secChecked.length
         }
     })
 
@@ -373,6 +383,7 @@ function syncCheckboxStates () {
     const toolbarCb = $('.js-checkbox-toolbar')[0]
     if (toolbarCb) {
         toolbarCb.checked = (allInputs.length > 0 && allInputs.length === allChecked.length)
+        toolbarCb.indeterminate = allChecked.length > 0 && allInputs.length !== allChecked.length
     }
 }
 
@@ -389,9 +400,8 @@ function redrawSingleRow (testCaseId, testPlanId, permissions) {
         oldRow.replaceWith(newRow)
     })
 
-    expandedTestCaseIds.splice(expandedTestCaseIds.indexOf(testCaseId), 1)
-
     attachEvents(testPlanId, permissions)
+    bindCaseOrganization(sections)
 }
 
 function getTestCaseRowContent (rowContent, testCase, permissions) {
@@ -402,14 +412,22 @@ function getTestCaseRowContent (rowContent, testCase, permissions) {
         row[0].firstElementChild.dataset.planId = testCase.section_plan_id
     }
 
-    row.find('.js-test-case-link').html(`TC-${testCase.id}: ${testCase.summary}`).attr('href', `/case/${testCase.id}/`)
-    row.find('.js-test-case-status').html(`${testCase.case_status__name}`)
-    row.find('.js-test-case-priority').html(`${testCase.priority__value}`)
-    row.find('.js-test-case-category').html(`${testCase.category__name}`)
-    row.find('.js-test-case-product').html(`${testCase.category__product__name || '-'}`)
-    row.find('.js-test-case-author').html(`${testCase.author__username}`)
-    row.find('.js-test-case-tester').html(`${testCase.default_tester__username || '-'}`)
-    row.find('.js-test-case-reviewer').html(`${testCase.reviewer__username || '-'}`)
+    row.find('.js-test-case-link').text(`TC-${testCase.id}: ${testCase.summary}`).attr('href', `/case/${testCase.id}/`)
+    row.find('.js-test-case-steps').attr('href', `/workflow/cases/${testCase.id}/`)
+    const statusLabels = {
+        PROPOSED: gettext('PROPOSED'),
+        CONFIRMED: gettext('CONFIRMED'),
+        DISABLED: gettext('DISABLED'),
+        NEED_UPDATE: gettext('NEED_UPDATE')
+    }
+    const statusName = testCase.case_status__name
+    row.find('.js-test-case-status').text(Object.hasOwn(statusLabels, statusName) ? statusLabels[statusName] : statusName)
+    row.find('.js-test-case-priority').text(`${testCase.priority__value}`)
+    row.find('.js-test-case-category').text(`${testCase.category__name}`)
+    row.find('.js-test-case-product').text(`${testCase.category__product__name || '-'}`)
+    row.find('.js-test-case-author').text(`${testCase.author__username}`)
+    row.find('.js-test-case-tester').text(`${testCase.default_tester__username || '-'}`)
+    row.find('.js-test-case-reviewer').text(`${testCase.reviewer__username || '-'}`)
 
     // set links in kebab menu
     if (permissions['perm-change-testcase']) {
@@ -456,11 +474,11 @@ function getTestCaseRowContent (rowContent, testCase, permissions) {
 function getTestCaseExpandArea (row, testCase, permissions) {
     markdown2HTML(testCase.text, row.find('.js-test-case-expand-text'))
     if (testCase.notes && testCase.notes.trim().length > 0) {
-        row.find('.js-test-case-expand-notes').html(testCase.notes)
+        row.find('.js-test-case-expand-notes').text(testCase.notes)
     }
 
     // draw attachments
-    const uniqueDivCustomId = `js-tc-id-${testCase.id}-attachments`
+    const uniqueDivCustomId = `js-tc-id-${testCase.id}-${row.data('plan-id')}-attachments`
     row.find('.js-test-case-expand-attachments').parent()[0].id = uniqueDivCustomId
 
     jsonRPC('TestCase.list_attachments', [testCase.id], function (data) {
@@ -487,7 +505,7 @@ function getTestCaseExpandArea (row, testCase, permissions) {
     jsonRPC('Component.filter', { cases: testCase.id }, function (result) {
         result.forEach(function (element) {
             const newComponent = componentTemplate.cloneNode(true)
-            $(newComponent).find('span').html(element.name)
+            $(newComponent).find('span').text(element.name)
             row.find('.js-testcase-expand-components').append(newComponent)
         })
     })
@@ -502,7 +520,7 @@ function getTestCaseExpandArea (row, testCase, permissions) {
                 uniqueTags.push(element.name)
 
                 const newTag = tagTemplate.cloneNode(true)
-                $(newTag).find('span').html(element.name)
+                $(newTag).find('span').text(element.name)
                 row.find('.js-testcase-expand-tags').append(newTag)
             }
         })
@@ -628,18 +646,18 @@ function attachEvents (testPlanId, permissions) {
 
     // get details and draw expand area only on expand
     $('.js-testcase-row').off('click').click(function (ev) {
-        if ($(ev.target).is('button, a, input, .fa-ellipsis-v')) {
+        if ($(ev.target).closest('button, a, input, .handle, .fa-ellipsis-v').length) {
             return
         }
 
         const testCaseId = getCaseIdFromEvent(ev)
 
-        if (expandedTestCaseIds.indexOf(testCaseId) > -1) {
+        const tcRow = $(ev.target).closest('.js-testcase-row')
+        if (tcRow.data('expanded')) {
             return
         }
 
-        const tcRow = $(ev.target).closest(`[data-testcase-pk=${testCaseId}]`)
-        expandedTestCaseIds.push(testCaseId)
+        tcRow.data('expanded', true)
         getTestCaseExpandArea(tcRow, allTestCases[testCaseId], permissions)
     })
 
@@ -734,6 +752,7 @@ function toolbarEvents (testPlanId, permissions) {
         const isChecked = ev.target.checked
         $('.js-testcase-row:visible input[type="checkbox"]').prop('checked', isChecked)
         $('.js-section-checkbox').prop('checked', isChecked)
+        syncCheckboxStates()
     })
 
     $('.js-toolbar-filter-options li').off('click').click(function (ev) {
@@ -746,6 +765,7 @@ function toolbarEvents (testPlanId, permissions) {
     })
 
     $('#toolbar-filter').off('keyup').on('keyup', function () {
+        refreshCaseDragging()
         const filterValue = $(this).val().toLowerCase()
         const filterBy = $('.js-toolbar-filter-options .selected')[0].dataset.filterType
 
@@ -760,6 +780,7 @@ function toolbarEvents (testPlanId, permissions) {
     $('.js-toolbar-sort-options li').off('click').click(function (ev) {
         changeDropdownSelectedItem('.js-toolbar-sort-options', '#sort-button', ev.target)
         sortAllSections(permissions)
+        refreshCaseDragging()
         return false
     })
 
@@ -770,37 +791,25 @@ function toolbarEvents (testPlanId, permissions) {
         icon.addClass('hidden')
 
         sortAllSections(permissions)
-    })
-
-    // sortable list per section
-    sections.forEach(function (section) {
-        sortable(`#plan-section-${section.id} .js-section-testcases-list`, {
-            handle: '.handle',
-            itemSerializer: (serializedItem) => {
-                return parseInt(serializedItem.node.getAttribute('data-testcase-pk'))
-            }
-        })
+        refreshCaseDragging()
     })
 
     $('.js-toolbar-manual-sort').off('click').click(function () {
         $(this).blur()
-        const sortIcon = $(this).find('span')
-        sortIcon.toggleClass(['fa-sort', 'fa-check-square'])
-        $('.js-testcase-sort-handler, .js-testcase-expand-arrow, .js-testcase-checkbox').toggleClass('hidden')
+        changeDropdownSelectedItem('.js-toolbar-sort-options', '#sort-button', $('.js-toolbar-sort-options [data-filter-type="sortkey"] a')[0])
+        $('.js-toolbar-sorting-order [data-order="1"]').removeClass('hidden')
+        $('.js-toolbar-sorting-order [data-order="-1"]').addClass('hidden')
+        $('#toolbar-filter').val('').trigger('keyup')
+        sortAllSections(permissions)
+        refreshCaseDragging()
+    })
 
-        // If closing manual sort mode, save order for each section
-        if (sortIcon.hasClass('fa-sort')) {
-            sections.forEach(function (section) {
-                const listEl = $(`#plan-section-${section.id} .js-section-testcases-list`)
-                const serialized = sortable(listEl, 'serialize')
-                if (serialized && serialized.length && serialized[0].items) {
-                    const currentOrder = serialized[0].items
-                    currentOrder.forEach(function (tcPk, index) {
-                        jsonRPC('TestPlan.update_case_order', [section.id, tcPk, index * 10], function () {})
-                    })
-                }
-            })
-        }
+    $('.js-sections-expand, .js-sections-collapse').off('click').on('click', function () {
+        const collapse = $(this).hasClass('js-sections-collapse')
+        $('.js-section-body').toggleClass('hidden', collapse)
+        $('.js-section-toggle').toggleClass('fa-angle-right', collapse).toggleClass('fa-angle-down', !collapse)
+        updateSubsectionsVisibility()
+        syncCheckboxStates()
     })
 
     $('.js-toolbar-priority').off('click').click(function (ev) {
@@ -979,12 +988,14 @@ function getSelectedTestCases () {
 }
 
 function filterTestCasesByProperty (planId, testCases, filterBy, filterValue) {
+    const revision = ++filterRevision
     if (filterValue.trim().length === 0) {
         $('.testplan-section').show()
         $('.js-testcase-row').show()
         updateAllSectionBadges()
-        $('.test-cases-count').text(testCases.length)
+        $('.test-cases-count').text($('.js-testcase-row').length)
         updateSubsectionsVisibility()
+        syncCheckboxStates()
         return
     }
 
@@ -994,28 +1005,39 @@ function filterTestCasesByProperty (planId, testCases, filterBy, filterValue) {
         query[`${filterBy}__name__icontains`] = filterValue
 
         jsonRPC('TestCase.filter', query, function (filtered) {
+            if (revision !== filterRevision) return
             $('.js-testcase-row').hide()
             const rows = findSelectorsToShowAndHideFromAPIData(testCases, filtered, '[data-testcase-pk={0}]')
             showOrHideMultipleRows('.js-testcase-row', rows)
             updateSectionVisibilityAfterFilter()
-            $('.test-cases-count').text(rows.show.length)
         })
     } else {
         $('.js-testcase-row').hide()
         const rows = findSelectorsToShowAndHide(testCases, filterBy, filterValue, '[data-testcase-pk={0}]')
         showOrHideMultipleRows('.js-testcase-row', rows)
         updateSectionVisibilityAfterFilter()
-        $('.test-cases-count').text(rows.show.length)
     }
 }
 
 function updateSectionVisibilityAfterFilter () {
+    const matchingSections = new Set()
+    let total = 0
+    sections.forEach(section => {
+        const element = $(`#plan-section-${section.id}`)
+        const count = element.find('.js-testcase-row').filter(function () { return $(this).css('display') !== 'none' }).length
+        element.find('.js-section-badge').text(count)
+        total += count
+        if (count) {
+            let current = section
+            while (current) {
+                matchingSections.add(current.id)
+                current = sections.find(item => item.id === current.parent_id)
+            }
+        }
+    })
     $('.testplan-section').each(function () {
         const sec = $(this)
-        const visibleCount = sec.find('.js-testcase-row:visible').length
-        sec.find('.js-section-badge').text(visibleCount)
-
-        if (visibleCount === 0) {
+        if (!matchingSections.has(Number(sec.data('plan-id')))) {
             sec.hide()
         } else {
             sec.show()
@@ -1026,6 +1048,8 @@ function updateSectionVisibilityAfterFilter () {
             }
         }
     })
+    $('.test-cases-count').text(total)
+    syncCheckboxStates()
 }
 
 function updateAllSectionBadges () {

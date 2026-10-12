@@ -47,20 +47,18 @@ class TestAdminView(LoggedInTestCase):
                 f'<a href="/admin/bugs/" class="grp-section">{_bugs}</a>',
                 html=True,
             )
-            self.assertContains(response, "<strong>Bugs</strong>", html=True)
+            self.assertContains(response, f"<strong>{_bugs}</strong>", html=True)
 
         # for tcms.testcases
-        self.assertContains(response, "Bug trackers")
+        self.assertContains(response, _("Bug trackers"))
         self.assertContains(response, _("Categories"))
 
         self.assertContains(response, _("Test case statuses"))
-        self.assertContains(response, "Testcases")
-        self.assertContains(response, "Test cases")
+        self.assertContains(response, _("Test cases"))
 
         # for tcms.testplans
-        self.assertContains(response, "Plan types")
-        self.assertContains(response, "Testplans")
-        self.assertContains(response, "Test plans")
+        self.assertContains(response, _("Plan types"))
+        self.assertContains(response, _("Test plans"))
 
         # for tcms.testruns
         # b/c French translation contains characters which get HTML escaped
@@ -69,8 +67,7 @@ class TestAdminView(LoggedInTestCase):
         )
         self.assertIn(str(_("Test execution statuses")), response_text)
 
-        self.assertContains(response, "Testruns")
-        self.assertContains(response, "Test runs")
+        self.assertContains(response, _("Test runs"))
 
         # for django_comments
         self.assertNotContains(response, "Django_Comments")

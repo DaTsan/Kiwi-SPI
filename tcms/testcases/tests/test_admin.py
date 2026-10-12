@@ -177,4 +177,3 @@ class TestTestCaseFieldSettingsAdmin(LoggedInTestCase):
         self.assertTrue(settings_obj.plan_show_product)
         self.assertTrue(settings_obj.run_show_author)
         self.assertTrue(settings_obj.run_show_product)
-

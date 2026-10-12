@@ -4,13 +4,12 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
 from tcms.core.history import KiwiHistoricalRecords
 from tcms.core.models.base import UrlMixin
 
 
 class Classification(models.Model, UrlMixin):
-    name = models.CharField(unique=True, max_length=64)
+    name = models.CharField(verbose_name=_("Name"), unique=True, max_length=64)
 
     def __str__(self):
         return self.name
@@ -24,9 +23,11 @@ class Classification(models.Model, UrlMixin):
 class Product(models.Model, UrlMixin):
     history = KiwiHistoricalRecords()
 
-    name = models.CharField(unique=True, max_length=255)
-    classification = models.ForeignKey(Classification, on_delete=models.CASCADE)
-    description = models.TextField(blank=True)
+    name = models.CharField(verbose_name=_("Name"), unique=True, max_length=255)
+    classification = models.ForeignKey(
+        Classification, verbose_name=_("Classification"), on_delete=models.CASCADE
+    )
+    description = models.TextField(verbose_name=_("Description"), blank=True)
 
     def __str__(self):
         return self.name
@@ -69,8 +70,8 @@ class Product(models.Model, UrlMixin):
 
 
 class Priority(models.Model, UrlMixin):
-    value = models.CharField(unique=True, max_length=64)
-    is_active = models.BooleanField(default=True)
+    value = models.CharField(verbose_name=_("Value"), unique=True, max_length=64)
+    is_active = models.BooleanField(verbose_name=_("Active"), default=True)
 
     class Meta:
         ordering = ["value"]
@@ -82,17 +83,23 @@ class Priority(models.Model, UrlMixin):
 
 
 class Component(models.Model, UrlMixin):
-    name = models.CharField(max_length=64)
+    name = models.CharField(verbose_name=_("Name"), max_length=64)
     product = models.ForeignKey(
-        Product, related_name="component", on_delete=models.CASCADE
+        Product,
+        verbose_name=_("Product"),
+        related_name="component",
+        on_delete=models.CASCADE,
     )
     initial_owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_("Initial owner"),
         related_name="initial_owner",
         null=True,
         on_delete=models.CASCADE,
     )
-    description = models.TextField()
+    description = models.TextField(
+        verbose_name=_("Description"),
+    )
 
     class Meta:
         ordering = ["name"]
@@ -107,9 +114,12 @@ class Component(models.Model, UrlMixin):
 class Version(models.Model, UrlMixin):
     history = KiwiHistoricalRecords()
 
-    value = models.CharField(max_length=192)
+    value = models.CharField(verbose_name=_("Value"), max_length=192)
     product = models.ForeignKey(
-        Product, related_name="version", on_delete=models.CASCADE
+        Product,
+        verbose_name=_("Product"),
+        related_name="version",
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -154,9 +164,14 @@ class Version(models.Model, UrlMixin):
 class Build(models.Model, UrlMixin):
     history = KiwiHistoricalRecords()
 
-    name = models.CharField(max_length=255)
-    version = models.ForeignKey(Version, related_name="build", on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=True)
+    name = models.CharField(verbose_name=_("Name"), max_length=255)
+    version = models.ForeignKey(
+        Version,
+        verbose_name=_("Version"),
+        related_name="build",
+        on_delete=models.CASCADE,
+    )
+    is_active = models.BooleanField(verbose_name=_("Active"), default=True)
 
     class Meta:
         ordering = ["name"]
@@ -180,7 +195,7 @@ class Build(models.Model, UrlMixin):
 
 
 class Tag(models.Model, UrlMixin):
-    name = models.CharField(max_length=255)
+    name = models.CharField(verbose_name=_("Name"), max_length=255)
 
     class Meta:
         ordering = ["name"]

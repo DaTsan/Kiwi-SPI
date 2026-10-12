@@ -2,3 +2,13 @@
 *.pyc
 docs/
 *.egg-info/
+.git/
+.env*
+.venv/
+local/__pycache__/
+tcms/node_modules/
+uploads/
+log/
+backups/
+.local-*.log
+.local-*.py

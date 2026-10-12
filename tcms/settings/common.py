@@ -265,7 +265,8 @@ USE_I18N = True
 
 # Language code for this installation. All choices can be found here:
 # See https://code.djangoproject.com/ticket/29713
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru"
+KIWI_SHOW_ADS = True
 
 LOCALE_PATHS = [
     os.path.join(TCMS_ROOT_PATH, "locale"),
@@ -352,6 +353,7 @@ TENANT_APPS = [
     "tcms.testcases.apps.AppConfig",
     "tcms.testplans.apps.AppConfig",
     "tcms.testruns.apps.AppConfig",
+    "tcms.workflow.apps.WorkflowConfig",
 ]
 
 # if you wish to disable Kiwi TCMS bug tracker
@@ -446,6 +448,14 @@ MENU_ITEMS = [
             ),
             ("-", "-"),
             (_("Everything else"), "/admin/"),
+        ],
+    ),
+    (
+        _("WORKFLOW"),
+        [
+            (_("Planning"), reverse_lazy("workflow:hub")),
+            (_("My tasks"), reverse_lazy("workflow:todo")),
+            (_("Progress report"), reverse_lazy("workflow:report")),
         ],
     ),
     (_("MORE"), []),

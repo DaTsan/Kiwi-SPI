@@ -5,7 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import URLValidator
 from django.db import models
 from django.urls import reverse
-from tree_queries.models import TreeNode
+from django.utils.translation import gettext_lazy as _
+from tree_queries.models import OrderableTreeNode
 
 from tcms.core.history import KiwiHistoricalRecords
 from tcms.core.models.base import UrlMixin
@@ -15,26 +16,37 @@ from tcms.testcases.models import TestCasePlan
 
 
 class PlanType(models.Model, UrlMixin):
-    name = models.CharField(max_length=64, unique=True)
-    description = models.TextField(blank=True, null=True)
+    name = models.CharField(verbose_name=_("Name"), max_length=64, unique=True)
+    description = models.TextField(verbose_name=_("Description"), blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ["name"]
+        verbose_name = _("Plan type")
+        verbose_name_plural = _("Plan types")
 
 
-class TestPlan(TreeNode, UrlMixin):
+class TestPlan(OrderableTreeNode, UrlMixin):
     """A plan within the TCMS"""
 
     history = KiwiHistoricalRecords()
 
-    name = models.CharField(max_length=255, db_index=True)
-    text = models.TextField(blank=True)
-    create_date = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True, db_index=True)
+    position = models.PositiveIntegerField(
+        verbose_name=_("Section order"), default=0, db_index=True, editable=False
+    )
+
+    name = models.CharField(verbose_name=_("Name"), max_length=255, db_index=True)
+    text = models.TextField(verbose_name=_("Text"), blank=True)
+    create_date = models.DateTimeField(
+        verbose_name=_("Creation date"), auto_now_add=True
+    )
+    is_active = models.BooleanField(
+        verbose_name=_("Active"), default=True, db_index=True
+    )
     extra_link = models.URLField(
+        verbose_name=_("Extra link"),
         max_length=1024,
         default=None,
         blank=True,
@@ -43,15 +55,26 @@ class TestPlan(TreeNode, UrlMixin):
     )
 
     product_version = models.ForeignKey(
-        Version, related_name="plans", on_delete=models.CASCADE
+        Version,
+        verbose_name=_("Product version"),
+        related_name="plans",
+        on_delete=models.CASCADE,
     )
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_("Author"), on_delete=models.CASCADE
+    )
     product = models.ForeignKey(
-        "management.Product", related_name="plan", on_delete=models.CASCADE
+        "management.Product",
+        verbose_name=_("Product"),
+        related_name="plan",
+        on_delete=models.CASCADE,
     )
-    type = models.ForeignKey(PlanType, on_delete=models.CASCADE)
+    type = models.ForeignKey(PlanType, verbose_name=_("Type"), on_delete=models.CASCADE)
     tag = models.ManyToManyField(
-        "management.Tag", through="testplans.TestPlanTag", related_name="plan"
+        "management.Tag",
+        verbose_name=_("Tag"),
+        through="testplans.TestPlanTag",
+        related_name="plan",
     )
 
     def __str__(self):
@@ -274,18 +297,48 @@ class TestPlan(TreeNode, UrlMixin):
             </div>
         """
 
+    class Meta:
+        ordering = ["position", "pk"]
+        verbose_name = _("Test plan")
+        verbose_name_plural = _("Test plans")
+
 
 class TestPlanTag(models.Model):
-    tag = models.ForeignKey("management.Tag", on_delete=models.CASCADE)
-    plan = models.ForeignKey(TestPlan, on_delete=models.CASCADE)
+    tag = models.ForeignKey(
+        "management.Tag", verbose_name=_("Tag"), on_delete=models.CASCADE
+    )
+    plan = models.ForeignKey(
+        TestPlan, verbose_name=_("Test plan"), on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = _("Test plan tag")
+        verbose_name_plural = _("Test plan tags")
 
 
 class TestPlanEmailSettings(models.Model):
     plan = models.OneToOneField(
-        TestPlan, related_name="email_settings", on_delete=models.CASCADE
+        TestPlan,
+        verbose_name=_("Test plan"),
+        related_name="email_settings",
+        on_delete=models.CASCADE,
     )
-    auto_to_plan_author = models.BooleanField(default=True)
-    auto_to_case_owner = models.BooleanField(default=True)
-    auto_to_case_default_tester = models.BooleanField(default=True)
-    notify_on_plan_update = models.BooleanField(default=True)
-    notify_on_case_update = models.BooleanField(default=True)
+    auto_to_plan_author = models.BooleanField(
+        verbose_name=_("Auto to plan author"), default=True
+    )
+    auto_to_case_owner = models.BooleanField(
+        verbose_name=_("Auto to case owner"), default=True
+    )
+    auto_to_case_default_tester = models.BooleanField(
+        verbose_name=_("Auto to case default tester"), default=True
+    )
+    notify_on_plan_update = models.BooleanField(
+        verbose_name=_("Notify on plan update"), default=True
+    )
+    notify_on_case_update = models.BooleanField(
+        verbose_name=_("Notify on case update"), default=True
+    )
+
+    class Meta:
+        verbose_name = _("Test plan email settings")
+        verbose_name_plural = _("Test plan email settings")
