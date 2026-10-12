@@ -202,7 +202,7 @@ function renderAllSections (testPlanId, permissions) {
 
         // Section title
         const titleLink = sectionNode.find('.js-section-title-link')
-        titleLink.attr('href', section.url)
+        titleLink.attr('href', `/plan/${section.id}/`)
         const iconHtml = section.tree_depth > 0
             ? '<span class="fa fa-folder-open-o text-muted"></span> '
             : '<span class="fa fa-folder-o text-primary"></span> '
