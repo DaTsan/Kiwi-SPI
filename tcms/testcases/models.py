@@ -476,3 +476,377 @@ class Template(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TestCaseFieldSettings(models.Model):
+    # Test Plan fields
+    plan_show_status = models.BooleanField(
+        default=True,
+        verbose_name=_("Status"),
+        help_text=_("Show status in test plan case list"),
+    )
+    plan_show_automated = models.BooleanField(
+        default=True,
+        verbose_name=_("Automation"),
+        help_text=_("Show automated/manual indicator in test plan case list"),
+    )
+    plan_show_priority = models.BooleanField(
+        default=True,
+        verbose_name=_("Priority"),
+        help_text=_("Show priority in test plan case list"),
+    )
+    plan_show_category = models.BooleanField(
+        default=True,
+        verbose_name=_("Category"),
+        help_text=_("Show category in test plan case list"),
+    )
+    plan_show_product = models.BooleanField(
+        default=False,
+        verbose_name=_("Product"),
+        help_text=_("Show product in test plan case list"),
+    )
+    plan_show_author = models.BooleanField(
+        default=True,
+        verbose_name=_("Author"),
+        help_text=_("Show author in test plan case list"),
+    )
+    plan_show_default_tester = models.BooleanField(
+        default=True,
+        verbose_name=_("Default tester"),
+        help_text=_("Show default tester in test plan case list"),
+    )
+    plan_show_reviewer = models.BooleanField(
+        default=True,
+        verbose_name=_("Reviewer"),
+        help_text=_("Show reviewer in test plan case list"),
+    )
+
+    # Test Run fields
+    run_show_status = models.BooleanField(
+        default=True,
+        verbose_name=_("Status"),
+        help_text=_("Show status in test run executions list"),
+    )
+    run_show_automated = models.BooleanField(
+        default=True,
+        verbose_name=_("Automation"),
+        help_text=_("Show automated/manual indicator in test run executions list"),
+    )
+    run_show_priority = models.BooleanField(
+        default=True,
+        verbose_name=_("Priority"),
+        help_text=_("Show priority in test run executions list"),
+    )
+    run_show_category = models.BooleanField(
+        default=True,
+        verbose_name=_("Category"),
+        help_text=_("Show category in test run executions list"),
+    )
+    run_show_product = models.BooleanField(
+        default=False,
+        verbose_name=_("Product"),
+        help_text=_("Show product in test run executions list"),
+    )
+    run_show_author = models.BooleanField(
+        default=False,
+        verbose_name=_("Author"),
+        help_text=_("Show case author in test run executions list"),
+    )
+    run_show_default_tester = models.BooleanField(
+        default=False,
+        verbose_name=_("Default tester"),
+        help_text=_("Show case default tester in test run executions list"),
+    )
+    run_show_assignee = models.BooleanField(
+        default=True,
+        verbose_name=_("Assignee"),
+        help_text=_("Show assignee in test run executions list"),
+    )
+    run_show_tested_by = models.BooleanField(
+        default=True,
+        verbose_name=_("Tested by"),
+        help_text=_("Show tested by in test run executions list"),
+    )
+    run_show_bugs = models.BooleanField(
+        default=True,
+        verbose_name=_("Bugs"),
+        help_text=_("Show last bug in test run executions list"),
+    )
+    run_show_tags = models.BooleanField(
+        default=True,
+        verbose_name=_("Tags"),
+        help_text=_("Show tags in test run executions list"),
+    )
+    run_show_components = models.BooleanField(
+        default=True,
+        verbose_name=_("Components"),
+        help_text=_("Show components in test run executions list"),
+    )
+
+    # Test Case summary card (row-cards-pf) fields
+    case_card_show_author = models.BooleanField(
+        default=True,
+        verbose_name=_("Author"),
+        help_text=_("Show author in test case summary card"),
+    )
+    case_card_show_default_tester = models.BooleanField(
+        default=True,
+        verbose_name=_("Default tester"),
+        help_text=_("Show default tester in test case summary card"),
+    )
+    case_card_show_product = models.BooleanField(
+        default=True,
+        verbose_name=_("Product"),
+        help_text=_("Show product in test case summary card"),
+    )
+    case_card_show_category = models.BooleanField(
+        default=True,
+        verbose_name=_("Category"),
+        help_text=_("Show category in test case summary card"),
+    )
+    case_card_show_status = models.BooleanField(
+        default=True,
+        verbose_name=_("Status"),
+        help_text=_("Show status in test case summary card"),
+    )
+    case_card_show_priority = models.BooleanField(
+        default=True,
+        verbose_name=_("Priority"),
+        help_text=_("Show priority in test case summary card"),
+    )
+    case_card_show_create_date = models.BooleanField(
+        default=True,
+        verbose_name=_("Create date"),
+        help_text=_("Show create date in test case summary card"),
+    )
+    case_card_show_setup_duration = models.BooleanField(
+        default=True,
+        verbose_name=_("Setup duration"),
+        help_text=_("Show setup duration in test case summary card"),
+    )
+    case_card_show_testing_duration = models.BooleanField(
+        default=True,
+        verbose_name=_("Testing duration"),
+        help_text=_("Show testing duration in test case summary card"),
+    )
+    case_card_show_expected_duration = models.BooleanField(
+        default=True,
+        verbose_name=_("Expected duration"),
+        help_text=_("Show expected duration in test case summary card"),
+    )
+    case_card_show_automated = models.BooleanField(
+        default=True,
+        verbose_name=_("Automation"),
+        help_text=_("Show automated indicator in test case summary card"),
+    )
+    case_card_show_script = models.BooleanField(
+        default=True,
+        verbose_name=_("Script"),
+        help_text=_("Show script in test case summary card"),
+    )
+    case_card_show_arguments = models.BooleanField(
+        default=True,
+        verbose_name=_("Arguments"),
+        help_text=_("Show arguments in test case summary card"),
+    )
+    case_card_show_requirement = models.BooleanField(
+        default=True,
+        verbose_name=_("Requirements"),
+        help_text=_("Show requirements in test case summary card"),
+    )
+    case_card_show_extra_link = models.BooleanField(
+        default=True,
+        verbose_name=_("Reference link"),
+        help_text=_("Show reference link in test case summary card"),
+    )
+
+    # Test Plan summary card (row-cards-pf) fields
+    plan_card_show_author = models.BooleanField(
+        default=True,
+        verbose_name=_("Author"),
+        help_text=_("Show author in test plan summary card"),
+    )
+    plan_card_show_create_date = models.BooleanField(
+        default=True,
+        verbose_name=_("Create date"),
+        help_text=_("Show create date in test plan summary card"),
+    )
+    plan_card_show_product = models.BooleanField(
+        default=True,
+        verbose_name=_("Product"),
+        help_text=_("Show product in test plan summary card"),
+    )
+    plan_card_show_version = models.BooleanField(
+        default=True,
+        verbose_name=_("Version"),
+        help_text=_("Show version in test plan summary card"),
+    )
+    plan_card_show_type = models.BooleanField(
+        default=True,
+        verbose_name=_("Plan Type"),
+        help_text=_("Show plan type in test plan summary card"),
+    )
+    plan_card_show_extra_link = models.BooleanField(
+        default=True,
+        verbose_name=_("Reference link"),
+        help_text=_("Show reference link in test plan summary card"),
+    )
+
+    # Test Run summary card (row-cards-pf) fields
+    run_card_show_plan = models.BooleanField(
+        default=True,
+        verbose_name=_("Test plan"),
+        help_text=_("Show test plan in test run summary card"),
+    )
+    run_card_show_product = models.BooleanField(
+        default=True,
+        verbose_name=_("Product"),
+        help_text=_("Show product in test run summary card"),
+    )
+    run_card_show_version = models.BooleanField(
+        default=True,
+        verbose_name=_("Version"),
+        help_text=_("Show version in test run summary card"),
+    )
+    run_card_show_build = models.BooleanField(
+        default=True,
+        verbose_name=_("Build"),
+        help_text=_("Show build in test run summary card"),
+    )
+    run_card_show_manager = models.BooleanField(
+        default=True,
+        verbose_name=_("Manager"),
+        help_text=_("Show manager in test run summary card"),
+    )
+    run_card_show_default_tester = models.BooleanField(
+        default=True,
+        verbose_name=_("Default tester"),
+        help_text=_("Show default tester in test run summary card"),
+    )
+    run_card_show_planned_start = models.BooleanField(
+        default=True,
+        verbose_name=_("Planned start"),
+        help_text=_("Show planned start in test run summary card"),
+    )
+    run_card_show_start_date = models.BooleanField(
+        default=True,
+        verbose_name=_("Started at"),
+        help_text=_("Show started at in test run summary card"),
+    )
+    run_card_show_planned_stop = models.BooleanField(
+        default=True,
+        verbose_name=_("Planned stop"),
+        help_text=_("Show planned stop in test run summary card"),
+    )
+    run_card_show_stop_date = models.BooleanField(
+        default=True,
+        verbose_name=_("Finished at"),
+        help_text=_("Show finished at in test run summary card"),
+    )
+
+    disabled_blocks = models.JSONField(
+        default=dict,
+        blank=True,
+        verbose_name=_("Disabled layout blocks"),
+        help_text=_("Mapping of page_type to list of disabled block IDs"),
+    )
+
+    class Meta:
+        verbose_name = _("Test case fields setting")
+        verbose_name_plural = _("Test case fields settings")
+        permissions = [
+            ("change_page_layout", _("Can customize page layout and block visibility")),
+        ]
+
+    def __str__(self):
+        return str(_("Test case fields settings"))
+
+    @classmethod
+    def get_settings(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def get_disabled_blocks(self, page_type):
+        if not isinstance(self.disabled_blocks, dict):
+            return []
+        return list(self.disabled_blocks.get(page_type, []))
+
+    def set_block_visibility(self, page_type, block_id, is_visible):
+        if not isinstance(self.disabled_blocks, dict):
+            self.disabled_blocks = {}
+        current = list(self.disabled_blocks.get(page_type, []))
+        if is_visible:
+            if block_id in current:
+                current.remove(block_id)
+        else:
+            if block_id not in current:
+                current.append(block_id)
+        self.disabled_blocks[page_type] = current
+        self.save(update_fields=["disabled_blocks"])
+        return current
+
+    def to_dict(self):
+        return {
+            "plan": {
+                "status": self.plan_show_status,
+                "automated": self.plan_show_automated,
+                "priority": self.plan_show_priority,
+                "category": self.plan_show_category,
+                "product": self.plan_show_product,
+                "author": self.plan_show_author,
+                "default_tester": self.plan_show_default_tester,
+                "reviewer": self.plan_show_reviewer,
+            },
+            "run": {
+                "status": self.run_show_status,
+                "automated": self.run_show_automated,
+                "priority": self.run_show_priority,
+                "category": self.run_show_category,
+                "product": self.run_show_product,
+                "author": self.run_show_author,
+                "default_tester": self.run_show_default_tester,
+                "assignee": self.run_show_assignee,
+                "tested_by": self.run_show_tested_by,
+                "bugs": self.run_show_bugs,
+                "tags": self.run_show_tags,
+                "components": self.run_show_components,
+            },
+            "case_card": {
+                "author": self.case_card_show_author,
+                "default_tester": self.case_card_show_default_tester,
+                "product": self.case_card_show_product,
+                "category": self.case_card_show_category,
+                "status": self.case_card_show_status,
+                "priority": self.case_card_show_priority,
+                "create_date": self.case_card_show_create_date,
+                "setup_duration": self.case_card_show_setup_duration,
+                "testing_duration": self.case_card_show_testing_duration,
+                "expected_duration": self.case_card_show_expected_duration,
+                "automated": self.case_card_show_automated,
+                "script": self.case_card_show_script,
+                "arguments": self.case_card_show_arguments,
+                "requirement": self.case_card_show_requirement,
+                "extra_link": self.case_card_show_extra_link,
+            },
+            "plan_card": {
+                "author": self.plan_card_show_author,
+                "create_date": self.plan_card_show_create_date,
+                "product": self.plan_card_show_product,
+                "version": self.plan_card_show_version,
+                "type": self.plan_card_show_type,
+                "extra_link": self.plan_card_show_extra_link,
+            },
+            "run_card": {
+                "plan": self.run_card_show_plan,
+                "product": self.run_card_show_product,
+                "version": self.run_card_show_version,
+                "build": self.run_card_show_build,
+                "manager": self.run_card_show_manager,
+                "default_tester": self.run_card_show_default_tester,
+                "planned_start": self.run_card_show_planned_start,
+                "start_date": self.run_card_show_start_date,
+                "planned_stop": self.run_card_show_planned_stop,
+                "stop_date": self.run_card_show_stop_date,
+            },
+            "disabled_blocks": self.disabled_blocks or {},
+        }

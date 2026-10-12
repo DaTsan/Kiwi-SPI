@@ -39,6 +39,10 @@ class TestGetTestCase(BaseCaseRun):
 
         # will not fail when running under different locale
         self.assertEqual(HTTPStatus.OK, response.status_code)
+        self.assertIn("case_fields_settings", response.context)
+        self.assertEqual(response.context["case_fields_settings"].pk, 1)
+        self.assertEqual(response.context["page_type"], "case")
+        self.assertIn("disabled_layout_blocks", response.context)
 
 
 class TestMultipleEmailField(unittest.TestCase):

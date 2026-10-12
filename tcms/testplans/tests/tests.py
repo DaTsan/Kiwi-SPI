@@ -89,6 +89,10 @@ class PlanTests(BasePlanTest):
 
         response = self.client.get(location)
         self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertIn("case_fields_settings", response.context)
+        self.assertEqual(response.context["page_type"], "plan")
+        self.assertIn("disabled_layout_blocks", response.context)
+        self.assertContains(response, "js-test-case-author-div")
 
     def test_plan_edit(self):
         location = reverse("plan-edit", args=[self.plan_id])

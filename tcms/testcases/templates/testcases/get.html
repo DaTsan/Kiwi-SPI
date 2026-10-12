@@ -19,18 +19,26 @@
             data-perm-remove-plan="{{ perms.testcases.delete_testcaseplan }}"
             data-perm-remove-bug="{{ perms.testcases.delete_bug }}"
         >TC-{{ object.pk }}:</span> {{ object.summary }}
+        {% if perms.testcases.change_page_layout or user.is_superuser %}
+        <button type="button" class="btn btn-default btn-sm pull-right js-btn-edit-layout" data-page-type="case">
+            <i class="fa fa-th-large"></i> {% trans "Customize layout" %}
+        </button>
+        {% endif %}
     </h1>
 
     <div class="col-md-12"><a class="btn btn-default" href="{% url 'workflow:case' object.pk %}">{% trans 'Structured steps & custom fields' %}</a></div>
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'case-info-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-info-card" data-layout-title="{% trans 'Case details' %}">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">
+                {% if not case_fields_settings or case_fields_settings.case_card_show_author %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa pficon-user"></span>{% trans 'Author' %}:
                     <a href="{% url "tcms-profile" object.author.pk %}">{{ object.author.username }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_default_tester %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-search"></span>{% trans 'Default tester' %}:
                     {% if object.default_tester  %}
@@ -39,19 +47,25 @@
                     -
                     {% endif %}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_product %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span id="product_pk"
                         data-pk="{{ object.category.product.pk }}"
                         class="fa fa-shopping-cart"></span>{% trans 'Product' %}:
                     {{ object.category.product }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_category %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-tag"></span>{% trans 'Category' %}:
                     {{ object.category }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_status %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa
                         {% if object.case_status.is_confirmed %}
@@ -61,31 +75,43 @@
                         {% endif %}"></span>{% trans 'Status' %}:
                     {{ object.case_status }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_priority %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-hourglass"></span>{% trans 'Priority' %}:
                     {{ object.priority }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_create_date %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-calendar"></span>{{ object.create_date }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_setup_duration %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-clock-o"></span>{% trans 'Setup duration' %}:
                     {{ object.setup_duration|default:"-" }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_testing_duration %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-clock-o"></span>{% trans 'Testing duration' %}:
                     {{ object.testing_duration|default:"-" }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_expected_duration %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-clock-o"></span>{% trans 'Expected duration' %}:
                     {{ object.expected_duration }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_automated %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa
                         {% if object.is_automated %}
@@ -95,22 +121,30 @@
                         {% endif %}"></span>{% trans 'Automated' %}:
                     {{ object.is_automated }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_script %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-terminal"></span>{% trans 'Script' %}:
                     {{ object.script|default:'-' }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_arguments %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-terminal"></span>{% trans 'Arguments' %}:
                     {{ object.arguments|default:'-' }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_requirement %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-file-text"></span>{% trans 'Requirements' %}:
                     {{ object.requirement|default:'-' }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.case_card_show_extra_link %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-link"></span>{% trans 'Reference link' %}:
                     {% if object.extra_link %}
@@ -119,12 +153,13 @@
                         -
                     {% endif %}
                 </h2>
+                {% endif %}
 
                 <div class="card-pf-body"></div>
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-12 col-md-6 layout-block {% if 'case-text-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-text-card" data-layout-title="{% trans 'Text & Notes' %}">
             <div class="card-pf card-pf-accented">
                 <div class="card-pf-body">
                     <div class="markdown-text">
@@ -139,22 +174,22 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'case-properties-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-properties-card" data-layout-title="{% trans 'Properties' %}">
             {% include "include/properties_card.html" %}
         </div>
     </div> <!-- row -->
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 layout-block {% if 'case-executions-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-executions-card" data-layout-title="{% trans 'Executions' %}">
             {% include 'include/tc_executions.html' with show_bugs=True %}
         </div>
     </div>
 
     <div class="row row-cards-pf">
         {% trans "Bugs" as bugs_heading %}
-        {% include "include/bugs_table.html" with heading=bugs_heading class="bugs" %}
+        {% include "include/bugs_table.html" with heading=bugs_heading class="bugs" block_id="case-bugs-card" block_title=bugs_heading %}
 
-        <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="col-xs-12 col-sm-6 col-md-8 layout-block {% if 'case-plans-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-plans-card" data-layout-title="{% trans 'Test plans' %}">
             <div class="card-pf card-pf-accented">
                 <h2 class="card-pf-title">
                     <span class="fa pficon-topology"></span>
@@ -199,11 +234,11 @@
     </div>
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-3 layout-block {% if 'case-tags-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-tags-card" data-layout-title="{% trans 'Tags' %}">
             {% include 'include/tags_card.html' with add_perm=perms.testcases.add_testcasetag %}
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-3 layout-block {% if 'case-components-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-components-card" data-layout-title="{% trans 'Components' %}">
             <div class="card-pf card-pf-accented">
                 <h2 class="card-pf-title">
                     <span class="fa pficon-build"></span>
@@ -240,7 +275,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-6 col-md-6 layout-block {% if 'case-attachments-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="case-attachments-card" data-layout-title="{% trans 'Attachments' %}">
             {% include 'include/attachments.html' %}
         </div>
 

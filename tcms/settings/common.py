@@ -442,6 +442,10 @@ MENU_ITEMS = [
         [
             (_("Users"), reverse_lazy("admin-users-router")),
             (_("Groups"), reverse_lazy("admin-groups-router")),
+            (
+                _("Test Case Fields"),
+                reverse_lazy("admin:testcases_testcasefieldsettings_changelist"),
+            ),
             ("-", "-"),
             (_("Everything else"), "/admin/"),
         ],
@@ -484,10 +488,18 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 # WARNING: do not edit. The stock JSONRPC handler does not HTML escape !!!
 # Stock handlers don't serialize timedelta into a meaningfull value
-MODERNRPC_HANDLERS = [
-    "tcms.rpc.handlers.KiwiTCMSXmlRpcHandler",
-    "tcms.rpc.handlers.KiwiTCMSJsonRpcHandler",
-]
+try:
+    import tcms.handlers  # pylint: disable=unused-import
+
+    MODERNRPC_HANDLERS = [
+        "tcms.handlers.KiwiTCMSXmlRpcHandler",
+        "tcms.handlers.KiwiTCMSJsonRpcHandler",
+    ]
+except ImportError:
+    MODERNRPC_HANDLERS = [
+        "tcms.rpc.handlers.KiwiTCMSXmlRpcHandler",
+        "tcms.rpc.handlers.KiwiTCMSJsonRpcHandler",
+    ]
 
 # in alphabetic order
 MODERNRPC_METHODS_MODULES = [

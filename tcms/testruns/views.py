@@ -14,7 +14,13 @@ from guardian.decorators import permission_required as object_permission_require
 
 from tcms.core.contrib.linkreference.forms import LinkReferenceForm
 from tcms.core.forms import SimpleCommentForm
-from tcms.testcases.models import BugSystem, TestCase, TestCasePlan, TestCaseStatus
+from tcms.testcases.models import (
+    BugSystem,
+    TestCase,
+    TestCaseFieldSettings,
+    TestCasePlan,
+    TestCaseStatus,
+)
 from tcms.testplans.models import TestPlan
 from tcms.testplans.organization import confirmed_tree_cases
 from tcms.testruns.forms import NewRunForm, SearchRunForm
@@ -186,6 +192,10 @@ class GetTestRunView(DetailView):
         context["link_form"] = LinkReferenceForm()
         context["bug_trackers"] = BugSystem.objects.all()
         context["comment_form"] = SimpleCommentForm()
+        case_fields_settings = TestCaseFieldSettings.get_settings()
+        context["case_fields_settings"] = case_fields_settings
+        context["page_type"] = "run"
+        context["disabled_layout_blocks"] = case_fields_settings.get_disabled_blocks("run")
         context["OBJECT_MENU_ITEMS"] = [
             (
                 "...",

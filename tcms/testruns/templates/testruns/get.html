@@ -31,52 +31,72 @@
             data-trans-execution-status-{{ status.pk }}="{{ status.name }}"
         {% endfor %}
         >TR-{{ object.pk }}:</span> {{ object.summary }}
+        {% if perms.testcases.change_page_layout or user.is_superuser %}
+        <button type="button" class="btn btn-default btn-sm pull-right js-btn-edit-layout" data-page-type="run">
+            <i class="fa fa-th-large"></i> {% trans "Customize layout" %}
+        </button>
+        {% endif %}
     </h1>
 
     <div class="col-md-12"><a class="btn btn-primary" href="{% url 'workflow:run' object.pk %}">{% trans 'Step execution, results & planning' %}</a></div>
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'run-info-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-info-card" data-layout-title="{% trans 'Run details' %}">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_plan %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa pficon-topology"></span>{% trans 'Test plan' %}:
                     <a href="{% url 'test_plan_url' object.plan.pk %}">TP-{{ object.plan.pk }}: {{ object.plan.name }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_product %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-shopping-cart"></span>{% trans 'Product' %}:
                     <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}" title="{% blocktrans with name=object.build.version.product %}Search test runs of {{ name }}{% endblocktrans %}">{{ object.build.version.product }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_version %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-random"></span>{% trans 'Version' %}:
                     <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}&version={{ object.build.version_id }}" title="{% blocktrans with name=object.build.version.value %}Search test runs of {{ name }}{% endblocktrans %}">{{ object.build.version.value }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_build %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-wrench"></span>{% trans 'Build' %}:
                     <a href="{% url 'testruns-search' %}?product={{ object.build.version.product_id }}&version={{ object.build.version_id }}&build={{ object.build_id }}" title="{% blocktrans with name=object.build %}Search test runs of {{ name }}{% endblocktrans %}">{{ object.build }}</a>
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_manager %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa pficon-user"></span>{% trans 'Manager' %}:
                     <a href="{% url 'tcms-profile' object.manager.pk %}">{{ object.manager.username }}</a>
                 </h2>
+                {% endif %}
 
-                {% if object.default_tester %}
-                    <h2 class="card-pf-title kiwi-text-align-left">
-                        <span class="fa fa-search"></span>{% trans 'Default tester' %}:
-                        <a href="{% url 'tcms-profile' object.default_tester.pk %}">{{ object.default_tester.username }}</a>
-                    </h2>
+                {% if not case_fields_settings or case_fields_settings.run_card_show_default_tester %}
+                    {% if object.default_tester %}
+                        <h2 class="card-pf-title kiwi-text-align-left">
+                            <span class="fa fa-search"></span>{% trans 'Default tester' %}:
+                            <a href="{% url 'tcms-profile' object.default_tester.pk %}">{{ object.default_tester.username }}</a>
+                        </h2>
+                    {% endif %}
                 {% endif %}
 
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_planned_start %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa fa-calendar-o"></span>{% trans 'Planned start' %}:
                     {{ object.planned_start|default:'-'}}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_start_date %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa-calendar"></span>{% trans 'Started at' %}:
                     <span class="start-date">
@@ -89,12 +109,16 @@
                         </button>
                     {% endif %}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_planned_stop %}
                 <h2 class="card-pf-title kiwi-text-align-left">
                     <span class="fa fa fa-calendar-o"></span>{% trans 'Planned stop' %}:
                     {{ object.planned_stop|default:'-' }}
                 </h2>
+                {% endif %}
 
+                {% if not case_fields_settings or case_fields_settings.run_card_show_stop_date %}
                 <h2 class="card-pf-title kiwi-text-align-left" style="overflow: hidden;">
                     <span class="fa fa-calendar-check-o"></span>{% trans 'Finished at' %}:
                     <span class="stop-date">
@@ -107,6 +131,7 @@
                         </button>
                     {% endif %}
                 </h2>
+                {% endif %}
 
                 <div class="card-pf-body">
                     {{ object.plan.tree_view_html|safe }}
@@ -114,7 +139,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-3 layout-block {% if 'run-progress-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-progress-card" data-layout-title="{% trans 'Status progress' %}">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">
                 <div class="card-pf-body">
                     <div class="progress hidden-print">
@@ -140,19 +165,19 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 layout-block {% if 'run-environment-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-environment-card" data-layout-title="{% trans 'Environment' %}">
             {% trans "Environment" as environment_title %}
             {% include "include/properties_card.html" with card_title=environment_title hide_add_button=True hide_delete_button=True %}
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-3 layout-block {% if 'run-tags-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-tags-card" data-layout-title="{% trans 'Tags' %}">
             {% include 'include/tags_card.html' with add_perm=perms.testruns.add_testruntag %}
         </div>
 
     </div> <!-- /row -->
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 layout-block {% if 'run-executions-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-executions-card" data-layout-title="{% trans 'Test executions' %}">
             <div class="card-pf card-pf-accented">
                 <h2 class="card-pf-title">
                     {% trans 'Test executions' %}
@@ -386,48 +411,84 @@
                                                             <span class="fa fa-cubes" title="{% trans 'Parameters' %}"></span>
                                                         </em>
 
+                                                         {% if case_fields_settings.run_show_components %}
                                                         <span class="hidden js-row-components">
                                                             <span class="fa pficon-build" title="{% trans 'Components' %}"></span>
                                                         </span>
+                                                        {% endif %}
 
+                                                        {% if case_fields_settings.run_show_tags %}
                                                         <span class="hidden js-row-tags">
                                                             <span class="fa fa-tags" title="{% trans 'Tags' %}"></span>
                                                         </span>
+                                                        {% endif %}
                                                     </p>
                                                  </div>
                                             </div>
                                             <div class="list-view-pf-additional-info">
                                                 <div class="list-view-pf-additional-info">
+                                                    {% if case_fields_settings.run_show_automated %}
                                                     <div class="list-view-pf-additional-info-item">
                                                         <span class="fa test-execution-automated" data-automated="{% trans 'Automated' %}" data-manual="{% trans 'Manual' %}"></span>
                                                     </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_priority %}
                                                     <div title="{% trans 'Priority' %}" class="list-view-pf-additional-info-item">
                                                         <span class="fa fa-hourglass"></span>
                                                         <span class="test-execution-priority"></span>
                                                     </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_category %}
                                                     <div title="{% trans 'Category' %}" class="list-view-pf-additional-info-item">
                                                         <span class="fa fa-tag"></span>
                                                         <span class="test-execution-category"></span>
                                                     </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_product %}
+                                                    <div title="{% trans 'Product' %}" class="list-view-pf-additional-info-item">
+                                                        <span class="fa fa-shopping-cart"></span>
+                                                        <span class="test-execution-product"></span>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_author %}
+                                                    <div title="{% trans 'Author' %}" class="list-view-pf-additional-info-item">
+                                                        <span class="fa pficon-user"></span>
+                                                        <span class="test-execution-author"></span>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_default_tester %}
+                                                    <div title="{% trans 'Default tester' %}" class="list-view-pf-additional-info-item">
+                                                        <span class="fa fa-search"></span>
+                                                        <span class="test-execution-case-tester"></span>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_assignee %}
                                                     <div title="{% trans 'Assigned to' %}" class="list-view-pf-additional-info-item">
                                                         <span class="fa pficon-user"></span>
                                                         <span class="test-execution-asignee"></span>
                                                     </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_tested_by %}
                                                     <div title="{% trans 'Tested by' %}" class="list-view-pf-additional-info-item">
                                                         <span class="fa fa-search"></span>
                                                         <span class="test-execution-tester"></span>
                                                     </div>
+                                                    {% endif %}
+                                                    {% if case_fields_settings.run_show_bugs %}
                                                     <div title="{% trans 'Last bug' %}" class="list-view-pf-additional-info-item js-bugs hidden">
                                                         <span class="fa fa-bug kiwi-color-red"></span>
                                                         <a href="#" target="_blank" title="{% trans 'Last bug' %}"></a>
                                                     </div>
+                                                    {% endif %}
                                                 </div>
+                                                {% if case_fields_settings.run_show_status %}
                                                 <div class="list-view-pf-additional-info" style="width: 30%;">
                                                     <div title="{% trans 'Status' %}" class="list-view-pf-additional-info-item">
                                                         <i class="fa test-execution-status-icon"></i>
                                                         <strong class="test-execution-status-name"></strong>
                                                     </div>
                                                 </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -549,11 +610,11 @@
     </div> <!-- /row -->
 
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="col-xs-12 col-sm-6 col-md-6 layout-block {% if 'run-attachments-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-attachments-card" data-layout-title="{% trans 'Attachments' %}">
             {% include 'include/attachments.html' %}
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-12 col-sm-6 col-md-3 layout-block {% if 'run-cclist-card' in disabled_layout_blocks %}layout-block-disabled-init{% endif %}" data-layout-block="run-cclist-card" data-layout-title="{% trans 'Notify' %}">
             <div class="card-pf card-pf-accented">
                 <h2 class="card-pf-title">
                     <span class="fa fa-envelope"></span>

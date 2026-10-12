@@ -247,6 +247,16 @@ class TestCaseFilter(APITestCase):
         self.assertEqual(result[0]["testing_duration"], testing_duration)
         self.assertEqual(result[0]["expected_duration"], expected_duration)
 
+    def test_filter_includes_category_product(self):
+        result = self.rpc_client.TestCase.filter({"pk": self.cases[0].pk})
+        self.assertEqual(len(result), 1)
+        self.assertIn("category__product", result[0])
+        self.assertIn("category__product__name", result[0])
+        self.assertEqual(result[0]["category__product"], self.product.pk)
+        self.assertEqual(
+            result[0]["category__product__name"], self.product.name
+        )
+
 
 class TestUpdate(APITestCase):
     non_existing_username = "FakeUsername"
@@ -1115,3 +1125,62 @@ class TestListAttachmentPermissions(APIPermissionsTestCase):
             'Authentication failed when calling "TestCase.list_attachments"',
         ):
             self.rpc_client.TestCase.list_attachments(self.case.pk)
+
+
+class TestGetFieldSettings(APITestCase):
+    def test_get_field_settings(self):
+        settings_dict = self.rpc_client.TestCase.get_field_settings()
+        self.assertIn("plan", settings_dict)
+        self.assertIn("run", settings_dict)
+        self.assertTrue(settings_dict["plan"]["author"])
+        self.assertFalse(settings_dict["plan"]["product"])
+        self.assertTrue(settings_dict["run"]["status"])
+        self.assertFalse(settings_dict["run"]["author"])
+
+
+class TestGetFieldSettingsPermissions(APIPermissionsTestCase):
+    permission_label = "testcases.view_testcase"
+
+    def verify_api_with_permission(self):
+        result = self.rpc_client.TestCase.get_field_settings()
+        self.assertIn("plan", result)
+
+    def verify_api_without_permission(self):
+        with self.assertRaisesRegex(
+            XmlRPCFault,
+            'Authentication failed when calling "TestCase.get_field_settings"',
+        ):
+            self.rpc_client.TestCase.get_field_settings()
+
+
+class TestSetLayoutBlockVisibility(APITestCase):
+    def test_set_layout_block_visibility(self):
+        result = self.rpc_client.TestCase.set_layout_block_visibility(
+            "case", "case-info-card", False
+        )
+        self.assertIn("case", result)
+        self.assertIn("case-info-card", result["case"])
+
+        result = self.rpc_client.TestCase.set_layout_block_visibility(
+            "case", "case-info-card", True
+        )
+        self.assertNotIn("case-info-card", result.get("case", []))
+
+
+class TestSetLayoutBlockVisibilityPermissions(APIPermissionsTestCase):
+    permission_label = "testcases.change_page_layout"
+
+    def verify_api_with_permission(self):
+        result = self.rpc_client.TestCase.set_layout_block_visibility(
+            "case", "case-info-card", False
+        )
+        self.assertIn("case", result)
+
+    def verify_api_without_permission(self):
+        with self.assertRaisesRegex(
+            XmlRPCFault,
+            'Authentication failed when calling "TestCase.set_layout_block_visibility"',
+        ):
+            self.rpc_client.TestCase.set_layout_block_visibility(
+                "case", "case-info-card", False
+            )

@@ -8,7 +8,7 @@ from django.test import Client
 from django.urls import reverse
 from guardian.shortcuts import assign_perm
 
-from tcms.testcases.models import Property, TestCase, TestCasePlan
+from tcms.testcases.models import Property, TestCase, TestCaseFieldSettings, TestCasePlan
 from tcms.testplans.models import TestPlan
 from tcms.testruns.models import TestRun
 from tcms.tests.factories import (
@@ -511,6 +511,27 @@ class OrganizationTests(WorkflowTestCase):
                 "move": False,
                 "copy": False,
             },
+        )
+
+    def test_field_visibility_preserves_case_and_section_organization(self):
+        settings = TestCaseFieldSettings.get_settings()
+        settings.plan_show_status = False
+        settings.plan_show_automated = False
+        settings.plan_show_product = True
+        settings.save()
+
+        response = self.client.get(self.plan.get_absolute_url())
+
+        self.assertContains(response, "js-test-case-product")
+        self.assertNotContains(response, "js-test-case-status-div")
+        self.assertNotContains(response, "js-test-case-automated-div")
+        self.assertContains(response, "js-testcase-sort-handler")
+        self.assertContains(response, "js-section-sort-handler")
+        self.assertContains(response, "js-section-add-subsection")
+        self.assertContains(response, "js-test-case-steps")
+        self.assertContains(response, "js-btn-edit-layout")
+        self.assertTrue(
+            response.context["organization_permissions"][str(self.plan.pk)]["reorder"]
         )
 
     def test_configuration_run_includes_nested_cases_once_in_section_order(self):

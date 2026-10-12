@@ -19,6 +19,7 @@ from tcms.testcases.models import (
     Category,
     Template,
     TestCase,
+    TestCaseFieldSettings,
     TestCaseStatus,
 )
 
@@ -248,8 +249,127 @@ class TemplateAdmin(admin.ModelAdmin):
     form = TemplateAdminForm
 
 
+class TestCaseFieldSettingsAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (
+            _("Test Plan - Cases List"),
+            {
+                "description": _(
+                    "Configure which test case fields are visible in Test Plan case list."
+                ),
+                "fields": (
+                    "plan_show_status",
+                    "plan_show_automated",
+                    "plan_show_priority",
+                    "plan_show_category",
+                    "plan_show_product",
+                    "plan_show_author",
+                    "plan_show_default_tester",
+                    "plan_show_reviewer",
+                ),
+            },
+        ),
+        (
+            _("Test Run - Executions List"),
+            {
+                "description": _(
+                    "Configure which test case and execution fields are visible in Test Run executions list."
+                ),
+                "fields": (
+                    "run_show_status",
+                    "run_show_automated",
+                    "run_show_priority",
+                    "run_show_category",
+                    "run_show_product",
+                    "run_show_author",
+                    "run_show_default_tester",
+                    "run_show_assignee",
+                    "run_show_tested_by",
+                    "run_show_bugs",
+                    "run_show_tags",
+                    "run_show_components",
+                ),
+            },
+        ),
+        (
+            _("Test Case - Summary Card (row-cards-pf)"),
+            {
+                "description": _(
+                    "Configure which fields are visible in the top summary card of Test Case (/case/<id>/)."
+                ),
+                "fields": (
+                    "case_card_show_author",
+                    "case_card_show_default_tester",
+                    "case_card_show_product",
+                    "case_card_show_category",
+                    "case_card_show_status",
+                    "case_card_show_priority",
+                    "case_card_show_create_date",
+                    "case_card_show_setup_duration",
+                    "case_card_show_testing_duration",
+                    "case_card_show_expected_duration",
+                    "case_card_show_automated",
+                    "case_card_show_script",
+                    "case_card_show_arguments",
+                    "case_card_show_requirement",
+                    "case_card_show_extra_link",
+                ),
+            },
+        ),
+        (
+            _("Test Plan - Summary Card (row-cards-pf)"),
+            {
+                "description": _(
+                    "Configure which fields are visible in the top summary card of Test Plan (/plan/<id>/)."
+                ),
+                "fields": (
+                    "plan_card_show_author",
+                    "plan_card_show_create_date",
+                    "plan_card_show_product",
+                    "plan_card_show_version",
+                    "plan_card_show_type",
+                    "plan_card_show_extra_link",
+                ),
+            },
+        ),
+        (
+            _("Test Run - Summary Card (row-cards-pf)"),
+            {
+                "description": _(
+                    "Configure which fields are visible in the top summary card of Test Run (/run/<id>/)."
+                ),
+                "fields": (
+                    "run_card_show_plan",
+                    "run_card_show_product",
+                    "run_card_show_version",
+                    "run_card_show_build",
+                    "run_card_show_manager",
+                    "run_card_show_default_tester",
+                    "run_card_show_planned_start",
+                    "run_card_show_start_date",
+                    "run_card_show_planned_stop",
+                    "run_card_show_stop_date",
+                ),
+            },
+        ),
+    ]
+
+    def has_add_permission(self, request):
+        return not TestCaseFieldSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        settings_obj = TestCaseFieldSettings.get_settings()
+        return HttpResponseRedirect(
+            reverse("admin:testcases_testcasefieldsettings_change", args=[settings_obj.pk])
+        )
+
+
 admin.site.register(BugSystem, BugSystemAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(TestCase, TestCaseAdmin)
 admin.site.register(TestCaseStatus, TestCaseStatusAdmin)
 admin.site.register(Template, TemplateAdmin)
+admin.site.register(TestCaseFieldSettings, TestCaseFieldSettingsAdmin)

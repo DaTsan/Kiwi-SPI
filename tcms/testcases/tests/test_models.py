@@ -13,7 +13,7 @@ from parameterized import parameterized
 from tcms.core.history import history_email_for
 from tcms.core.utils.mailto import mailto
 from tcms.testcases.helpers.email import get_case_notification_recipients
-from tcms.testcases.models import BugSystem
+from tcms.testcases.models import BugSystem, TestCaseFieldSettings
 from tcms.tests import BasePlanCase, deny_certain_email_addresses
 from tcms.tests.factories import (
     ComponentFactory,
@@ -294,3 +294,85 @@ class TestCaseCalculateExpectedDuration(TestCase):
             setup_duration=setup_duration, testing_duration=testing_duration
         )
         self.assertEqual(test_case.expected_duration, expected)
+
+
+class TestTestCaseFieldSettings(TestCase):
+    def test_get_settings_creates_default_instance(self):
+        settings_obj = TestCaseFieldSettings.get_settings()
+        self.assertEqual(settings_obj.pk, 1)
+        self.assertTrue(settings_obj.plan_show_author)
+        self.assertTrue(settings_obj.plan_show_default_tester)
+        self.assertTrue(settings_obj.plan_show_category)
+        self.assertFalse(settings_obj.plan_show_product)
+        self.assertTrue(settings_obj.plan_show_priority)
+        self.assertTrue(settings_obj.plan_show_status)
+        self.assertTrue(settings_obj.plan_show_automated)
+        self.assertTrue(settings_obj.plan_show_reviewer)
+
+        self.assertTrue(settings_obj.run_show_status)
+        self.assertTrue(settings_obj.run_show_automated)
+        self.assertTrue(settings_obj.run_show_priority)
+        self.assertTrue(settings_obj.run_show_category)
+        self.assertFalse(settings_obj.run_show_product)
+        self.assertFalse(settings_obj.run_show_author)
+        self.assertFalse(settings_obj.run_show_default_tester)
+        self.assertTrue(settings_obj.run_show_assignee)
+        self.assertTrue(settings_obj.run_show_tested_by)
+        self.assertTrue(settings_obj.run_show_bugs)
+        self.assertTrue(settings_obj.run_show_tags)
+        self.assertTrue(settings_obj.run_show_components)
+
+        # Card settings default values
+        self.assertTrue(settings_obj.case_card_show_author)
+        self.assertTrue(settings_obj.case_card_show_default_tester)
+        self.assertTrue(settings_obj.case_card_show_product)
+        self.assertTrue(settings_obj.case_card_show_category)
+        self.assertTrue(settings_obj.case_card_show_status)
+        self.assertTrue(settings_obj.case_card_show_priority)
+        self.assertTrue(settings_obj.case_card_show_create_date)
+        self.assertTrue(settings_obj.case_card_show_setup_duration)
+        self.assertTrue(settings_obj.case_card_show_testing_duration)
+        self.assertTrue(settings_obj.case_card_show_expected_duration)
+        self.assertTrue(settings_obj.case_card_show_automated)
+        self.assertTrue(settings_obj.case_card_show_script)
+        self.assertTrue(settings_obj.case_card_show_arguments)
+        self.assertTrue(settings_obj.case_card_show_requirement)
+        self.assertTrue(settings_obj.case_card_show_extra_link)
+
+        self.assertTrue(settings_obj.plan_card_show_author)
+        self.assertTrue(settings_obj.plan_card_show_create_date)
+        self.assertTrue(settings_obj.plan_card_show_product)
+        self.assertTrue(settings_obj.plan_card_show_version)
+        self.assertTrue(settings_obj.plan_card_show_type)
+        self.assertTrue(settings_obj.plan_card_show_extra_link)
+
+        self.assertTrue(settings_obj.run_card_show_plan)
+        self.assertTrue(settings_obj.run_card_show_product)
+        self.assertTrue(settings_obj.run_card_show_version)
+        self.assertTrue(settings_obj.run_card_show_build)
+        self.assertTrue(settings_obj.run_card_show_manager)
+        self.assertTrue(settings_obj.run_card_show_default_tester)
+        self.assertTrue(settings_obj.run_card_show_planned_start)
+        self.assertTrue(settings_obj.run_card_show_start_date)
+        self.assertTrue(settings_obj.run_card_show_planned_stop)
+        self.assertTrue(settings_obj.run_card_show_stop_date)
+
+    def test_to_dict_structure(self):
+        settings_obj = TestCaseFieldSettings.get_settings()
+        data = settings_obj.to_dict()
+        self.assertIn("plan", data)
+        self.assertIn("run", data)
+        self.assertIn("case_card", data)
+        self.assertIn("plan_card", data)
+        self.assertIn("run_card", data)
+        self.assertTrue(data["plan"]["author"])
+        self.assertFalse(data["plan"]["product"])
+        self.assertFalse(data["run"]["author"])
+        self.assertTrue(data["run"]["assignee"])
+        self.assertTrue(data["case_card"]["author"])
+        self.assertTrue(data["plan_card"]["product"])
+        self.assertTrue(data["run_card"]["plan"])
+
+    def test_str_representation(self):
+        settings_obj = TestCaseFieldSettings.get_settings()
+        self.assertEqual(str(settings_obj), "Test case fields settings")
